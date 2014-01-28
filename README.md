@@ -23,7 +23,7 @@ From GitHub
     $ sudo node PiDashboard.js &
 ```
 ##Usage
-The default port is _3333_ so when the server starts without any parameters you should be able to access it at `localhost:3333`.
+The default port is _3141_ so when the server starts without any parameters you should be able to access it at `localhost:3141`.
 With `-p xxxx` the server launches on the specific port. However it is recommended to leave this in its default state except you know what you are doing.
 
 ##Changelog
