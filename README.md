@@ -18,6 +18,13 @@ From GitHub
     $ cd PiDashboard.js
     $ npm install -g
 ```
+###Useful links
+* [Node.js](http://nodejs.org/)
+    * [nodejs - GitHub](https://github.com/joyent/node)
+    * [node - latest **binary** version for Raspberry Pi](https://gist.github.com/adammw/3245130)
+* [Raspberry Pi Website](http://www.raspberrypi.org/)
+    * [Raspberry Pi OS Downloads](http://www.raspberrypi.org/downloads)
+
 ##How to start the server?
 ```bash
     $ sudo node PiDashboard.js &
