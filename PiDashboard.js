@@ -1,16 +1,15 @@
 // PiMonitor.js
 
 var http 	= require("http"),
-	https 	= require("https")
+    https 	= require("https")
     url 	= require("url"),
     path 	= require("path"),
     fs 		= require("fs"),
-	os 		= require("os"),
-	colors	= require("colors"),
-	optimist= require("optimist").argv,
+    os 		= require("os"),
+    colors	= require("colors"),
+    optimist	= require("optimist").argv,
     port 	= optimist.p || 3141,
-	https 	= false;
-
+    https 	= false;
 if(os.type() != "Linux")
 {
 	console.error("You are not running Linux. Exiting ... \n".red)
@@ -136,4 +135,4 @@ function httpServer(request, response)
  
  
  
-console.log("Server running at => ".green + "http://localhost:" + port.bold);
+console.log("Server running at => ".green + "http://localhost:" + port);
