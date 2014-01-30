@@ -37,8 +37,8 @@ With `-p xxxx` the server launches on the specific port. However it is recommend
 
 ####Running SSL
 By default the server launches  as an unencrypted http/tcp server. If you plan to contol your Pi over the internet it is strongly recommended to use SSL.
-Create a `key.pem` and `cert.pem` using openssl. You can self-sign the certificate but get over with the warnings your browser will give you.
-Add an `--key` or `--cert` option. By default the server looks for both files in the `pwd` directory. You can specify the path to the files after each option like so:
+Create a `./key.pem` and `cert.pem` using openssl. You can self-sign the certificate but get over with the warnings your browser will give you.
+Add an `--key` or `--cert` option. By default the server looks for both files in the `keys` directory. You can specify the path for each file after each option like so:
 ```bash
 	$ sudo node PiDashboard.js --key test/keys/key.pem --cert test/keys/cert.pem
 ```	

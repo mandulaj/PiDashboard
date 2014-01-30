@@ -32,8 +32,8 @@ if(optimist.cert || optimist.key)
 	if (optimist.cert)	cert = optimist.cert;
 	if (optimist.key) 	key = optimist.key;
 	
-	if (!cert.length) 	cert = "./cert.pem";
-	if (!key.length)	key = "./key.pem";
+	if (!cert.length) 	cert = "./keys/cert.pem";
+	if (!key.length)	key = "./keys/key.pem";
 	
 	if (!fs.existsSync(key))
 	{
