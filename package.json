@@ -1,0 +1,25 @@
+{
+	"name": "PiDashboard.js",
+	"description": "Node server and web interface for monitoring Raspberry Pi remotely.",
+	"version": "0.0.1",
+	"main": "index.js",
+	"contributors" : [
+    {
+      "name" : "Jakub Mandula",
+      "email" : "jakub.aludnam@gmail.com"
+    }
+	],
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/zpiman/PiDashboard.js"
+	},
+	"bugs": {
+    "url": "https://github.com/zpiman/PiDashboard.js/issues"
+	},
+	"dependencies": {
+		"colors": "0.6.x",
+		"express" : "3.x",
+		"optimist" : "0.6.x"
+	}
+
+}
