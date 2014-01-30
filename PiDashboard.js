@@ -8,7 +8,7 @@ var http 	= require("http"),
 	os 		= require("os"),
 	colors	= require("colors"),
 	optimist= require("optimist").argv,
-    port 	= 3141,
+    port 	= optimist.p || 3141,
 	https 	= false;
 
 if(os.type() != "Linux")
