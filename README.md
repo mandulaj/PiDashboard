@@ -30,8 +30,18 @@ From GitHub
     $ sudo node PiDashboard.js &
 ```
 ##Usage
+
+####Choosing port
 The default port is _3141_ so when the server starts without any parameters you should be able to access it at `localhost:3141`.
 With `-p xxxx` the server launches on the specific port. However it is recommended to leave this in its default state except you know what you are doing.
+
+####Running SSL
+By default the server launches  as an unencrypted http/tcp server. If you plan to contol your Pi over the internet it is strongly recommended to use SSL.
+Create a `key.pem` and `cert.pem` using openssl. You can self-sign the certificate but get over with the warnings your browser will give you.
+Add an `--key` or `--cert` option. By default the server looks for both files in the `pwd` directory. You can specify the path to the files after each option like so:
+```bash
+	$ sudo node PiDashboard.js --key test/keys/key.pem --cert test/keys/cert.pem
+```	
 
 ##Changelog
   
