@@ -8,8 +8,10 @@ var http 	= require("http"),
     os 		= require("os"),
     colors	= require("colors"),
     optimist	= require("optimist").argv,
-    port 	= optimist.p || 3141,
-    https 	= false;
+    config	= require("./config.json"),
+    port 	= optimist.p || config.port,
+    https_pos 	= config.forceSSL;
+
 if(os.type() != "Linux")
 {
 	console.error("You are not running Linux. Exiting ... \n".red)
@@ -24,7 +26,7 @@ if(optimist.help || optimist.h)
 
 if(optimist.cert || optimist.key)
 {
-	https = true;
+	https_pos = true;
 	
 	var cert = "",
 		key = "";
@@ -83,18 +85,56 @@ function systemOverview()
 
 // Static fileserver 
 //@TODO change to express
-if (https)
+
+if (https_pos)
 {
 	var httpsOptions = {
 		key: fs.readFileSync(key),
 		cert: fs.readFileSync(cert)
 	}
-
-	https.createServer(httpsOptions, httpServer).listen(port);
+	var WebServer = https.createServer(httpsOptions, httpServer).listen(port,bindingSuccess);
+	WebServer.on("error",function(er)
+	{
+		if(er.code == "EADDRINUSE")
+		{
+			console.error("Unable to bind to port " + port)
+			port = config.backupPort;
+			
+			var WebServer = https.createServer(httpsOptions, httpServer).listen(port,bindingSuccess);
+			WebServer.on("error",function(er)
+			{
+				if(er.code == "EADDRINUSE")
+				{
+					console.error("Unable to bing to backup port "+ port)
+					process.exit(1);
+				}
+			});
+			console.log("Success running on port "+ port)
+		}
+	});
 }
 else
-{ 
-	http.createServer(httpServer).listen(port)
+{
+	var WebServer = http.createServer(httpServer).listen(port,bindingSuccess)
+	WebServer.on("error",function(er)
+	{
+		if(err.code == "EADDRINUSE")
+		{
+			console.error("Unable to bind to port " + port)
+			port = config.backupPort;
+			
+			var WebServer = http.createServer(httpServer).listen(port,bindingSuccess)
+			Webserver.on("error",function(er)
+			{
+				if(er.code == "EADDRINUSE")
+				{
+					console.error("Unable to bing to backup port "+ port)
+					process.exit(1)
+				}
+			})
+			console.log("Success running on port "+ port)
+		}
+	});
 }
 
 function httpServer(request, response) 
@@ -132,7 +172,17 @@ function httpServer(request, response)
   });
 }
  
- 
- 
- 
-console.log("Server running at => ".green + "http://localhost:" + port);
+
+function bindingSuccess()
+{
+	if(https_pos)
+	{
+		console_sufix = "s:/";
+	}
+	else
+	{
+		console_sufix = ":/";
+	}
+
+	console.log("Server running at => ".green + "http" + console_sufix +"/localhost:" + port);
+}
