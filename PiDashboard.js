@@ -10,7 +10,31 @@ var http        = require("http"),
     optimist    = require("optimist").argv,
     config      = require("./config.json"),
     port        = optimist.p || config.port,
-    https_pos   = config.forceSSL;
+    exec        = require('child_process').exec,
+    https_pos   = config.forceSSL,
+    
+    GPUtemp     = 0,
+    RAMstat     = {
+                    free: 0,
+                    used: 0,
+                    total: 0
+                  }
+    CPUstat     = {
+                    us: 0,
+                    sy: 0,
+                    ni: 0,
+                    id: 0,
+                    wa: 0,
+                    hi: 0,
+                    si: 0,
+                    st: 0,
+                    temperature: 0
+                  }
+
+var exec = require('child_process').exec,
+    child;
+
+
 
 if(os.type() != "Linux")
 {
@@ -52,17 +76,23 @@ if(optimist.cert || optimist.key)
 }
 
 
+function getStdOutput(cmd,cb)
+{
+    exec(cmd,function (error, stdout, stderr) 
+    {
+        if (error !== null) 
+        {
+            console.log('exec error: ' + error);
+        }
+        cb(stdout);
+    });
+}
 
-/*var exec = require('child_process').exec;
-    var child = exec('top -bn1',
-    function (error, stdout, stderr) {
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
-    if (error !== null) {
-      console.log('exec error: ' + error);
-    }
-});*/
+setInterval(function(){
 
+    //getStdOutput('top -bn1',function(out){console.log(out)});
+    getStdOutput('cat /sys/class/thermal/thermal_zone0/temp',function(out){console.log(out)})
+},1000)
 
 function systemOverview()
 {
@@ -118,13 +148,13 @@ else
     var WebServer = http.createServer(httpServer).listen(port,bindingSuccess);
     WebServer.on("error",function(er)
     {
-        if(err.code == "EADDRINUSE")
+        if(er.code == "EADDRINUSE")
         {
             console.error("Unable to bind to port " + port);
             port = config.backupPort;
             
             var WebServer = http.createServer(httpServer).listen(port,bindingSuccess);
-            Webserver.on("error",function(er)
+            WebServer.on("error",function(er)
             {
                 if(er.code == "EADDRINUSE")
                 {
