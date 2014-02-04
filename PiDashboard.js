@@ -88,10 +88,36 @@ function getStdOutput(cmd,cb)
     });
 }
 
-setInterval(function(){
+var getData = setInterval(function()
+{
 
-    //getStdOutput('top -bn1',function(out){console.log(out)});
-    getStdOutput('cat /sys/class/thermal/thermal_zone0/temp',function(out){console.log(out)})
+    getStdOutput('cat /sys/class/thermal/thermal_zone0/temp',function(out)
+    {    
+        var temp = out/1000
+        CPUstat.temperature = temp
+
+    });
+    getStdOutput('ps -aux',function(out)
+    {
+        console.log(out)
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//console.log(CPUstat)
 },1000)
 
 function systemOverview()
