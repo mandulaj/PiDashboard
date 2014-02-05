@@ -170,3 +170,71 @@
 .ethernet>figure.right	{-webkit-transform: rotateY( -90deg ) translateZ( 44px);}
 .ethernet>figure.top	{-webkit-transform: rotateX(  90deg ) translateZ( 32px);}
 .ethernet>figure.bottom{-webkit-transform: rotateX( -90deg ) translateZ( 32px);}
+
+.led {
+	position:absolute;
+	-webkit-transform-style: preserve-3d;
+	
+}
+
+.led>div.light {
+	position: absolute;
+	margin-top: 26px;
+	margin-left: 28px;
+	width: 4px;
+	height: 8px;
+	border-radius: 1px;
+}
+
+.led>div.blur {
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	-webkit-filter: blur(45px);
+}
+
+
+#led1 {
+	display: none;
+	z-index: 1;
+	-webkit-transform: translateZ(4px) translateX(20px) translateY(196px);
+}
+#led1>div {
+	background: green;
+}
+
+#led2 {
+	display: none;
+	z-index: 2;
+	-webkit-transform: translateZ(4px) translateX(28px) translateY(196px);
+}
+#led2>div {
+	background: orange;
+}
+
+#led3 {
+	display: none;
+	z-index: 3;
+	-webkit-transform: translateZ(4px) translateX(36px) translateY(196px);
+}
+#led3>div {
+	background: orange;
+}
+
+#led4 {
+	display: none;
+	z-index: 4;
+	-webkit-transform: translateZ(4px) translateX(49px) translateY(196px);
+}
+#led4>div {
+	background: red;
+}
+
+#led5 {
+	display: none;
+	z-index: 5;
+	-webkit-transform: translateZ(4px) translateX(56px) translateY(196px);
+}
+#led5>div {
+	background: green;
+}
