@@ -200,7 +200,7 @@
 	-webkit-transform: translateZ(4px) translateX(20px) translateY(196px);
 }
 #led1>div {
-	background: green;
+	background: orange;
 }
 
 #led2 {
@@ -209,7 +209,7 @@
 	-webkit-transform: translateZ(4px) translateX(28px) translateY(196px);
 }
 #led2>div {
-	background: orange;
+	background: green;
 }
 
 #led3 {
@@ -218,7 +218,7 @@
 	-webkit-transform: translateZ(4px) translateX(36px) translateY(196px);
 }
 #led3>div {
-	background: orange;
+	background: green;
 }
 
 #led4 {
@@ -238,3 +238,163 @@
 #led5>div {
 	background: green;
 }
+
+
+.cpu{
+	position:absolute;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: translateZ(3px) translateX(164px) translateY(94px);
+}
+
+
+.cpu>figure{
+	display: block;
+	position: absolute;
+	background-color: gray;
+}
+
+
+
+.cpu>figure.front,
+.cpu>figure.back{
+	width: 52px;
+	height: 52px;
+	background-color:rgb(143, 143, 143);
+}
+
+.cpu>figure.left,
+.cpu>figure.right{
+	width: 4px;
+	height: 52px;
+	background-color:rgb(100, 100, 100);
+	left: 24px;
+}
+
+.cpu>figure.top,
+.cpu>figure.bottom{
+	width: 52px;
+	height: 4px;
+	background-color:rgb(49, 49, 49);
+	top: 24px;
+}
+
+
+.cpu>figure.front 	{-webkit-transform: rotateY(   0deg ) translateZ( 2px );}
+.cpu>figure.back	{-webkit-transform: rotateX( 180deg ) translateZ( 2px );}
+.cpu>figure.left	{-webkit-transform: rotateY(  90deg ) translateZ( 26px);}
+.cpu>figure.right	{-webkit-transform: rotateY( -90deg ) translateZ( 26px);}
+.cpu>figure.top	{-webkit-transform: rotateX(  90deg ) translateZ( 26px);}
+.cpu>figure.bottom{-webkit-transform: rotateX( -90deg ) translateZ( 26px);}
+
+
+
+.ram{
+	position:absolute;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: translateZ(8px) translateX(164px) translateY(94px);
+}
+
+
+.ram>figure{
+	display: block;
+	position: absolute;
+	background-color: green;
+}
+
+
+
+.ram>figure.front,
+.ram>figure.back{
+	width: 52px;
+	height: 52px;
+	background-color:rgb(143, 143, 143);
+}
+
+.ram>figure.left,
+.ram>figure.right{
+	width: 4px;
+	height: 52px;
+	background-color:rgb(100, 100, 100);
+	left: 24px;
+}
+
+.ram>figure.top,
+.ram>figure.bottom{
+	width: 52px;
+	height: 4px;
+	background-color:rgb(49, 49, 49);
+	top: 24px;
+}
+
+
+.ram>figure.front 	{-webkit-transform: rotateY(   0deg ) translateZ( 2px );}
+.ram>figure.back	{-webkit-transform: rotateX( 180deg ) translateZ( 2px );}
+.ram>figure.left	{-webkit-transform: rotateY(  90deg ) translateZ( 26px);}
+.ram>figure.right	{-webkit-transform: rotateY( -90deg ) translateZ( 26px);}
+.ram>figure.top	{-webkit-transform: rotateX(  90deg ) translateZ( 26px);}
+.ram>figure.bottom{-webkit-transform: rotateX( -90deg ) translateZ( 26px);}
+
+
+@-webkit-keyframes sdCard /* Safari and Chrome */
+{
+0%   {-webkit-transform: translateZ(-3px) translateX(299px) translateY(77px);}
+25%  {-webkit-transform: translateZ(-3px) translateX(399px) translateY(77px);}
+100% {-webkit-transform: translateZ(20px) translateX(450px) translateY(20px) rotateX(90deg);}
+}
+
+
+.sd{
+	position:absolute;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: translateZ(-3px) translateX(299px) translateY(77px);
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+	-webkit-animation: sdCard 3s;
+	
+}
+
+
+.sd>figure{
+	display: block;
+	position: absolute;
+	background-color: green;
+}
+
+
+
+.sd>figure.front,
+.sd>figure.back{
+	width: 130px;
+	height: 100px;
+	background-color:rgb(143, 143, 143);
+}
+
+.sd>figure.left,
+.sd>figure.right{
+	width: 4px;
+	height: 100px;
+	background-color:rgb(100, 100, 100);
+	left: 64px;
+}
+
+.sd>figure.top,
+.sd>figure.bottom{
+	width: 130px;
+	height: 4px;
+	background-color:rgb(49, 49, 49);
+	top: 48px;
+}
+
+
+.sd>figure.front 	{-webkit-transform: rotateY(   0deg ) translateZ( 2px );}
+.sd>figure.back	{-webkit-transform: rotateX( 180deg ) translateZ( 2px );}
+.sd>figure.left	{-webkit-transform: rotateY(  90deg ) translateZ( 65px);}
+.sd>figure.right	{-webkit-transform: rotateY( -90deg ) translateZ( 65px);}
+.sd>figure.top	{-webkit-transform: rotateX(  90deg ) translateZ( 50px);}
+.sd>figure.bottom{-webkit-transform: rotateX( -90deg ) translateZ( 50px);}
+
+.sd:hover{
+	
+}
+
+
