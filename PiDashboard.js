@@ -196,7 +196,7 @@ else
 function httpServer(request, response) 
 {
     var uri = url.parse(request.url).pathname,
-        filename = path.join(process.cwd(), uri);
+        filename = path.join(process.cwd(), "index", uri);
     fs.exists(filename, function(exists) 
     {
         if(!exists) 
