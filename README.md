@@ -2,7 +2,7 @@
 ==============
 
 Monitoring server for Raspberry Pi
-###### This Project has just started. The first release will not happen until in about 2 weeks from now. _(10.2.2014)_
+# This Project has just started. **DOESN'T WORK YET!!!!** clone when this line is removed!! I will try to do this as fast as possible.
 
 
 ##What is it?
@@ -50,17 +50,17 @@ Set `forceSSL` in the `config.json` to `true` to run the server in **https://** 
 
 ##Changelog
   
+######v0.0.2
+* Added index.html file with a 3D Raspberry Pi model
+* Base Framework for animating 3D elements
+
 ######v0.0.1
 * Alpha testing
-* ~~**No commits before main framework is done!!**~~
 * + Help menu
 * + SSL
 * + Port configuration
 * + `config.json` configuration file
 
-######v0.0.2
-* Added index.html file with a 3D Raspberry Pi model
-* Base Framework for animating 3D elements
 
 ##Credits
 * [Jakub Mandula](https://github.com/zpiman/ "zpiman")
