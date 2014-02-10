@@ -58,6 +58,10 @@ Set `forceSSL` in the `config.json` to `true` to run the server in **https://** 
 * + Port configuration
 * + `config.json` configuration file
 
+######v0.0.2
+* Added index.html file with a 3D Raspberry Pi model
+* Base Framework for animating 3D elements
+
 ##Credits
 * [Jakub Mandula](https://github.com/zpiman/ "zpiman")
 
