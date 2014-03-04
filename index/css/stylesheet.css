@@ -11,6 +11,11 @@
 	-webkit-transform: translateZ( 111px ) rotateX(70deg) rotateY(0deg) rotateZ(40deg);
 }
 
+.picontainer_mover {
+    transition: transform 2s;
+    -webkit-transition: -webkit-transform 2s;
+}
+
 .container {
 	top: 200px;
 	width: 360px;
