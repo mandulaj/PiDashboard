@@ -11,70 +11,110 @@ var http        = require("http"),
     config      = require("./config.json"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
-    https_pos   = config.forceSSL,
-    
-    GPUtemp     = 0,
-    RAMstat     = {
-                    free: 0,
-                    used: 0,
-                    total: 0
-                  }
-    CPUstat     = {
-                    us: 0,
-                    sy: 0,
-                    ni: 0,
-                    id: 0,
-                    wa: 0,
-                    hi: 0,
-                    si: 0,
-                    st: 0,
-                    temperature: 0
-                  }
+    https_pos   = config.forceSSL;
+ 
+ 
+ 
+function PiDash()
+{
+    this.GPUtemp = 0;
+    this.RAMstat = {
+        free: 0,
+        used: 0,
+        total: 0
+    }
+    this.CPUstat = {
+        us: 0,
+        sy: 0,
+        ni: 0,
+        id: 0,
+        wa: 0,
+        hi: 0,
+        si: 0,
+        st: 0,
+        temperature: 0
+    }
 
-var exec = require('child_process').exec,
+    this.exec = require('child_process').exec,
     child;
-
-
-
-if(os.type() != "Linux")
-{
-    console.error("You are not running Linux. Exiting ... \n".red);
-    process.exit(0);
 }
 
-if(optimist.help || optimist.h)
-{
-    console.log("\n--------------------------- HELP -----------------------------".red + "\n                   " + "--- PiDashboard.js ---\n".green.bold.underline + "A Monitoring server for Raspberry Pi and other Linux computers." + "\nUsage: \n".bold );
-    process.exit(0);
-}
 
-if(optimist.cert || optimist.key)
+PiDash.prototype.systemOverview()
 {
-    https_pos = true;
-    
-    var cert = "",
-        key = "";
-
-    if (optimist.cert)  cert = optimist.cert;
-    if (optimist.key)   key = optimist.key;
-    
-    if (!cert.length)   cert = "./keys/cert.pem";
-    if (!key.length)    key = "./keys/key.pem";
-    
-    if (!fs.existsSync(key))
-    {
-        console.error("File ".red+ key.red.bold + " " + "doesn't exists!".red.underline );
-        console.log("Can not start https server. Exiting ...".red);
-        process.exit(1);
-    }
-    if (!fs.existsSync(cert))
-    {
-        console.error("File ".red + cert.red.bold + " " +"doesn't exists!".red.underline );
-        console.log("Can not start https server. Exiting ...".red);
-        process.exit(1);
+    return {
+        "hostname":os.hostname(),
+        "type": os.type(),
+        "platform" : os.platform(),
+        "arch": os.arch(),
+        "release": os.release(),
+        "uptime": os.uptime(),
+        "loadavg": os.loadavg(),
+        "totalmem": os.totalmem(),
+        "freemem": os.freemem(),
+        "cpus": os.cpus(),
+        "netwok": os.networkInterfaces(),
     }
 }
 
+
+PiDash.prototype.updateStats()
+{
+    var data = this.systemOverview()
+    this.RAMstat = {
+        free: data.freemem,
+        used: data.totalmam - data.freemem,
+        total: data.totalmem
+    }
+    
+}
+
+function systemCheck()
+{
+    if(os.type() != "Linux")
+    {
+        console.error("You are not running Linux. Exiting ... \n".red);
+        process.exit(0);
+    }
+}
+
+function checkOptions()
+{
+
+    if(optimist.help || optimist.h)
+    {
+        console.log("\n--------------------------- HELP -----------------------------".red + "\n                   " + "--- PiDashboard.js ---\n".green.bold.underline + "A Monitoring server for Raspberry Pi and other Linux computers." + "\nUsage: \n".bold );
+        process.exit(0);
+    }
+
+    if(optimist.cert || optimist.key)
+    {
+        https_pos = true;
+    
+        var cert = "",
+            key = "";
+
+        if (optimist.cert)  cert = optimist.cert;
+        if (optimist.key)   key = optimist.key;
+    
+        if (!cert.length)   cert = "./keys/cert.pem";
+        if (!key.length)    key = "./keys/key.pem";
+        
+        if (!fs.existsSync(key))
+        {
+            console.error("File ".red+ key.red.bold + " " + "doesn't exists!".red.underline );
+            console.log("Can not start https server. Exiting ...".red);
+            process.exit(1);
+        }
+        if (!fs.existsSync(cert))
+        {
+            console.error("File ".red + cert.red.bold + " " +"doesn't exists!".red.underline );
+            console.log("Can not start https server. Exiting ...".red);
+            process.exit(1);
+        }
+    }
+
+}
 
 function getStdOutput(cmd,cb)
 {
@@ -100,7 +140,7 @@ var getData = setInterval(function()
     getStdOutput('ps -aux',function(out)
     {
         console.log(out)
-    });
+});
 
 
 
@@ -120,22 +160,7 @@ var getData = setInterval(function()
 //console.log(CPUstat)
 },1000)
 
-function systemOverview()
-{
-    return {
-        "hostname":os.hostname(),
-        "type": os.type(),
-        "platform" : os.platform(),
-        "arch": os.arch(),
-        "release": os.release(),
-        "uptime": os.uptime(),
-        "loadavg": os.loadavg(),
-        "totalmem": os.totalmem(),
-        "freemem": os.freemem(),
-        "cpus": os.cpus(),
-        "netwok": os.networkInterfaces(),
-    }
-}
+
 
 
 
