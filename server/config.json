@@ -2,5 +2,5 @@
 	"port" : 3141,
 	"backupPort" : 9090, 
 	"keyPath": "keys",
-    "forceSSL" : false
+    "forceSSL" : true
 }
