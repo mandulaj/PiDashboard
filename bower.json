@@ -17,5 +17,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "2.x",
+    "socket.io": "0.9",
+    "bootstrap": "3.1"
+  }
 }

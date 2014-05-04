@@ -1,5 +1,0 @@
-{
-	"port" : 3141,
-	"backupPort" : 9090, 
-	"forceSSL" : false
-}
