@@ -1,5 +1,4 @@
 // PiMonitor.js
-
 var http        = require("http"),
     https       = require("https"),
     express     = require('express'),
@@ -13,37 +12,69 @@ var http        = require("http"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     https_pos   = config.forceSSL,
+
     
-    app = express();
- 
- 
- 
+
+
 function PiDash()
 {
-    this.GPUtemp = 0;
-    this.RAMstat = {
-        free: 0,
-        used: 0,
-        total: 0
-    }
-    this.CPUstat = {
-        us: 0,
-        sy: 0,
-        ni: 0,
-        id: 0,
-        wa: 0,
-        hi: 0,
-        si: 0,
-        st: 0,
-        temperature: 0
-    }
-
-    this.exec = require('child_process').exec,
-    child;
-
+    'use strict'
+    // Set up server
+    this.app = express();
+    
     this.https_keys = {
         key: "",
         cert: ""
+    };
+    
+    this.setupServer();
+    
+    
+    
+    this.RaspberryStats = {
+        GPUstat: {
+            temperature: 0
+        },
+        RAMstat: {
+            free: 0,
+            used: 0,
+            total: 0
+        },
+        CPUstat: {
+            us: 0,
+            sy: 0,
+            ni: 0,
+            id: 0,
+            wa: 0,
+            hi: 0,
+            si: 0,
+            st: 0,
+            temperature: 0
+        }
+    };
+
+    this.exec = require('child_process').exec,
+        child;
+
+    
+}
+
+PiDash.prototype.setupServer = function()
+{
+    if (https_pos)
+    {
+    
+        var httpsOptions = {
+            key: fs.readFileSync(this.key),
+            cert: fs.readFileSync(this.cert)
+        };
+        
+        
+        https.createServer(httpsOptions, this.app).listen(port, this.bindingSuccess);
+    }
+    else
+    {
+        http.createServer(this.app).listen(port, this.bindingSuccess);
     }
 }
 
@@ -74,7 +105,7 @@ PiDash.prototype.updateStats = function()
         used: data.totalmam - data.freemem,
         total: data.totalmem
     }
-    
+
 }
 
 PiDash.prototype.systemCheck = function()
@@ -98,16 +129,16 @@ PiDash.prototype.checkOptions = function()
     if(optimist.cert || optimist.key)
     {
         https_pos = true;
-        
+
         var cert = "",
             key = "";
 
         if (optimist.cert)  cert = optimist.cert;
         if (optimist.key)   key = optimist.key;
-    
+
         if (!cert.length)   cert = "./keys/cert.pem";
         if (!key.length)    key = "./keys/key.pem";
-        
+
         if (!fs.existsSync(key))
         {
             console.error("File ".red+ key.red.bold + " " + "doesn't exists!".red.underline );
@@ -129,111 +160,7 @@ PiDash.prototype.checkOptions = function()
 
 }
 
-function getStdOutput(cmd,cb)
-{
-    exec(cmd,function (error, stdout, stderr) 
-    {
-        if (error !== null) 
-        {
-            console.log('exec error: ' + error);
-        }
-        cb(stdout);
-    });
-}
-
-var getData = setInterval(function()
-{
-
-    getStdOutput('cat /sys/class/thermal/thermal_zone0/temp',function(out)
-    {    
-        var temp = out/1000
-        CPUstat.temperature = temp
-
-    });
-    getStdOutput('ps -aux',function(out)
-    {
-        console.log(out)
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//console.log(CPUstat)
-},1000)
-
-
-
-
-
-// Static fileserver 
-//@TODO change to express
-
-if (https_pos)
-{
-    var httpsOptions = {
-        key: fs.readFileSync(key),
-        cert: fs.readFileSync(cert)
-    }
-    var WebServer = https.createServer(httpsOptions, httpServer).listen(port,bindingSuccess);
-    WebServer.on("error",function(er)
-    {
-        if(er.code == "EADDRINUSE")
-        {
-            console.error("Unable to bind to port " + port);
-            port = config.backupPort;
-            
-            var WebServer = https.createServer(httpsOptions, httpServer).listen(port,bindingSuccess);
-            WebServer.on("error",function(er)
-            {
-                if(er.code == "EADDRINUSE")
-                {
-                    console.error("Unable to bing to backup port "+ port);
-                    process.exit(1);
-                }
-            });
-            console.log("Success running on port "+ port);
-        }
-    });
-}
-else
-{
-    var WebServer = http.createServer(httpServer).listen(port,bindingSuccess);
-    WebServer.on("error",function(er)
-    {
-        if(er.code == "EADDRINUSE")
-        {
-            console.error("Unable to bind to port " + port);
-            port = config.backupPort;
-            
-            var WebServer = http.createServer(httpServer).listen(port,bindingSuccess);
-            WebServer.on("error",function(er)
-            {
-                if(er.code == "EADDRINUSE")
-                {
-                    console.error("Unable to bing to backup port "+ port);
-                    process.exit(1);
-                }
-            })
-            console.log("Success running on port "+ port);
-        }
-    });
-}
-
- 
-
-function bindingSuccess()
+PiDash.prototype.bindingSuccess = function()
 {
     if(https_pos)
     {
@@ -246,3 +173,59 @@ function bindingSuccess()
 
     console.log("Server running at => ".green + "http" + console_sufix +"/localhost:" + port);
 }
+
+function getStdOutput(cmd,cb)
+{
+    exec(cmd,function (error, stdout, stderr) 
+         {
+             if (error !== null) 
+             {
+                 console.log('exec error: ' + error);
+             }
+             cb(stdout);
+         });
+}
+
+var getData = setInterval(function()
+                          {
+
+                              getStdOutput('cat /sys/class/thermal/thermal_zone0/temp',function(out)
+                                           {    
+                                               var temp = out/1000
+                                               CPUstat.temperature = temp
+
+                                           });
+                              getStdOutput('ps -aux',function(out)
+                                           {
+                                               console.log(out)
+                                           });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              //console.log(CPUstat)
+                          },1000)
+
+
+
+
+
+
+
+
+
+
+
+
