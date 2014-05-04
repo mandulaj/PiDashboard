@@ -40,7 +40,7 @@ function PiDash()
 }
 
 
-PiDash.prototype.systemOverview()
+PiDash.prototype.systemOverview = function()
 {
     return {
         "hostname":os.hostname(),
@@ -58,7 +58,7 @@ PiDash.prototype.systemOverview()
 }
 
 
-PiDash.prototype.updateStats()
+PiDash.prototype.updateStats = function()
 {
     var data = this.systemOverview()
     this.RAMstat = {

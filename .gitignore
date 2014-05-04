@@ -1,5 +1,5 @@
 node_modules
-
+*.swp
 # The compiled public files
 public/js
 public/images
