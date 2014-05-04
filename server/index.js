@@ -1,7 +1,8 @@
 // PiMonitor.js
 
 var http        = require("http"),
-    https       = require("https")
+    https       = require("https"),
+    express     = require('express'),
     url         = require("url"),
     path        = require("path"),
     fs          = require("fs"),
@@ -11,7 +12,9 @@ var http        = require("http"),
     config      = require("./config.json"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
-    https_pos   = config.forceSSL;
+    https_pos   = config.forceSSL,
+    
+    app = express();
  
  
  
@@ -37,6 +40,11 @@ function PiDash()
 
     this.exec = require('child_process').exec,
     child;
+
+    this.https_keys = {
+        key: "",
+        cert: ""
+    }
 }
 
 
@@ -69,7 +77,7 @@ PiDash.prototype.updateStats = function()
     
 }
 
-function systemCheck()
+PiDash.prototype.systemCheck = function()
 {
     if(os.type() != "Linux")
     {
@@ -78,7 +86,7 @@ function systemCheck()
     }
 }
 
-function checkOptions()
+PiDash.prototype.checkOptions = function()
 {
 
     if(optimist.help || optimist.h)
@@ -90,7 +98,7 @@ function checkOptions()
     if(optimist.cert || optimist.key)
     {
         https_pos = true;
-    
+        
         var cert = "",
             key = "";
 
@@ -111,6 +119,11 @@ function checkOptions()
             console.error("File ".red + cert.red.bold + " " +"doesn't exists!".red.underline );
             console.log("Can not start https server. Exiting ...".red);
             process.exit(1);
+        }
+
+        this.https_keys = {
+            cert: cert,
+            key: key
         }
     }
 
@@ -218,39 +231,6 @@ else
     });
 }
 
-function httpServer(request, response) 
-{
-    var uri = url.parse(request.url).pathname,
-        filename = path.join(process.cwd(), "index", uri);
-    fs.exists(filename, function(exists) 
-    {
-        if(!exists) 
-        {
-            response.writeHead(404, {"Content-Type": "text/plain"});
-            response.write("404 Not Found\n");
-            response.end();
-            return;
-        }
- 
-        if (fs.statSync(filename).isDirectory()) filename += '/index.html';
- 
-        fs.readFile(filename, "binary", function(err, file) 
-        {
-        
-        if(err) 
-        {        
-            response.writeHead(500, {"Content-Type": "text/plain"});
-            response.write(err + "\n");
-            response.end();
-            return;
-        }
- 
-        response.writeHead(200);
-        response.write(file, "binary");
-        response.end();
-    });
-});
-}
  
 
 function bindingSuccess()
