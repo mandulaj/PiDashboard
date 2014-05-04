@@ -1,6 +1,11 @@
 node_modules
+
+# The compiled public files
 public/js
 public/images
 public/css
 public/modules
+
+# Server keys
+server/keys
 
