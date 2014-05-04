@@ -11,7 +11,7 @@ var http        = require("http"),
     config      = require("./config.json"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
-    https_pos   = config.forceSSL,
+    https_pos   = config.forceSSL;
 
     
 
@@ -27,6 +27,8 @@ function PiDash()
         cert: ""
     };
     
+    this.checkSystem();
+    this.checkOptions();
     this.setupServer();
     
     
@@ -53,22 +55,26 @@ function PiDash()
         }
     };
 
-    this.exec = require('child_process').exec,
-        child;
+    //this.exec = require('child_process').exec,
+    //    child;
 
-    
 }
 
 PiDash.prototype.setupServer = function()
 {
+    
+    this.app.use("/static", express.static(__dirname + "/../public"));
+    console.log(__dirname)
+    
+    
+    
     if (https_pos)
     {
     
         var httpsOptions = {
-            key: fs.readFileSync(this.key),
-            cert: fs.readFileSync(this.cert)
+            key: fs.readFileSync(this.https_keys.key).toString(),
+            cert: fs.readFileSync(this.https_keys.cert).toString()
         };
-        
         
         https.createServer(httpsOptions, this.app).listen(port, this.bindingSuccess);
     }
@@ -108,7 +114,7 @@ PiDash.prototype.updateStats = function()
 
 }
 
-PiDash.prototype.systemCheck = function()
+PiDash.prototype.checkSystem = function()
 {
     if(os.type() != "Linux")
     {
@@ -126,7 +132,7 @@ PiDash.prototype.checkOptions = function()
         process.exit(0);
     }
 
-    if(optimist.cert || optimist.key)
+    if(optimist.cert || optimist.key || https_pos)
     {
         https_pos = true;
 
@@ -136,8 +142,8 @@ PiDash.prototype.checkOptions = function()
         if (optimist.cert)  cert = optimist.cert;
         if (optimist.key)   key = optimist.key;
 
-        if (!cert.length)   cert = "./keys/cert.pem";
-        if (!key.length)    key = "./keys/key.pem";
+        if (!cert.length)   cert = "./keys/server.crt";
+        if (!key.length)    key = "./keys/server.key";
 
         if (!fs.existsSync(key))
         {
@@ -186,6 +192,7 @@ function getStdOutput(cmd,cb)
          });
 }
 
+/*
 var getData = setInterval(function()
                           {
 
@@ -227,5 +234,6 @@ var getData = setInterval(function()
 
 
 
+*/
 
-
+raspberry = new PiDash();
