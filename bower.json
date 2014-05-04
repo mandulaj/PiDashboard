@@ -1,0 +1,21 @@
+{
+  "name": "PiDashboard.js",
+  "main": "PiDashboard.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/zpiman/PiDashboard.js",
+  "authors": [
+    "Jakub Mandula <jakub.aludnam@gmail.com>"
+  ],
+  "description": "Dashboard",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
