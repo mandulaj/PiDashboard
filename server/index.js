@@ -3,6 +3,7 @@ var http        = require("http"),
     https       = require("https"),
     crypt3      = require("crypt3"),
     express     = require('express'),
+    io          = require('socket.io'),
     url         = require("url"),
     path        = require("path"),
     fs          = require("fs"),
@@ -71,12 +72,14 @@ PiDash.prototype.setupServer = function()
             cert: fs.readFileSync(this.https_keys.cert).toString()
         };
         
-        https.createServer(httpsOptions, this.app).listen(port, this.bindingSuccess);
+        this.server = https.createServer(httpsOptions, this.app).listen(port, this.bindingSuccess);
     }
     else
     {
-        http.createServer(this.app).listen(port, this.bindingSuccess);
+        this.server = http.createServer(this.app).listen(port, this.bindingSuccess);
     }
+    
+    this.socketio = io.listen(this.server);
 }
 
 PiDash.prototype.authUser = function(username, password, cb)
