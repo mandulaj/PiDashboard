@@ -1,6 +1,8 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
+    nodemon = require('gulp-nodemon'),
+    jshint = require('gulp-jshint'),
     //imagemin = require('gulp-imagemin'),
     less = require('gulp-less');
 
@@ -42,6 +44,19 @@ gulp.task('watch', function() {
   gulp.watch(paths.css, ['css']);
   gulp.watch(paths.less, ['less']);
 });
+
+gulp.task('lint', function () {
+  gulp.src('./**/*.js')
+    .pipe(jshint())
+})
+
+gulp.task('develop', function () {
+  nodemon({ script: 'server/index.js', ext: 'html js', ignore: ['ignored.js'] })
+    .on('change', ['lint'])
+    .on('restart', function () {
+      console.log('restarted!')
+    })
+})
 
 gulp.task('default', ['scripts', 'css', 'images', 'watch','less'], function() {
   console.log("Gulp is starting...");

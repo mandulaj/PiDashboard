@@ -24,10 +24,12 @@
     "crypt3": "*",
 
     "uglify-js": "2.x",
-    "gulp-uglify": "x",
-    "gulp-concat": "x",
-    "gulp-imagemin": "x", 
-    "gulp-less": "x"
+    "gulp-uglify": "*",
+    "gulp-concat": "*",
+    "gulp-imagemin": "*", 
+    "gulp-less": "*",
+    "gulp-nodemon": "*",
+    "gulp-jshint": "*"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
