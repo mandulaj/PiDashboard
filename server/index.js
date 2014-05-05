@@ -261,4 +261,11 @@ var getData = setInterval(function()
 
 */
 
+function User(username)
+{
+    this.username = username;
+}
+
+
+
 raspberry = new PiDash();
