@@ -1,6 +1,7 @@
 // PiMonitor.js
 var http        = require("http"),
     https       = require("https"),
+    crypt3      = require("crypt3"),
     express     = require('express'),
     url         = require("url"),
     path        = require("path"),
@@ -12,9 +13,6 @@ var http        = require("http"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     https_pos   = config.forceSSL;
-
-    
-
 
 function PiDash()
 {
@@ -64,9 +62,6 @@ PiDash.prototype.setupServer = function()
 {
     
     this.app.use("/static", express.static(__dirname + "/../public"));
-    console.log(__dirname)
-    
-    
     
     if (https_pos)
     {
@@ -84,6 +79,36 @@ PiDash.prototype.setupServer = function()
     }
 }
 
+PiDash.prototype.authUser = function(username, password, cb)
+{
+    fs.readFile("/etc/shadow", function(err, data)
+    {
+        if(err) 
+        {
+            console.error("You need to be root!".red);
+            process.exit(1);
+        }
+        
+        var reg = new RegExp(username+".*\\n");
+        
+        data = data.toString();
+        
+        var line = data.match(reg)[0];
+        
+        var salt = line.match(/\$.*\$.*\$/)[0];
+        
+        var truePass = line.split(":")[1];
+        
+        if(crypt3(password, salt) === truePass)
+        {
+            cb(null, new User(username))
+        }
+        else
+        {
+            cb(new Error("PasswordError"), null);
+        }
+    });
+}
 
 PiDash.prototype.systemOverview = function()
 {

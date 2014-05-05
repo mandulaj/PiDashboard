@@ -21,7 +21,8 @@
     "express": "3.x",
     "optimist": "0.6.x",
     "socket.io": "0.9.x",
-    
+    "crypt3": "*",
+
     "uglify-js": "2.x",
     "gulp-uglify": "x",
     "gulp-concat": "x",
