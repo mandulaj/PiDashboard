@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    imagemin = require('gulp-imagemin'),
+    //imagemin = require('gulp-imagemin'),
     less = require('gulp-less');
 
 var paths = {
@@ -26,7 +26,7 @@ gulp.task('css',function() {
 gulp.task('images', function() {
  return gulp.src(paths.images)
     // Pass in options to the task
-    .pipe(imagemin({optimizationLevel: 5}))
+    //.pipe(imagemin({optimizationLevel: 5}))
     .pipe(gulp.dest('public/images'));
 });
 
