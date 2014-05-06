@@ -19,18 +19,16 @@ function PiDash()
     'use strict'
     // Set up server
     this.app = express();
-    
+
     this.https_keys = {
         key: "",
         cert: ""
     };
-    
+
     this.checkSystem();
     this.checkOptions();
     this.setupServer();
-    
-    
-    
+
     this.RaspberryStats = {
         GPUstat: {
             temperature: 0
@@ -60,56 +58,69 @@ function PiDash()
 
 PiDash.prototype.setupServer = function()
 {
-    
+
     this.app.use("/static", express.static(__dirname + "/../public"));
+
+    function requireHTTPS(req, res, next) 
+    {
+        if (!req.secure) 
+        {
+            //FYI this should work for local development as well
+            return res.redirect('https://' + req.get('host') + req.url);
+        }
+        next();
+    }
     
+    app.use(requireHTTPS);
+
+
     if (https_pos)
     {
-    
+
         var httpsOptions = {
             key: fs.readFileSync(this.https_keys.key).toString(),
             cert: fs.readFileSync(this.https_keys.cert).toString()
         };
-        
+
         this.server = https.createServer(httpsOptions, this.app).listen(port, this.bindingSuccess);
     }
     else
     {
         this.server = http.createServer(this.app).listen(port, this.bindingSuccess);
     }
-    
+
     this.socketio = io.listen(this.server);
 }
 
 PiDash.prototype.authUser = function(username, password, cb)
 {
     fs.readFile("/etc/shadow", function(err, data)
-    {
-        if(err) 
-        {
-            console.error("You need to be root!".red);
-            process.exit(1);
-        }
-        
-        var reg = new RegExp(username+".*\\n");
-        
-        data = data.toString();
-        
-        var line = data.match(reg)[0];
-        
-        var salt = line.match(/\$.*\$.*\$/)[0];
-        
-        var truePass = line.split(":")[1];
-        
-        if(crypt3(password, salt) === truePass)
-        {
-            cb(null, new User(username))
-        }
-        else
-        {
-            cb(new Error("PasswordError"), null);
-        }
-    });
+                {
+                    if(err) 
+                    {
+                        console.error("You need to be root!".red);
+                        process.exit(1);
+                    }
+
+                    var reg = new RegExp(username+".*\\n");
+
+                    data = data.toString();
+
+                    var line = data.match(reg)[0];
+
+                    var salt = line.match(/\$.*\$.*\$/)[0];
+
+                    var truePass = line.split(":")[1];
+
+                    if(crypt3(password, salt) === truePass)
+                    {
+                        cb(null, new User(username))
+                    }
+                    else
+                    {
+                        cb(new Error("PasswordError"), null);
+                    }
+                });
 }
 
 PiDash.prototype.systemOverview = function()
