@@ -58,7 +58,7 @@ gulp.task('develop', function () {
     })
 })
 
-gulp.task('default', ['scripts', 'css', 'images', 'watch','less'], function() {
+gulp.task('default', ['scripts', 'css', 'images', 'watch','less','develop'], function() {
   console.log("Gulp is starting...");
 });
 

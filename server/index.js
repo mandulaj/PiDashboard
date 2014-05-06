@@ -14,7 +14,6 @@ var http        = require("http"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     https_pos   = config.forceSSL;
-
 function PiDash()
 {
     'use strict'
@@ -170,8 +169,8 @@ PiDash.prototype.checkOptions = function()
         if (optimist.cert)  cert = optimist.cert;
         if (optimist.key)   key = optimist.key;
 
-        if (!cert.length)   cert = "./keys/server.crt";
-        if (!key.length)    key = "./keys/server.key";
+        if (!cert.length)   cert = "./server/keys/server.crt";
+        if (!key.length)    key = "./server/keys/server.key";
 
         if (!fs.existsSync(key))
         {
