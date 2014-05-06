@@ -71,7 +71,7 @@ PiDash.prototype.setupServer = function()
         next();
     }
     
-    app.use(requireHTTPS);
+    this.app.use(requireHTTPS);
 
 
     if (https_pos)

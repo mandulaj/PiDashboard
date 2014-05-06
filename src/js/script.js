@@ -19,6 +19,10 @@ RaspberryPi.prototype.defaultPosition = function()
     
 }
 
+$(".sd").click(function(){
+    this.addClass("sdout");
+    alert("Hello")
+})
 
 $(document).ready(function()
 {
