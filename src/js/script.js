@@ -1,3 +1,4 @@
+var RPi
 function RaspberryPi(model)
 {
     this.model = $( ".pi" );
