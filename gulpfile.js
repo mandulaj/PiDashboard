@@ -51,7 +51,7 @@ gulp.task('lint', function () {
 })
 
 gulp.task('develop', function () {
-  nodemon({ script: 'server/index.js', ext: 'html js', ignore: ['ignored.js'] })
+  nodemon({ script: 'server/index.js', ext: 'html js', ignore: ['src/*'] })
     .on('change', ['lint'])
     .on('restart', function () {
       console.log('restarted!')
