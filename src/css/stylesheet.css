@@ -5,11 +5,19 @@
 	
 
 }
-
+@-webkit-keyframes Pi
+{
+    0% { -webkit-transform: translateZ( 111px ) rotateX(70deg) rotateY(0deg) rotateZ(40deg);}
+    100%{ -webkit-transform: translateZ( 111px ) rotateX(7000deg) rotateY(0deg) rotateZ(400deg);}
+}
 .pi {
+    width: 360px;
+    height: 240px;
 	-webkit-transform-style: preserve-3d;
 	-webkit-transform: translateZ( 111px ) rotateX(70deg) rotateY(0deg) rotateZ(40deg);
+    -webkit-animation: Pi 30s;
 }
+
 
 .picontainer_mover {
     transition: transform 2s;
@@ -348,13 +356,15 @@
 }
 
 
+.sdout {
+    -webkit-animation: sdCard 2s;
+    background-color: red;
+}
+
 .sd{
 	position:absolute;
 	-webkit-transform-style: preserve-3d;
 	-webkit-transform: translateZ(-3px) translateX(299px) translateY(77px);
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-direction: alternate;
-	-webkit-animation: sdCard 3s;
 	
 }
 
@@ -393,8 +403,8 @@
 
 .sd>figure.front 	{-webkit-transform: rotateY(   0deg ) translateZ( 2px );}
 .sd>figure.back	{-webkit-transform: rotateX( 180deg ) translateZ( 2px );}
-.sd>figure.left	{-webkit-transform: rotateY(  90deg ) translateZ( 65px);}
-.sd>figure.right	{-webkit-transform: rotateY( -90deg ) translateZ( 65px);}
+.sd>figure.left	{-webkit-transform: rotateY(  90deg ) translateZ( 64px);}
+.sd>figure.right	{-webkit-transform: rotateY( -90deg ) translateZ( 64px);}
 .sd>figure.top	{-webkit-transform: rotateX(  90deg ) translateZ( 50px);}
 .sd>figure.bottom{-webkit-transform: rotateX( -90deg ) translateZ( 50px);}
 
