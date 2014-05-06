@@ -5,6 +5,12 @@ function RaspberryPi(model)
     this.rotateX = 70;
     this.rotateY = 0;
     this.rotateZ = 40;
+
+
+    this.traqball = new Traqball({
+        stage: "pi3D",
+        prespective: 1000
+    });
 }
 
 RaspberryPi.prototype.defaultPosition = function()

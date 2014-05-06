@@ -14,8 +14,8 @@
     width: 360px;
     height: 240px;
 	-webkit-transform-style: preserve-3d;
-	-webkit-transform: translateZ( 111px ) rotateX(70deg) rotateY(0deg) rotateZ(40deg);
-    -webkit-animation: Pi 30s;
+	/*-webkit-transform: translateZ( 111px ) rotateX(70deg) rotateY(0deg) rotateZ(40deg);
+    -webkit-animation: Pi 30s;*/
 }
 
 
