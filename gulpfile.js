@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
     //imagemin = require('gulp-imagemin'),
-    less = require('gulp-less');
+    less = require('gulp-less'),
+    prefix = require('gulp-autoprefixer');
 
 var paths = {
     images: 'src/images/*',
@@ -22,6 +23,7 @@ gulp.task('scripts', function() {
 
 gulp.task('css',function() {
 	return gulp.src(paths.css)
+      .pipe(prefix(["last 1 version", "> 1%", "ie 8", "ie 7"], { cascade: true }))
       .pipe(gulp.dest('public/css'));	
 });
 

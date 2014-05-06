@@ -29,7 +29,8 @@
     "gulp-imagemin": "*", 
     "gulp-less": "*",
     "gulp-nodemon": "*",
-    "gulp-jshint": "*"
+    "gulp-jshint": "*",
+    "gulp-autoprefixer": "*"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
