@@ -1,11 +1,14 @@
 .raspberryModel {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 #stage {
     perspective: 1000px;
     perspective-origin: 50% 50%;
     width: 500px;
-    height: 500px;
+    height: 560px;
     position: relative;
 }
 

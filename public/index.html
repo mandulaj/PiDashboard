@@ -4,18 +4,56 @@
         <title>PiMonitor</title>
         <link rel="stylesheet" href="./css/stylesheet.css" >
         <link rel="stylesheet" href="./modules/bootstrap/dist/css/bootstrap.min.css" >
+        <script src="./modules/jquery/dist/jquery.min.js"> </script>
         <script src="./modules/traqball.js/src/traqball.js"> </script>
         <script src="./modules/socket.io-client/dist/socket.io.min.js"> </script>
-        <script src="./modules/jquery/dist/jquery.min.js"> </script>
+        <script src="modules/bootstrap/dist/js/bootstrap.min.js"> </script>
         <script src="./js/all.min.js" > </script>
     </head>
-    
+
     <body>
-        <h1>PiMonitor</h1>
-        
-        <div class="row">
-            <div class="col-sm-6 raspberryModel">
-                <div>
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">PiMonitor.js</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="">Dashboard</a></li>
+                        <li><a href="#">SSH</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Processes</a></li>
+                                <li><a href="#">X11</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Raspberry Pi info</a></li>
+                        <li><a href="#"><b>Logout</b></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 raspberryModel">
+                    <h3>Raspberry Pi</h3>
+                    <button id="default_button" type="button" class="btn btn-default">Default</button>
                     <section id="stage" class="PIcontainer">
                         <div  class="pi">
                             <div class="motherboard">
@@ -27,20 +65,20 @@
                                 <figure class="bottom"></figure>
                             </div>
                             <div class="ethernet">
-                                    <figure class="front">eth0</figure>
-                                    <figure class="back"></figure>
-                                    <figure class="right"></figure>
-                                    <figure class="left"></figure>
-                                    <figure class="top"></figure>
-                                    <figure class="bottom"></figure>
+                                <figure class="front">eth0</figure>
+                                <figure class="back"></figure>
+                                <figure class="right"></figure>
+                                <figure class="left"></figure>
+                                <figure class="top"></figure>
+                                <figure class="bottom"></figure>
                             </div>
                             <div class="usb">
-                                    <figure class="front">usb</figure>
-                                    <figure class="back"></figure>
-                                    <figure class="right"></figure>
-                                    <figure class="left"></figure>
-                                    <figure class="top"></figure>
-                                    <figure class="bottom"></figure>
+                                <figure class="front">usb</figure>
+                                <figure class="back"></figure>
+                                <figure class="right"></figure>
+                                <figure class="left"></figure>
+                                <figure class="top"></figure>
+                                <figure class="bottom"></figure>
                             </div>
                             <div class="led" id="led1">
                                 <div class="light"></div>
@@ -91,8 +129,11 @@
                             </div>
                         </div>
                     </section>
+                    
+                    
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
