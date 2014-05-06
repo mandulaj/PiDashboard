@@ -4,6 +4,7 @@
         <title>PiMonitor</title>
         <link rel="stylesheet" href="./css/stylesheet.css" >
         <link rel="stylesheet" href="./modules/bootstrap/dist/css/bootstrap.min.css" >
+        <script src="./modules/traqball.js/src/traqball.js"> </script>
         <script src="./modules/socket.io-client/dist/socket.io.min.js"> </script>
         <script src="./modules/jquery/dist/jquery.min.js"> </script>
         <script src="./js/all.min.js" > </script>
@@ -13,9 +14,9 @@
         <h1>PiMonitor</h1>
         
         <div class="row">
-        <div class="picontainer">
-            <section class="container">
-                <div class="pi">
+        <div class="col-sm-6 picontainer">
+            <section id="pi3D" class="container">
+                <div  class="pi">
                     <div class="motherboard">
                         <figure class="front"></figure>
                         <figure class="back"></figure>
@@ -92,6 +93,7 @@
                     
                 </div>
             </section>
+        </div>
         </div>
     </body>
 </html>
