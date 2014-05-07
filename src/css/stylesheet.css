@@ -113,6 +113,12 @@
 
 /* USB -------------------------------------------------*/
 @keyframes usbOut {
+    0% {
+        transform: translateZ(38px) translateX(-25px) translateY(101px) rotateY(0deg) scale(1);
+    }
+    100% {
+        transform: translateZ(134px) translateX(-25px) translateY(101px) rotateY(-20deg) scale(1.2);
+    }
 }
 
 .usb-mover-out {
@@ -123,9 +129,6 @@
     animation: usbOut 0.5s reverse;
 }
 
-.usb-ext {
-
-}
 
 .usb{
     position:absolute;
@@ -133,6 +136,9 @@
     transform: translateZ(38px) translateX(-25px) translateY(101px);
 }
 
+.usb-ext {
+    transform: translateZ(134px) translateX(-25px) translateY(101px) rotateY(-20deg) scale(1.2);
+}
 
 .usb>figure{
     display: block;
@@ -188,7 +194,13 @@
 
 /* Ethernet ---------------------------------------------------------*/
 @keyframes ethernetOut {
-
+    0% {
+        transform: translateZ(33px) translateX(-4px) translateY(4px) rotateY(0deg) scale(1);
+    }
+    100% {
+        transform: translateZ(134px) translateX(-25px) translateY(4px) rotateY(-20deg) scale(1.2);
+    }
+    
 }
 
 
@@ -200,9 +212,6 @@
     animation: ethernetOut 0.5s reverse;
 }
 
-.ethernet-ext {
-
-}
 
 .ethernet{
     position:absolute;
@@ -210,6 +219,9 @@
     transform: translateZ(33px) translateX(-4px) translateY(4px);
 }
 
+.ethernet-ext {
+    transform: translateZ(134px) translateX(-25px) translateY(4px) rotateY(-20deg) scale(1.2);
+}
 
 .ethernet>figure{
     display: block;
@@ -335,11 +347,19 @@
 /* CPU ----------------------------------------------------------------------*/
 
 @keyframes cpuOut {
-
+    0% {
+        transform: translateZ(5px) translateX(164px) translateY(94px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+    }
+    50% {
+        transform: translateZ(5px) translateX(164px) translateY(150px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+    }
+    100% {
+        transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+    }
 }
 
 .cpu-mover-out {
-    aniation: cpuOut 0.5s;
+    animation: cpuOut 0.5s;
 }
 
 .cpu-mover-in {
@@ -347,9 +367,7 @@
 }
 
 
-.cpu-ext {
 
-}
 
 .cpu{
     position:absolute;
@@ -357,6 +375,9 @@
     transform: translateZ(5px) translateX(164px) translateY(94px);
 }
 
+.cpu-ext {
+    transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+}
 
 .cpu>figure{
     display: block;
@@ -412,7 +433,12 @@
 /* RAM ----------------------------------------------------*/
 
 @keyframes ramOut {
-
+    0% {
+        transform: translateZ(10px) translateX(164px) translateY(94px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    } 
+    100% {
+        transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+    }
 }
 
 .ram-mover-out {
@@ -421,10 +447,6 @@
 
 .ram-mover-in {
     animation: ramOut 0.5s reverse;
-}
-
-.ram-ext {
-
 }
 
 .ram{
@@ -440,7 +462,9 @@
     background-color: green;
 }
 
-
+.ram-ext {
+    transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+}
 
 .ram>figure.front,
 .ram>figure.back{
@@ -497,10 +521,9 @@
     }
     100% {
         transform: translateZ(20px) translateX(450px) translateY(20px) rotateX(90deg);
+        transform: translateZ(100px) translateX(200px) translateY(200px) rotateX(113deg) rotateY(-29deg) rotateZ(16deg);
     }
 }
-
-
 
 
 .sd-mover-out {
@@ -523,6 +546,7 @@
 }
 .sd-ext {
      transform: translateZ(20px) translateX(450px) translateY(20px) rotateX(90deg);
+     transform: translateZ(100px) translateX(200px) translateY(200px) rotateX(113deg) rotateY(-29deg) rotateZ(16deg);
 }
 
 
