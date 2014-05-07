@@ -111,6 +111,20 @@
 }
 
 
+/* USB -------------------------------------------------*/
+@keyframes usbOut {
+}
+
+.usb-mover-in {
+    animation: usbOut 0.5s;
+}
+
+.usb-mover-out {
+    animation-direction: reverse;
+    animation: usbOut 0.5s;
+}
+
+
 .usb{
     position:absolute;
     transform-style: preserve-3d;
@@ -170,6 +184,20 @@
 }
 
 
+/* Ethernet ---------------------------------------------------------*/
+@keyframes ethernetOut {
+
+}
+
+
+.ethernet-mover-out {
+    animation: ethernetOut 0.5s;    
+}
+
+.ethernet-mover-in {
+    animation-direction: reverse;
+    animation: ethernetOut 0.5s;
+}
 
 
 .ethernet{
@@ -230,6 +258,8 @@
     transform: rotateX( -90deg ) translateZ( 32px);
 }
 
+
+/* LED ------------------------------------------------------------*/
 .led {
     position:absolute;
     transform-style: preserve-3d;
@@ -298,6 +328,20 @@
     background: green;
 }
 
+/* CPU ----------------------------------------------------------------------*/
+
+@keyframes cpuOut {
+
+}
+
+.cpu-mover-out {
+    aniation: cpuOut 0.5s;
+}
+
+.cpu-mover-in {
+    animation-direction: reverse;
+    animation: cpuOut 0.5s;
+}
 
 .cpu{
     position:absolute;
@@ -357,6 +401,20 @@
     transform: rotateX( -90deg ) translateZ( 26px);
 }
 
+/* RAM ----------------------------------------------------*/
+
+@keyframes ramOut {
+
+}
+
+.ram-mover-out {
+    animation: ramOut 0.5s;
+}
+
+.ram-mover-in {
+    animation-direction: reverse;
+    animation: ramOut 0.5s;
+}
 
 
 .ram{
@@ -417,8 +475,9 @@
     transform: rotateX( -90deg ) translateZ( 26px);
 }
 
+/* SD -----------------------------------------------------------*/
 
-@keyframes sdCard /* Safari and Chrome */
+@keyframes sdOut
 {
     0%   {
         transform: translateZ(-3px) translateX(299px) translateY(77px);
@@ -432,9 +491,15 @@
 }
 
 
-.sdout {
-    animation: sdCard 2s;
-    background-color: red;
+
+
+.sd-mover-out {
+    animation: sdOut 0.5s;
+}
+
+.sd-mover-in {
+    animation-direction: reverse;
+    animation: sdOut 0.5s;
 }
 
 .sd{
