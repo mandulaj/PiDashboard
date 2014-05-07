@@ -9,3 +9,4 @@ public/modules
 # Server keys
 server/keys
 
+*.log
