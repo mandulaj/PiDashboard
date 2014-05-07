@@ -35,14 +35,14 @@ RaspberryPi.prototype.initSelf = function()
 
 RaspberryPi.prototype.defaultPosition = function()
 {
-    this.traqball.disable();
+    //this.traqball.disable();
     this.model.addClass( "picontainer_mover" );
     this.model.css( "-webkit-transform", "rotateX(58deg) rotateY(0deg) rotateZ(45deg)");
     this.model.css( "transform", "rotateX(58deg) rotateY(0deg) rotateZ(45deg)" );
     var thisObj = this;
     setTimeout(function(){
         thisObj.model.removeClass( "picontainer_mover" );
-        thisObj.traqball.activate();
+        //thisObj.traqball.activate();
     },500);
     
 
@@ -79,8 +79,8 @@ function HWComponent( id, rpi )
     {
         if (thisObj.out === false)
         {
-            thisObj.parentRPi.defaultPosition();
             thisObj.parentRPi.traqball.disable();
+            thisObj.parentRPi.defaultPosition();
             setTimeout(function() {
                 thisObj.animateOut();
             }, 500);
@@ -90,6 +90,7 @@ function HWComponent( id, rpi )
             thisObj.animateIn();
             setTimeout(function() {
                 thisObj.parentRPi.traqball.activate();
+                console.log("Activated")
             }, 500);
         }
     });
@@ -101,8 +102,6 @@ HWComponent.prototype.animateOut = function()
     this.element.addClass(this.moverClassOut);
     this.parentRPi.hideAll();
     this.element.bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
-        console.log("animationOut end");
-        console.log(thisObj);
         thisObj.element.addClass(thisObj.moverClassExt);
         thisObj.element.removeClass(thisObj.moverClassOut);
         thisObj.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
