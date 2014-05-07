@@ -515,16 +515,19 @@
     animation-direction: reverse;
     animation: sdOut 0.5s;
 }
-
+/*
 .sd-ext {
     transform: translateZ(20px) translateX(450px) translateY(20px) rotateX(90deg);
-}
+}*/
 
 .sd{
     position:absolute;
     transform-style: preserve-3d;
     transform: translateZ(-5px) translateX(299px) translateY(77px);
 
+}
+.sd-ext {
+     transform: translateZ(20px) translateX(450px) translateY(20px) rotateX(90deg);
 }
 
 
@@ -559,7 +562,9 @@
     top: 48px;
 }
 
-
+.sd>figure.front {
+    transform: rotateX( 0deg ) translateZ( 2px );
+}
 .sd>figure.back	{
     transform: rotateX( 180deg ) translateZ( 2px );
 }
