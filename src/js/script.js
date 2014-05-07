@@ -2,6 +2,7 @@ var RPi;
 
 function RaspberryPi(model, stage3d)
 {
+    'use strict'
     this.model = $( model );
     this.rotateX = 70;
     this.rotateY = 0;
@@ -20,21 +21,23 @@ function RaspberryPi(model, stage3d)
         cpu:        new HWComponent("cpu", this),
         ram:        new HWComponent("ram", this),
         sd:         new HWComponent("sd", this)
-    }
+    };
     this.initSelf();
 }
 
-RaspberryPi.prototype.initSelf = function()
+RaspberryPi.prototype.initSelf = function ()
 {
+    'use strict'
     var thisObj = this;
     
-    $("#default_button").click(function(){
+    $("#default_button").click(function (){
         thisObj.defaultPosition();
     });   
 };
 
-RaspberryPi.prototype.defaultPosition = function()
+RaspberryPi.prototype.defaultPosition = function ()
 {
+    'use strict'
     //this.traqball.disable();
     this.model.addClass( "picontainer_mover" );
     this.model.css( "-webkit-transform", "rotateX(58deg) rotateY(0deg) rotateZ(45deg)");
@@ -50,6 +53,7 @@ RaspberryPi.prototype.defaultPosition = function()
 
 RaspberryPi.prototype.hideAll = function()
 {
+    'use strict'
     for(var key in this.components)
     {
         var comp = this.components[key];
@@ -60,13 +64,10 @@ RaspberryPi.prototype.hideAll = function()
     }
 }
 
-$(".sd").click(function(){
-    this.addClass("sdout");
-    alert("Hello");
-});
 
 function HWComponent( id, rpi )
 {
+    'use strict'
     var thisObj = this;
     this.parentRPi = rpi;
     this.element = $("."+id );
@@ -98,6 +99,7 @@ function HWComponent( id, rpi )
 
 HWComponent.prototype.animateOut = function()
 {
+    'use strict'
     var thisObj = this;
     this.element.addClass(this.moverClassOut);
     this.parentRPi.hideAll();
@@ -111,6 +113,7 @@ HWComponent.prototype.animateOut = function()
 
 HWComponent.prototype.animateIn = function()
 {
+    'use strict'
     var thisObj = this;
     this.element.removeClass(this.moverClassExt);
     this.element.addClass(this.moverClassIn);
