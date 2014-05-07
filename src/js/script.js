@@ -48,6 +48,18 @@ RaspberryPi.prototype.defaultPosition = function()
 
 };
 
+RaspberryPi.prototype.hideAll = function()
+{
+    for(var key in this.components)
+    {
+        var comp = this.components[key];
+        if(comp.out)
+        {
+            comp.animateIn();
+        }
+    }
+}
+
 $(".sd").click(function(){
     this.addClass("sdout");
     alert("Hello");
@@ -87,7 +99,7 @@ HWComponent.prototype.animateOut = function()
 {
     var thisObj = this;
     this.element.addClass(this.moverClassOut);
-    console.log("an" + this);
+    this.parentRPi.hideAll();
     this.element.bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
         console.log("animationOut end");
         console.log(thisObj);
