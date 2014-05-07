@@ -1,15 +1,16 @@
-var RPi
-function RaspberryPi(model)
+var RPi;
+
+function RaspberryPi(model, 3dstage)
 {
-    this.model = $( ".pi" );
+    this.model = $( model );
     this.rotateX = 70;
     this.rotateY = 0;
     this.rotateZ = 40;
 
 
     this.traqball = new Traqball({
-        stage: "stage",
-        axis: [0.5,1,0,0.25],
+        stage: 3dstage,
+        //axis: [0.5,1,0,0.25],
         prespective: 1000
     });
     
@@ -42,9 +43,30 @@ RaspberryPi.prototype.defaultPosition = function()
 $(".sd").click(function(){
     this.addClass("sdout");
     alert("Hello")
-})
+});
+
+function HWComponenet( id, rpi )
+{
+    this.parentRPi = rpi;
+    this.element = $( id );
+    this.moverClass = id+"-mover;"
+    this.out = false;
+}
+
+HWComponent.prototype.animateOut = function()
+{
+    this.element.addClass(this.moverClass);
+    this.out - true;
+}
+
+
+HWComponent.prototype.animateIn = function()
+{
+    this.element.removeClass(this.moverClass);
+    this.out = false;
+}
 
 $(document).ready(function()
 {
-    RPi = new RaspberryPi(".pi");
+    RPi = new RaspberryPi(".pi", "stage");
 });
