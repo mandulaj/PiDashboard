@@ -124,6 +124,9 @@
     animation: usbOut 0.5s;
 }
 
+.usb-ext {
+
+}
 
 .usb{
     position:absolute;
@@ -199,6 +202,9 @@
     animation: ethernetOut 0.5s;
 }
 
+.ethernet-ext {
+
+}
 
 .ethernet{
     position:absolute;
@@ -343,6 +349,11 @@
     animation: cpuOut 0.5s;
 }
 
+
+.cpu-ext {
+
+}
+
 .cpu{
     position:absolute;
     transform-style: preserve-3d;
@@ -416,6 +427,9 @@
     animation: ramOut 0.5s;
 }
 
+.ram-ext {
+
+}
 
 .ram{
     position:absolute;
@@ -500,6 +514,10 @@
 .sd-mover-in {
     animation-direction: reverse;
     animation: sdOut 0.5s;
+}
+
+.sd-ext {
+    transform: translateZ(20px) translateX(450px) translateY(20px) rotateX(90deg);
 }
 
 .sd{
