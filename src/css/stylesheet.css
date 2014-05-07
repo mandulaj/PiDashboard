@@ -115,13 +115,12 @@
 @keyframes usbOut {
 }
 
-.usb-mover-in {
+.usb-mover-out {
     animation: usbOut 0.5s;
 }
 
-.usb-mover-out {
-    animation-direction: reverse;
-    animation: usbOut 0.5s;
+.usb-mover-in {
+    animation: usbOut 0.5s reverse;
 }
 
 .usb-ext {
@@ -198,8 +197,7 @@
 }
 
 .ethernet-mover-in {
-    animation-direction: reverse;
-    animation: ethernetOut 0.5s;
+    animation: ethernetOut 0.5s reverse;
 }
 
 .ethernet-ext {
@@ -345,8 +343,7 @@
 }
 
 .cpu-mover-in {
-    animation-direction: reverse;
-    animation: cpuOut 0.5s;
+    animation: cpuOut 0.5s reverse;
 }
 
 
@@ -423,8 +420,7 @@
 }
 
 .ram-mover-in {
-    animation-direction: reverse;
-    animation: ramOut 0.5s;
+    animation: ramOut 0.5s reverse;
 }
 
 .ram-ext {
@@ -512,8 +508,7 @@
 }
 
 .sd-mover-in {
-    animation-direction: reverse;
-    animation: sdOut 0.5s;
+    animation: sdOut 0.5s reverse;
 }
 /*
 .sd-ext {
