@@ -1,6 +1,6 @@
 var RPi;
 
-function RaspberryPi(model, 3dstage)
+function RaspberryPi(model, stage3d)
 {
     this.model = $( model );
     this.rotateX = 70;
@@ -9,12 +9,13 @@ function RaspberryPi(model, 3dstage)
 
 
     this.traqball = new Traqball({
-        stage: 3dstage,
+        stage: stage3d,
         //axis: [0.5,1,0,0.25],
         prespective: 1000
     });
     
-    this.initSelf()
+    this.sd = new HWComponent(".sd", this);
+    this.initSelf();
 }
 
 RaspberryPi.prototype.initSelf = function()
@@ -38,6 +39,7 @@ RaspberryPi.prototype.defaultPosition = function()
         thisObj.traqball.activate();
     },500)
     
+
 }
 
 $(".sd").click(function(){
@@ -45,26 +47,47 @@ $(".sd").click(function(){
     alert("Hello")
 });
 
-function HWComponenet( id, rpi )
+function HWComponent( id, rpi )
 {
     this.parentRPi = rpi;
     this.element = $( id );
-    this.moverClass = id+"-mover;"
+    this.moverClassOut = id + "-mover-out";
+    this.moverClassIn = id + "-mover-in";
+    this.moverClassExt = id + "-ext";
     this.out = false;
 }
 
 HWComponent.prototype.animateOut = function()
 {
-    this.element.addClass(this.moverClass);
-    this.out - true;
+    this.element.addClass(this.moverClassOut);
+    this.element.addEventListener("animationend", this.elOut);
+    this.out = true;    
+}    
+
+HWComponent.prototype.elOut = function() {
+    console.log("animationOut end");
+    this.addClass(this.moverClassExt);
+    this.removeClass(this.moverClassOut);
+    this.element.removeEventListener("animationend", this.elOut);
 }
+
 
 
 HWComponent.prototype.animateIn = function()
 {
-    this.element.removeClass(this.moverClass);
+    this.elemetn.removeClass(this.moverClassExt);
+    this.element.addClass(this.moverClassIn);
+    this.element.addEventListener("animationend", this.elIn);
     this.out = false;
 }
+
+ HWComponent.prototype.elIn = function() {
+     console.log("animationIn end");
+     this.removeClass(this.moverClassIn);
+     this.element.removeEventListener("animationend", this.elIn);
+ }
+
+
 
 $(document).ready(function()
 {
