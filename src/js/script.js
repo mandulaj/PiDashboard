@@ -14,7 +14,13 @@ function RaspberryPi(model, stage3d)
         prespective: 1000
     });
     
-    this.sd = new HWComponent("sd", this);
+    this.components = {
+        ethernet:   new HWComponent("ethernet", this),
+        usb:        new HWComponent("usb", this),
+        cpu:        new HWComponent("cpu", this),
+        ram:        new HWComponent("ram", this),
+        sd:         new HWComponent("sd", this)
+    }
     this.initSelf();
 }
 
@@ -24,7 +30,7 @@ RaspberryPi.prototype.initSelf = function()
     
     $("#default_button").click(function(){
         thisObj.defaultPosition();
-    });
+    });   
 };
 
 RaspberryPi.prototype.defaultPosition = function()
@@ -49,12 +55,32 @@ $(".sd").click(function(){
 
 function HWComponent( id, rpi )
 {
+    var thisObj = this;
     this.parentRPi = rpi;
     this.element = $("."+id );
     this.moverClassOut = id + "-mover-out";
     this.moverClassIn = id + "-mover-in";
     this.moverClassExt = id + "-ext";
     this.out = false;
+    
+    this.element.click(function () 
+    {
+        if (thisObj.out === false)
+        {
+            thisObj.parentRPi.defaultPosition();
+            thisObj.parentRPi.traqball.disable();
+            setTimeout(function() {
+                thisObj.animateOut();
+            }, 500);
+        }
+        else
+        {
+            thisObj.animateIn();
+            setTimeout(function() {
+                thisObj.parentRPi.traqball.activate();
+            }, 500);
+        }
+    });
 }
 
 HWComponent.prototype.animateOut = function()
