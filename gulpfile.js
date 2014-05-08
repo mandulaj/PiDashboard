@@ -14,6 +14,8 @@ var paths = {
     less: 'src/less/*.less'
 }
 
+/**/
+
 gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
       .pipe(uglify())
@@ -47,18 +49,13 @@ gulp.task('watch', function() {
   gulp.watch(paths.less, ['less']);
 });
 
-gulp.task('lint', function () {
-  gulp.src('./**/*.js')
-    .pipe(jshint())
-})
-
 gulp.task('develop', function () {
-  nodemon({ script: 'server/index.js', ext: 'html js', ignore: ['src/*'] })
-    .on('change', ['lint'])
+  nodemon({ script: 'server/index.js', ext: 'html js', ignore: ['src/**','public/**'] })
     .on('restart', function () {
       console.log('restarted!')
     })
-})
+});
+
 
 gulp.task('default', ['scripts', 'css', 'images', 'watch','less','develop'], function() {
   console.log("Gulp is starting...");
