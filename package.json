@@ -22,6 +22,7 @@
         "optimist": "0.6.x",
         "socket.io": "0.9.x",
         "crypt3": "*",
+        
         "uglify-js": "2.x",
         "gulp-uglify": "*",
         "gulp-concat": "*",
@@ -29,7 +30,8 @@
         "gulp-less": "*",
         "gulp-nodemon": "*",
         "gulp-jshint": "*",
-        "gulp-autoprefixer": "*"
+        "gulp-autoprefixer": "*",
+        "gulp-minify-css": "*"
     },
     "devDependencies": {
         "gulp": "^3.6.2",

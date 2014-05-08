@@ -2,8 +2,9 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
-    jshint = require('gulp-jshint'),
+    //jshint = require('gulp-jshint'),
     //imagemin = require('gulp-imagemin'),
+    minifyCSS = require('gulp-minify-css')
     less = require('gulp-less'),
     prefix = require('gulp-autoprefixer');
 
@@ -26,6 +27,8 @@ gulp.task('scripts', function() {
 gulp.task('css',function() {
 	return gulp.src(paths.css)
       .pipe(prefix(["last 1 version", "> 1%", "ie 8", "ie 7"], { cascade: true }))
+      .pipe(minifyCSS())
+      //.pipe(concat('stylesheet.css'))
       .pipe(gulp.dest('public/css'));	
 });
 
@@ -38,7 +41,9 @@ gulp.task('images', function() {
 
 gulp.task('less',function() {
     return gulp.src(paths.less)
-        .pipe(less())
+        .pipe(less({
+            keepSpecialComments: 0,
+        }))
         .pipe(gulp.dest('public/css'));
 });
 
