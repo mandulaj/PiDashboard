@@ -56,8 +56,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('develop', function () {
-nodemon({ script: 'server.js', ext: 'html js', ignore: ['src/**','public/**'] })
-   .on('restart', function () {
+  nodemon({ script: 'server.js', ext: 'html js', ignore: ['src/**','public/**'] })
+    .on('restart', function () {
       console.log('restarted!')
     })
 });
