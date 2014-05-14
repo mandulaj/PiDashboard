@@ -51,8 +51,8 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-8 raspberryModel">
-                    <h3>Raspberry Pi</h3>
+                <div class="col-md-7 raspberryModel softborder">
+                    <h2>Raspberry Pi</h2>
                     <button id="default_button" type="button" class="btn btn-default">Default</button>
                     <section id="stage" class="PIcontainer">
                         <div  class="pi">
@@ -65,7 +65,7 @@
                                 <figure class="bottom"></figure>
                             </div>
                             <div class="ethernet">
-                                <figure class="front">eth0</figure>
+                                <figure class="front"></figure>
                                 <figure class="back"></figure>
                                 <figure class="right"></figure>
                                 <figure class="left"></figure>
@@ -73,7 +73,7 @@
                                 <figure class="bottom"></figure>
                             </div>
                             <div class="usb">
-                                <figure class="front">usb</figure>
+                                <figure class="front"></figure>
                                 <figure class="back"></figure>
                                 <figure class="right"></figure>
                                 <figure class="left"></figure>
@@ -102,7 +102,9 @@
                             </div>
 
                             <div class="cpu">
-                                <figure class="front">Cpu</figure>
+                                <figure class="front">
+                                <div id="down"><span>CPU</span></div>
+                                </figure>
                                 <figure class="back"></figure>
                                 <figure class="right"></figure>
                                 <figure class="left"></figure>
@@ -111,7 +113,9 @@
                             </div>
 
                             <div class="ram">
-                                <figure class="front">Ram</figure>
+                                <figure class="front">
+                                <div id="down"><span>RAM</span></div>
+                                </figure>
                                 <figure class="back"></figure>
                                 <figure class="right"></figure>
                                 <figure class="left"></figure>
@@ -121,7 +125,7 @@
 
                             <div class="sd">
                                 <figure class="front"></figure>
-                                <figure class="back">sd</figure>
+                                <figure class="back"></figure>
                                 <figure class="right"></figure>
                                 <figure class="left"></figure>
                                 <figure class="top"></figure>
@@ -129,11 +133,14 @@
                             </div>
                         </div>
                     </section>
-                    
-                    
+                </div>
+                <div class="col-md-4 col-md-offset-1 softborder">
+                    <h2>Information</h2>
+                    <div class="info-content">
+                        <div id="default_info_content">Click one of the components on the model to get information about it.</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
