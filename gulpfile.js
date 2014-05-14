@@ -55,7 +55,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('develop', function () {
-  nodemon({ script: 'server/index.js', ext: 'html js', ignore: ['src/**','public/**'] })
+  nodemon({ script: 'server.js', ext: 'html js', ignore: ['src/**','public/**'] })
     .on('restart', function () {
       console.log('restarted!')
     })
