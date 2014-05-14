@@ -1,10 +1,10 @@
 node_modules
 *.swp
 # The compiled public files
-public/js
-public/images
-public/css
-public/modules
+public/static/js
+public/static/images
+public/static/css
+public/static/modules
 
 # Server keys
 server/keys
