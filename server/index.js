@@ -1,4 +1,5 @@
 // PiMonitor.js
+
 var http        = require("http"),
     https       = require("https"),
     crypt3      = require("crypt3"),
@@ -14,6 +15,7 @@ var http        = require("http"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     https_pos   = config.forceSSL;
+
 function PiDash()
 {
     'use strict'
@@ -59,7 +61,8 @@ function PiDash()
 PiDash.prototype.setupServer = function()
 {
 
-    this.app.use("/static", express.static(__dirname + "/../public"));
+    this.app.use("/", express.static(__dirname + "/../public"));
+
 
     function requireHTTPS(req, res, next) 
     {
@@ -71,12 +74,13 @@ PiDash.prototype.setupServer = function()
         next();
     }
     
-    this.app.use(requireHTTPS);
+
+
 
 
     if (https_pos)
     {
-
+        this.app.use(requireHTTPS);
         var httpsOptions = {
             key: fs.readFileSync(this.https_keys.key).toString(),
             cert: fs.readFileSync(this.https_keys.cert).toString()
