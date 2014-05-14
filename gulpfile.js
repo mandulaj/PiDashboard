@@ -21,7 +21,7 @@ gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
       .pipe(uglify())
       .pipe(concat('all.min.js'))
-      .pipe(gulp.dest('public/js'));
+      .pipe(gulp.dest('public/static/js'));
 });
 
 gulp.task('css',function() {
@@ -29,14 +29,14 @@ gulp.task('css',function() {
       .pipe(prefix(["last 1 version", "> 1%", "ie 8", "ie 7"], { cascade: true }))
       .pipe(minifyCSS())
       //.pipe(concat('stylesheet.css'))
-      .pipe(gulp.dest('public/css'));	
+      .pipe(gulp.dest('public/static/css'));	
 });
 
 gulp.task('images', function() {
  return gulp.src(paths.images)
     // Pass in options to the task
     //.pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest('public/images'));
+    .pipe(gulp.dest('public/static/images'));
 });
 
 gulp.task('less',function() {
@@ -44,7 +44,7 @@ gulp.task('less',function() {
         .pipe(less({
             keepSpecialComments: 0,
         }))
-        .pipe(gulp.dest('public/css'));
+        .pipe(gulp.dest('public/static/css'));
 });
 
 gulp.task('watch', function() {
