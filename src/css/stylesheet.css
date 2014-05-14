@@ -1,4 +1,8 @@
 .raspberryModel {
+    
+}
+
+.softborder {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
@@ -354,7 +358,7 @@
         transform: translateZ(5px) translateX(164px) translateY(150px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
     }
     100% {
-        transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+        transform: translateZ(147px) translateX(250px) translateY(300px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
     }
 }
 
@@ -376,7 +380,7 @@
 }
 
 .cpu-ext {
-    transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+    transform: translateZ(147px) translateX(250px) translateY(300px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
 }
 
 .cpu>figure{
@@ -391,14 +395,14 @@
 .cpu>figure.back{
     width: 52px;
     height: 52px;
-    background-color:rgb(143, 143, 143);
+    background-color:rgb(40, 40, 40);
 }
 
 .cpu>figure.left,
 .cpu>figure.right{
     width: 4px;
     height: 52px;
-    background-color:rgb(100, 100, 100);
+    background-color:rgb(20, 20, 20);
     left: 24px;
 }
 
@@ -406,10 +410,9 @@
 .cpu>figure.bottom{
     width: 52px;
     height: 4px;
-    background-color:rgb(49, 49, 49);
+    background-color:rgb(30, 30, 30);
     top: 24px;
 }
-
 
 .cpu>figure.front 	{
     transform: rotateY(   0deg ) translateZ( 2px );
@@ -430,6 +433,13 @@
     transform: rotateX( -90deg ) translateZ( 26px);
 }
 
+.cpu #down {
+    color: white;
+    text-align: center;
+    line-height: 52px;
+    font-size: 20px;
+}
+
 /* RAM ----------------------------------------------------*/
 
 @keyframes ramOut {
@@ -437,7 +447,7 @@
         transform: translateZ(10px) translateX(164px) translateY(94px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
     } 
     100% {
-        transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+        transform: translateZ(147px) translateX(324px) translateY(230px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
     }
 }
 
@@ -463,21 +473,21 @@
 }
 
 .ram-ext {
-    transform: translateZ(147px) translateX(275px) translateY(249px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
+    transform: translateZ(147px) translateX(324px) translateY(230px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
 }
 
 .ram>figure.front,
 .ram>figure.back{
     width: 52px;
     height: 52px;
-    background-color:rgb(143, 143, 143);
+    background-color:rgb(80, 80, 80);
 }
 
 .ram>figure.left,
 .ram>figure.right{
     width: 4px;
     height: 52px;
-    background-color:rgb(100, 100, 100);
+    background-color:rgb(60, 60, 60);
     left: 24px;
 }
 
@@ -485,7 +495,7 @@
 .ram>figure.bottom{
     width: 52px;
     height: 4px;
-    background-color:rgb(49, 49, 49);
+    background-color:rgb(40, 40, 40);
     top: 24px;
 }
 
@@ -509,6 +519,13 @@
     transform: rotateX( -90deg ) translateZ( 26px);
 }
 
+
+.ram #down {
+    color: white;
+    text-align: center;
+    line-height: 52px;
+    font-size: 20px;
+}
 /* SD -----------------------------------------------------------*/
 
 @keyframes sdOut
@@ -606,4 +623,12 @@
 
 }
 
+.info-content {
+    margin-bottom: 20px;
+}
+
+#default_info_content {
+    text-align: center;
+    font-size: 25px;
+}
 
