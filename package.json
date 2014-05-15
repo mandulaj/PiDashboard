@@ -25,6 +25,7 @@
         "passport": "~0.1.17",
         "passport-local" : "~0.1.6",
         "connect-flash" : "~0.1.1",
+        "ejs" : "~0.8.5",
         
         "uglify-js": "2.x",
         "gulp-uglify": "*",
