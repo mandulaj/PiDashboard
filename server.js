@@ -16,15 +16,28 @@ var http        = require("http"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     
-    PiDash      = require('.lib/PiDash.js');
-
+    PiDash      = require('.lib/PiDash.js'),
+    
+    flash    = require('connect-flash');
 
 var app = express();
 var server;
 var socketio;
 
 app.configure(function(){
-   // Serving static files
+    
+    
+    app.use(express.logger('dev'));
+    app.use(express.cookieParser());
+    app.use(express.bodyParser());
+    
+    
+    app.use(express.session({ secret: 'lolidonowhatthisshitis' })); // session secret
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(flash());
+    
+    // Serving static files
     app.use("/static", express.static(__dirname + "/public/static"));
     
     function requireHTTPS(req, res, next) 
@@ -37,7 +50,6 @@ app.configure(function(){
     }
     //app.use(requireHTTPS);
      
-    
 });
 
 function setup() {
