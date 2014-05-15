@@ -1,6 +1,10 @@
 {
     "port": 3141,
-    "backupPort": 9090,
-    "keyPath": "keys",
-    "forceSSL": true
+    
+    "forceSSL": true,
+    "paths": {
+        "key": "./keys/server.key",
+        "cert": "./keys/server.crt",
+        "static": "./public/static",
+    }
 }
