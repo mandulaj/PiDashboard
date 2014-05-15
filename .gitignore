@@ -7,6 +7,6 @@ public/static/css
 public/static/modules
 
 # Server keys
-server/keys
+keys
 
 *.log

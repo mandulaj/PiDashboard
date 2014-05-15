@@ -16,13 +16,14 @@ var http        = require("http"),
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     
-    PiDash      = require('.lib/PiDash.js'),
+    PiDash      = require('./lib/PiDash.js'),
     
-    flash    = require('connect-flash');
+    flash       = require('connect-flash');
 
 var app = express();
 var server;
 var socketio;
+setup();
 
 app.configure(function(){
     
@@ -118,11 +119,11 @@ function setup() {
     server.listen(port, function(){
         if(config.forceSSL)
         {
-            console_sufix = "s:/";
+            var console_sufix = "s:/";
         }
         else
         {
-            console_sufix = ":/";
+            var console_sufix = ":/";
         }
 
         console.log("Server running at => ".green + "http" + console_sufix +"/localhost:" + port);
@@ -164,4 +165,5 @@ function authUser(username, password, cb)
 
 require('./app/routes.js')(app, passport, config)
 
-raspberry = new PiDash(app, socketio);
+
+var raspberry = new PiDash(app, socketio);
