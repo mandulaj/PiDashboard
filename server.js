@@ -31,8 +31,9 @@ app.configure(function(){
     app.use(express.cookieParser());
     app.use(express.bodyParser());
     
+    app.set('view engine', 'ejs');    
     
-    app.use(express.session({ secret: 'lolidonowhatthisshitis' })); // session secret
+    app.use(express.session({ secret: config.cookieSecret })); // session secret
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(flash());
@@ -161,6 +162,6 @@ function authUser(username, password, cb)
     });
 }
 
-require('./app/routes.js')(app, passport)
+require('./app/routes.js')(app, passport, config)
 
 raspberry = new PiDash(app, socketio);
