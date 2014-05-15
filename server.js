@@ -1,115 +1,76 @@
 // PiMonitor.js
+
 var http        = require("http"),
     https       = require("https"),
-    crypt3      = require("crypt3"),
     express     = require('express'),
+    passport    = require('passport'),
     io          = require('socket.io'),
-    path        = require("path"),
+    crypt3      = require("crypt3"),
     fs          = require("fs"),
     os          = require("os"),
+    
     colors      = require("colors"),
     optimist    = require("optimist").argv,
+    
     config      = require("./config/config.json"), // config file
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     
-var app = express()
+    PiDash      = require('.lib/PiDash.js');
 
 
-app.use("/static", express.static(__dirname + "/../public"));
+var app = express();
+var server;
+var socketio;
 
-function requireHTTPS(req, res, next) 
-{
-    if (!req.secure) 
+app.configure(function(){
+   // Serving static files
+    app.use("/static", express.static(__dirname + "/public/static"));
+    
+    function requireHTTPS(req, res, next) 
     {
-         //FYI this should work for local development as well
-         return res.redirect('https://' + req.get('host') + req.url);
+        if (!req.secure) 
+        {
+             return res.redirect('https://' + req.get('host') + req.url);
+        }
+        next();
     }
-    next();
-}
+    //app.use(requireHTTPS);
+     
+    
+});
 
-app.use(requireHTTPS);
-
-
-if (config.forceSSL)
-{
-     var httpsOptions = {
-            key: fs.readFileSync(this.https_keys.key).toString(),
-            cert: fs.readFileSync(this.https_keys.cert).toString()
-        };
-
-        this.server = https.createServer(httpsOptions, this.app).listen(port, this.bindingSuccess);
-    }
-    else
-    {
-        this.server = http.createServer(this.app).listen(port, this.bindingSuccess);
-    }
-
-    this.socketio = io.listen(this.server);
-}
-
-function authUser(username, password, cb)
-{
-    fs.readFile("/etc/shadow", function(err, data)
-                {
-                    if(err) 
-                    {
-                        console.error("You need to be root!".red);
-                        process.exit(1);
-                    }
-
-                    var reg = new RegExp(username+".*\\n");
-
-                    data = data.toString();
-
-                    var line = data.match(reg)[0];
-
-                    var salt = line.match(/\$.*\$.*\$/)[0];
-
-                    var truePass = line.split(":")[1];
-
-                    if(crypt3(password, salt) === truePass)
-                    {
-                        cb(null, new User(username))
-                    }
-                    else
-                    {
-                        cb(new Error("PasswordError"), null);
-                    }
-                });
-}
-
-
-function checkSystem()
-{
+function setup() {
+    'use strict';
+    
+    // Check OS (We only work on raspberry)
     if(os.type() != "Linux")
     {
         console.error("You are not running Linux. Exiting ... \n".red);
         process.exit(0);
     }
-}
-
-function checkOptions()
-{
-
-    if(optimist.help || optimist.h)
+    
+    
+    // Help display
+    if (optimist.help || optimist.h)
     {
-        console.log("\n--------------------------- HELP -----------------------------".red + "\n                   " + "--- PiDashboard.js ---\n".green.bold.underline + "A Monitoring server for Raspberry Pi and other Linux computers." + "\nUsage: \n".bold );
+        require('./lib/help_log.js');
         process.exit(0);
     }
-
-    if(optimist.cert || optimist.key || https_pos)
+    
+    // Prepare keys and certs if we run https
+    if (optimist.cert || optimist.key || config.forceSSL)
     {
-        https_pos = true;
+        config.forceSSL = true;
 
-        var cert = "",
+        var cert = "", // Path to cert and key
             key = "";
 
-        if (optimist.cert)  cert = optimist.cert;
+        if (optimist.cert)  cert = optimist.cert; // If provided from cmd
         if (optimist.key)   key = optimist.key;
 
-        if (!cert.length)   cert = "./server/keys/server.crt";
-        if (!key.length)    key = "./server/keys/server.key";
+        if (!cert.length)   cert = config.paths.cert; //else grab the default 
+        if (!key.length)    key = config.paths.key;
 
         if (!fs.existsSync(key))
         {
@@ -119,49 +80,75 @@ function checkOptions()
         }
         if (!fs.existsSync(cert))
         {
-            console.error("File ".red + cert.red.bold + " " +"doesn't exists!".red.underline );
+            console.error("File ".red + cert.red.bold + " " + "doesn't exists!".red.underline );
             console.log("Can not start https server. Exiting ...".red);
             process.exit(1);
         }
-
-        
     }
-
-}
-
-function bindingSuccess()
-{
-    if()
+    
+    // bind to server
+    if (config.forceSSL)
     {
-        console_sufix = "s:/";
+        var httpsOptions = {
+            key: fs.readFileSync(key).toString(),
+            cert: fs.readFileSync(cert).toString()
+        };
+
+        server = https.createServer(httpsOptions, app);
     }
     else
     {
-        console_sufix = ":/";
+        server = http.createServer(app);
     }
 
-    console.log("Server running at => ".green + "http" + console_sufix +"/localhost:" + port);
+    // listen on port
+    server.listen(port, function(){
+        if(config.forceSSL)
+        {
+            console_sufix = "s:/";
+        }
+        else
+        {
+            console_sufix = ":/";
+        }
+
+        console.log("Server running at => ".green + "http" + console_sufix +"/localhost:" + port);
+    });
+    
+    socketio = io.listen(server);
 }
 
-function getStdOutput(cmd,cb)
+function authUser(username, password, cb)
 {
-    exec(cmd,function (error, stdout, stderr) 
-         {
-             if (error !== null) 
-             {
-                 console.log('exec error: ' + error);
-             }
-             cb(stdout);
-         });
+    fs.readFile("/etc/shadow", function(err, data)
+    {
+        if(err) 
+        {
+            console.error("You need to be root!".red);
+            process.exit(1);
+        }
+
+        var reg = new RegExp(username+".*\\n");
+
+        data = data.toString();
+
+        var line = data.match(reg)[0];
+
+        var salt = line.match(/\$.*\$.*\$/)[0];
+
+        var truePass = line.split(":")[1];
+
+        if(crypt3(password, salt) === truePass)
+        {
+            cb(null, new User(username))
+        }
+        else
+        {
+            cb(new Error("PasswordError"), null);
+        }
+    });
 }
 
+require('./app/routes.js')(app, passport)
 
-
-function User(username)
-{
-    this.username = username;
-}
-
-
-
-raspberry = new PiDash();
+raspberry = new PiDash(app, socketio);
