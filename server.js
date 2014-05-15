@@ -4,80 +4,36 @@ var http        = require("http"),
     crypt3      = require("crypt3"),
     express     = require('express'),
     io          = require('socket.io'),
-    url         = require("url"),
     path        = require("path"),
     fs          = require("fs"),
     os          = require("os"),
     colors      = require("colors"),
     optimist    = require("optimist").argv,
-    config      = require("./config.json"),
+    config      = require("./config/config.json"), // config file
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
-    https_pos   = config.forceSSL;
-function PiDash()
+    
+var app = express()
+
+
+app.use("/static", express.static(__dirname + "/../public"));
+
+function requireHTTPS(req, res, next) 
 {
-    'use strict'
-    // Set up server
-    this.app = express();
-
-    this.https_keys = {
-        key: "",
-        cert: ""
-    };
-
-    this.checkSystem();
-    this.checkOptions();
-    this.setupServer();
-
-    this.RaspberryStats = {
-        GPUstat: {
-            temperature: 0
-        },
-        RAMstat: {
-            free: 0,
-            used: 0,
-            total: 0
-        },
-        CPUstat: {
-            us: 0,
-            sy: 0,
-            ni: 0,
-            id: 0,
-            wa: 0,
-            hi: 0,
-            si: 0,
-            st: 0,
-            temperature: 0
-        }
-    };
-
-    //this.exec = require('child_process').exec,
-    //    child;
-
+    if (!req.secure) 
+    {
+         //FYI this should work for local development as well
+         return res.redirect('https://' + req.get('host') + req.url);
+    }
+    next();
 }
 
-PiDash.prototype.setupServer = function()
+app.use(requireHTTPS);
+
+
+if (config.forceSSL)
 {
-
-    this.app.use("/static", express.static(__dirname + "/../public"));
-
-    function requireHTTPS(req, res, next) 
-    {
-        if (!req.secure) 
-        {
-            //FYI this should work for local development as well
-            return res.redirect('https://' + req.get('host') + req.url);
-        }
-        next();
-    }
-    
-    this.app.use(requireHTTPS);
-
-
-    if (https_pos)
-    {
-
-        var httpsOptions = {
+     var httpsOptions = {
             key: fs.readFileSync(this.https_keys.key).toString(),
             cert: fs.readFileSync(this.https_keys.cert).toString()
         };
@@ -92,7 +48,7 @@ PiDash.prototype.setupServer = function()
     this.socketio = io.listen(this.server);
 }
 
-PiDash.prototype.authUser = function(username, password, cb)
+function authUser(username, password, cb)
 {
     fs.readFile("/etc/shadow", function(err, data)
                 {
@@ -123,36 +79,8 @@ PiDash.prototype.authUser = function(username, password, cb)
                 });
 }
 
-PiDash.prototype.systemOverview = function()
-{
-    return {
-        "hostname":os.hostname(),
-        "type": os.type(),
-        "platform" : os.platform(),
-        "arch": os.arch(),
-        "release": os.release(),
-        "uptime": os.uptime(),
-        "loadavg": os.loadavg(),
-        "totalmem": os.totalmem(),
-        "freemem": os.freemem(),
-        "cpus": os.cpus(),
-        "netwok": os.networkInterfaces(),
-    }
-}
 
-
-PiDash.prototype.updateStats = function()
-{
-    var data = this.systemOverview()
-    this.RAMstat = {
-        free: data.freemem,
-        used: data.totalmam - data.freemem,
-        total: data.totalmem
-    }
-
-}
-
-PiDash.prototype.checkSystem = function()
+function checkSystem()
 {
     if(os.type() != "Linux")
     {
@@ -161,7 +89,7 @@ PiDash.prototype.checkSystem = function()
     }
 }
 
-PiDash.prototype.checkOptions = function()
+function checkOptions()
 {
 
     if(optimist.help || optimist.h)
@@ -196,17 +124,14 @@ PiDash.prototype.checkOptions = function()
             process.exit(1);
         }
 
-        this.https_keys = {
-            cert: cert,
-            key: key
-        }
+        
     }
 
 }
 
-PiDash.prototype.bindingSuccess = function()
+function bindingSuccess()
 {
-    if(https_pos)
+    if()
     {
         console_sufix = "s:/";
     }
@@ -230,49 +155,7 @@ function getStdOutput(cmd,cb)
          });
 }
 
-/*
-var getData = setInterval(function()
-                          {
 
-                              getStdOutput('cat /sys/class/thermal/thermal_zone0/temp',function(out)
-                                           {    
-                                               var temp = out/1000
-                                               CPUstat.temperature = temp
-
-                                           });
-                              getStdOutput('ps -aux',function(out)
-                                           {
-                                               console.log(out)
-                                           });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                              //console.log(CPUstat)
-                          },1000)
-
-
-
-
-
-
-
-
-
-
-*/
 
 function User(username)
 {
