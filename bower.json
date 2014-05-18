@@ -23,6 +23,7 @@
         "socket.io-client": "0.9",
         "bootstrap": "3.1",
         "jquery-mobile": "*",
-        "traqball.js": "https://github.com/dirkweber/traqball.js.git"
+        "traqball.js": "https://github.com/dirkweber/traqball.js.git",
+        "owlcarousel": "*"
     }
 }

@@ -4,8 +4,11 @@
         <title>PiMonitor - Dashboard</title>
         <link rel="stylesheet" href="../public/static/css/Dashboard.css" >
         <link rel="stylesheet" href="../public/static/modules/bootstrap/dist/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="../public/static/modules/owlcarousel/owl-carousel/owl.carousel.css">
+        <link rel="stylesheet" href="../public/static/modules/owlcarousel/owl-carousel/owl.theme.css">
         <script src="../public/static/modules/jquery/dist/jquery.min.js"> </script>
         <script src="../public/static/modules/bootstrap/dist/js/bootstrap.min.js"> </script>
+        <script src="../public/static/modules/owlcarousel/owl-carousel/owl.carousel.min.js"> </script>
     </head>
     <body>
         <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -44,5 +47,97 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-8">
+                    <button id="widget-button" type="button" class="btn btn-default" >Edit Widgets</button>
+                </div>
+            </div>
+            
+        </div>
+        <div id="widgets" class="owl-carousel">
+            
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            <div class="widget">
+                <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">CPU info</span></div>
+            </div>
+            
+            
+        </div>
+        
+        <div class="container">
+            Hello
+        </div>
+        <script>$(document).ready(function() {
+ 
+  $("#widgets").owlCarousel({
+      items: 6,
+      
+      itemsDesktop: [1199,4],
+      itemsDesktopSmall: [979,3],
+      itemsTablet: [768,2],
+      itemsMobile: [479,1],
+      
+      navigation: true
+  });
+    
+    $("#widget-button").click(function(){
+        var w = $("#widgets");
+        if(w.height())
+        {
+            w.css("height", "0px");
+        }
+        else
+        {
+            w.css("height", "215px");
+        }
+        
+    })
+ 
+});</script>
     </body>
 </html>
