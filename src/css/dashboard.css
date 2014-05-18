@@ -38,6 +38,10 @@
     cursor: move;
 }
 
+.widget-content {
+    padding: 5px;
+}
+
 .widget-menu {
     cursor: pointer;
 }
