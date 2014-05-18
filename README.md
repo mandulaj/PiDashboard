@@ -14,7 +14,7 @@ This project aims at delivering a beautiful interface for monitoring and control
 From GitHub
 
 ```bash
-    $ git://github.com/zpiman/PiDashboard.js
+    $ git clone git://github.com/zpiman/PiDashboard.js
     $ cd PiDashboard.js
     $ 
     $ # download & install all deps
