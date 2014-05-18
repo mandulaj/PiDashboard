@@ -1,9 +1,6 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
     nodemon = require('gulp-nodemon'),
-    //jshint = require('gulp-jshint'),
-    //imagemin = require('gulp-imagemin'),
     minifyCSS = require('gulp-minify-css')
     less = require('gulp-less'),
     prefix = require('gulp-autoprefixer');
@@ -20,7 +17,6 @@ var paths = {
 gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
       .pipe(uglify())
-      .pipe(concat('all.min.js'))
       .pipe(gulp.dest('public/static/js'));
 });
 

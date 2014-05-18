@@ -29,11 +29,8 @@
         
         "uglify-js": "2.x",
         "gulp-uglify": "*",
-        "gulp-concat": "*",
-        "gulp-imagemin": "*",
         "gulp-less": "*",
         "gulp-nodemon": "*",
-        "gulp-jshint": "*",
         "gulp-autoprefixer": "*",
         "gulp-minify-css": "*"
     },
