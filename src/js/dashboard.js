@@ -3,9 +3,15 @@ window.pidash = {
     widgets: [
         {
             id: "#wg-cpuInfo",
-            title: "CPU info!!!!",
+            title: "CPU info",
             description: "<p>Get general info about your Pi's central processor.</p>",
-        }   
+        },
+        {
+            id: "#wg-ramInfo",
+            title: "RAM info",
+            description: "<p>Is the Pi running slow? See how is your Pi's memory doing.</p>",
+        },
+        
     ],
     widgetsDown: false,
     wObjects:[]
@@ -48,6 +54,14 @@ $(document).ready(function() {
         window.pidash.wObjects[i].render();
     }
     
+    $("#widgets").droppable({})
+    
+    $("#widgets").on("drop",function(event, ui){
+        console.log(ui)
+        $("#widgets").data('owlCarousel').addItem(ui.draggable[0].outherHTML)
+        
+    })
+    
 });
 
 
@@ -60,7 +74,8 @@ function Widget(specs)
     this.description = specs.description;
     
     this.element.find(".widget-top").mousedown(function(){
-        self.element.parent().draggable()
+        self.element.detach().appendTo("body")
+        self.element.draggable({ appendTo: "body" })
     })
 }
 
