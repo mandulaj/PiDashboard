@@ -1,11 +1,12 @@
 #widget-button {
     float: right;
+    margin-top: 20px;
 }
 
 #widgets {
     margin-top: 20px;
     margin-bottom: 20px;
-    height: 215px;
+    height: 0px;
     background-color: rgba(60, 192, 60, 0.71);
     box-shadow: inset 0px 5px 10px rgba(0, 0, 0, 0.3),
                 inset 0px -5px 10px rgba(0, 0, 0, 0.3);
