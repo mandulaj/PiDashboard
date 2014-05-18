@@ -16,7 +16,15 @@ From GitHub
 ```bash
     $ git://github.com/zpiman/PiDashboard.js
     $ cd PiDashboard.js
-    $ npm install -g
+    $ 
+    $ # download & install all deps
+    $ npm install
+    $ 
+    $ # download the client plugins
+    $ bower install
+    $ 
+    $ # compile all the scripts and css
+    $ gulp
 ```
 ###Useful links
 * [Node.js](http://nodejs.org/)
@@ -27,7 +35,7 @@ From GitHub
 
 ##How to start the server?
 ```bash
-    $ sudo node PiDashboard.js &
+    $ sudo node server.js &
 ```
 ##Usage
 
@@ -35,21 +43,36 @@ From GitHub
 Type `-h` or `--help` to get a small hint about the options.
 
 ####Choosing port
-The default port is _3141_ so when the server starts without any parameters you should be able to access it at `localhost:3141`.
+The default port is _3141_ so when the server starts without any parameters you should be able to access it at `https://localhost:3141`.
 With `-p xxxx` the server launches on the specific port. However it is recommended to leave this in its default state except you know what you are doing.
-If the port is not availabe a backup port `9090` is used. The ports can be customized in the `config.json` file.
+The port can be customized in the `config/config.json` file.
 
 ####Running SSL
-By default the server launches  as an unencrypted http/tcp server. If you plan to contol your Pi over the internet it is strongly recommended to use SSL.
-Create a `./key.pem` and `cert.pem` using openssl. You can self-sign the certificate but get over with the warnings your browser will give you.
-Add an `--key` or `--cert` option. By default the server looks for both files in the `./keys` directory. You can specify the path for each file after each option like so:
+By default the server launches as an encrypted https server. If you plan to control your Pi over the internet it is strongly recommended to use SSL.
+Create a `./keys/server.key` and `./keys/server.crt` using openssl. You can self-sign the certificate but get over with the warnings your browser will give you.
+Add an `--key` or `--cert` option to specify other path to the files. By default the server looks for both files in the `./keys` directory. You can specify the path for each file after each option like so:
 ```bash
 	$ sudo node PiDashboard.js --key test/keys/key.pem --cert test/keys/cert.pem
 ```	
-Set `forceSSL` in the `config.json` to `true` to run the server in **https://** mode by default.
+Set `forceSSL` in the `config.json` to `false` to run the server in **http://** mode by default however as I said this is not a good idea in case you want to work over the internet. 
+The app provides and SSH client which would be an open gate for anyone. Thus I recommend generating a 2048 bit RSA key and getting over with the browser pointing out the self signed certificate. 
+However if you want to buy an certificate, go and do so. It will be only for your benefit
+
+##Features
+* SSL enabled
+* Full live system overview
+* CPU, GPU, RAM load & temperature
+* Fun and slick GUI
+* Custom Dashboard page with useful widgets
+* Web SSH client
+* Mobile compatibility
+* Responsiveness
+* Low resource requirements
+* Process overview
+* Useful graphs and time logs
 
 ##Changelog
-  
+
 ######v0.0.2
 * Added index.html file with a 3D Raspberry Pi model
 * Base Framework for animating 3D elements
