@@ -8,6 +8,14 @@ module.exports = function(app, passport, config)
         res.render("index.ejs")
     });
     
+    app.get("/ssh", isAuthenticated, function(req, res){
+        res.render("ssh.ejs")
+    });
+    
+    app.get("/dashboard", isAuthenticated, function(res, req){
+        res.render("dashboard.ejs")
+    });
+    
     function isAuthenticated(req, res, next)
     {
         
