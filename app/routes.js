@@ -4,16 +4,20 @@ module.exports = function(app, passport, config)
         res.render("login.ejs");
     });
     
-    app.get("/rpi", isAuthenticated, function(req, res){
-        res.render("index.ejs")
+    app.get("/rpi", function(req, res){
+        res.redirect("/rpi/home")
     });
     
-    app.get("/ssh", isAuthenticated, function(req, res){
-        res.render("ssh.ejs")
+    app.get("/rpi/home", isAuthenticated, function(req, res){
+        res.render("index.ejs");
     });
     
-    app.get("/dashboard", isAuthenticated, function(res, req){
-        res.render("dashboard.ejs")
+    app.get("/rpi/ssh", isAuthenticated, function(req, res){
+        res.render("ssh.ejs");
+    });
+    
+    app.get("/rpi/dashboard", isAuthenticated, function(req, res){
+        res.render("dashboard.ejs");
     });
     
     function isAuthenticated(req, res, next)
