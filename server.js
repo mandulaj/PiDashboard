@@ -13,17 +13,20 @@ var http        = require("http"),
     optimist    = require("optimist").argv,
     
     config      = require("./config/config.json"), // config file
+    
     port        = optimist.p || config.port,
     exec        = require('child_process').exec,
     
     PiDash      = require('./lib/PiDash.js'),
-    
     flash       = require('connect-flash');
 
 var app = express();
 var server;
 var socketio;
 setup();
+
+var passportConfig = require("./config/passport.js")(passport,config);
+
 
 app.configure(function(){
     
@@ -38,7 +41,6 @@ app.configure(function(){
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(flash());
-    
     // Serving static files
     app.use("/static", express.static(__dirname + "/public/static"));
     

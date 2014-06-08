@@ -20,12 +20,17 @@ module.exports = function(app, passport, config)
         res.render("dashboard.ejs");
     });
     
+    app.get("/logout", function(req, res){
+        req.logout();
+        res.redirect("/");
+    });
+
     function isAuthenticated(req, res, next)
     {
         
-        if (true)
+        if (req.isAuthenticated())
         {
-            next();
+            return next();
         }
         else
         {
