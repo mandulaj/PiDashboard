@@ -29,7 +29,7 @@ module.exports = function(app, passport, config)
     });
     
     app.post('/login', function(req, res, next) {
-        console.log("Hello")
+
         passport.authenticate('local-login', function(err, user, info){
             if (err) {return next(err);}
             if (!user) {
