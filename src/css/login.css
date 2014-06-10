@@ -4,3 +4,7 @@
     margin-bottom: 0;
     line-height: 48px;
 }
+
+.hidden{
+    display: none;
+}

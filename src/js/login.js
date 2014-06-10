@@ -3,6 +3,7 @@ $(document).ready(function(){
 $("#loginbtn").on("click", function(){
     var pass = true;
     $(".errormsg").html("");
+    $(".errormsg").removeClass("hidden")
     if (!checkUsername()) pass = false;
     if (!checkPassword()) pass = false;
     
@@ -17,6 +18,10 @@ $("#loginbtn").on("click", function(){
             console.log("Yey")
             console.log(data)
         })
+    }
+    else
+    {
+        $(".errormsg").addClass("hidden")
     }
 })
 
