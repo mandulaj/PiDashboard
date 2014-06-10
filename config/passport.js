@@ -6,13 +6,11 @@ module.exports = function(passport, config)
     
     passport.serializeUser(function(user, done) 
     {
-        console.log("User: " + JSON.stringify(user))
         done(null, user);
     });
  
     passport.deserializeUser(function(obj, done)
     {
-        console.log("Obj: "+ JSON.stringify(obj))
         done(null, obj);
     });
     
@@ -24,13 +22,16 @@ module.exports = function(passport, config)
         },
         function(req, username, password, done) 
         {
-            console.log("Username:" + JSON.stringify(username))
-            console.log("Pass" + JSON.stringify(password))
-            //if (!username)
-                //return done(null, false, req.flash('loginMessage', 'No user found.'));
-            //if (!username.validPassword(password))
-                //return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-            return done(null, username);
+            if (!username)
+                return done(null, false, req.flash('loginMessage', 'No user found.'));
+            
+            if (!password)
+                return done(null, false, req.flash('loginMessage', 'No password found.'));
+            
+            var user = new User(username);
+            user.passwordVerification(password, function(err, user){
+                return done(err, user);
+            });
         })
    );
 }
