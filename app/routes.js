@@ -1,7 +1,15 @@
 module.exports = function(app, passport, config)
 {
-    app.get("/", function(req, res){
-        res.render("login.ejs",  { message: req.flash('loginMessage') });
+    app.get("/", function(req,res){
+        
+        if (req.isAuthenticated())
+        {
+            res.redirect("/rpi/home")
+        }
+        else
+        {
+            res.render("login.ejs",  { message: req.flash('loginMessage') });
+        }
     });
     
     app.get("/rpi", function(req, res){
@@ -21,6 +29,7 @@ module.exports = function(app, passport, config)
     });
     
     app.post('/login', function(req, res, next) {
+        console.log("Hello")
         passport.authenticate('local-login', function(err, user, info){
             if (err) {return next(err);}
             if (!user) {
@@ -32,8 +41,8 @@ module.exports = function(app, passport, config)
                     return next(err);
                 }
                 return res.send({login: true});
-            })
-        });
+            });
+        })(req,res,next)
                               
     });
     
@@ -55,4 +64,5 @@ module.exports = function(app, passport, config)
             res.redirect("/")
         }
     }
+    
 }

@@ -1,3 +1,5 @@
+$(document).ready(function(){
+
 $("#loginbtn").on("click", function(){
     var pass = true;
     $(".errormsg").html("");
@@ -8,15 +10,23 @@ $("#loginbtn").on("click", function(){
         $.ajax({
             url: "/login",
             cache: false,
-            data: {username: $("#username").val(), password: $("#password").val()},
-            success: function(data, status){
-                console.log(data)
-            }
+            type: "POST",
+            dataType: "json",
+            data: {username: $("#username").val(), password: $("#password").val()}
+        }).done(function(data){
+            console.log("Yey")
+            console.log(data)
         })
     }
 })
 
-function chackUsername() {
+
+$("#form").submit(function(e){
+    console.log("test");
+    e.preventDefault();
+});
+
+function checkUsername() {
     var user = $("#username");
     if (user.val() == "")
     {
@@ -29,7 +39,7 @@ function chackUsername() {
     }
 }
 
-function checkUsername() {
+function checkPassword() {
     var pass = $("#password");
     if (pass.val().length === 0)
     {
@@ -41,3 +51,8 @@ function checkUsername() {
         return true;
     }
 }
+
+
+
+
+})
