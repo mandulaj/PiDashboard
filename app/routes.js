@@ -20,12 +20,22 @@ module.exports = function(app, passport, config)
         res.render("dashboard.ejs");
     });
     
-    app.post('/login', passport.authenticate('local-login', 
-    {
-		successRedirect : '/rpi/home',
-		failureRedirect : '/',
-		failureFlash : true
-	}));
+    app.post('/login', function(req, res, next) {
+        passport.authenticate('local-login', function(err, user, info){
+            if (err) {return next(err);}
+            if (!user) {
+                return res.send({login: false});
+            }
+            
+            req.login(user, function(err){
+                if (err) {
+                    return next(err);
+                }
+                return res.send({login: true});
+            })
+        });
+                              
+    });
     
     
     app.get("/logout", function(req, res){

@@ -2,10 +2,12 @@
 <html>
     <head>
         <title>PiMonitor - Login</title>
-        <link rel="stylesheet" href="/static/css/login.css" >
-        <link rel="stylesheet" href="/static/modules/bootstrap/dist/css/bootstrap.min.css" >
-        <script src="/static/modules/jquery/dist/jquery.min.js"> </script>
-        <script src="/static/modules/bootstrap/dist/js/bootstrap.min.js"> </script>
+        <link rel="stylesheet" href="../public/static/css/login.css" >
+        <link rel="stylesheet" href="../public/static/modules/bootstrap/dist/css/bootstrap.min.css" >
+        <script src="../public/static/modules/jquery/dist/jquery.min.js"> </script>
+        <script src="../public/static/modules/bootstrap/dist/js/bootstrap.min.js">
+        </script>
+        <script src="../public/static/js/login.js" ></script>
     </head>
     <body>
         <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -14,13 +16,23 @@
             </div>
         </div>
         <div class="container">
-            <% if (message.length > 0) { %>
+            <div class=row>
+                <div class="col-md-4 col-md-offset-4">
+                    <h4>Welcome to your Pi Dashboard</h3>
+                    <p> Use your System Username and Password to get strated.</p>
+                </div>
+            </div>
+            <div class=row>
+            <!--<% if (message.length > 0) { %>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 alert alert-danger">
                     <%= message %>
                 </div>
             </div>
-            <% } %>
+            <% } %>-->
+                <div class="errormsg col-md-4 col-md-offset-4 alert alert-danger">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <h3><span class="fa fa-sign-in"></span>Login</h3>
@@ -38,8 +50,14 @@
                                 <input type="checkbox"> Remember me
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button id="loginbtn" type="submit" class="btn btn-primary">Submit</button>
                     </form>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <img  src="../public/static/images/rpi.svg" width="100%">
                 </div>
             </div>
         </div>
