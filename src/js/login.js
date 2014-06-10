@@ -3,7 +3,7 @@ $(document).ready(function(){
 $("#loginbtn").on("click", function(){
     var pass = true;
     $(".errormsg").html("");
-    $(".errormsg").removeClass("hidden")
+    $(".errormsg").addClass("hidden")
     if (!checkUsername()) pass = false;
     if (!checkPassword()) pass = false;
     
@@ -15,13 +15,20 @@ $("#loginbtn").on("click", function(){
             dataType: "json",
             data: {username: $("#username").val(), password: $("#password").val()}
         }).done(function(data){
-            console.log("Yey")
-            console.log(data)
+            if (data.login)
+            {
+                window.location.replace("/rpi/home");
+            }
+            else
+            {
+                $(".errormsg").removeClass("hidden");
+                $(".errormsg").html("Wrong Username and Password pair.");
+            }
         })
     }
     else
     {
-        $(".errormsg").addClass("hidden")
+        $(".errormsg").removeClass("hidden")
     }
 })
 

@@ -8,7 +8,7 @@ module.exports = function(app, passport, config)
         }
         else
         {
-            res.render("login.ejs",  { message: req.flash('loginMessage') });
+            res.render("login.ejs");
         }
     });
     
