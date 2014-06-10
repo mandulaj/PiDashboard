@@ -2,14 +2,20 @@ window.pidash = {
 
     widgets: [
         {
-            id: "#wg-cpuInfo",
+            position: 0,
+            id: "wg-cpuInfo",
             title: "CPU info",
+            image: "cpuInfo.jpg",
             description: "<p>Get general info about your Pi's central processor.</p>",
+            inCarousel: true
         },
         {
-            id: "#wg-ramInfo",
+            position: 1,
+            id: "wg-ramInfo",
             title: "RAM info",
+            image: "ramInfo.jpg",
             description: "<p>Is the Pi running slow? See how is your Pi's memory doing.</p>",
+            inCarousel: true
         },
         
     ],
@@ -19,7 +25,9 @@ window.pidash = {
 
 
 $(document).ready(function() {
-
+    
+    
+    
     $("#widgets").owlCarousel({
         items: 6,
         itemsDesktop: [1199,4],
@@ -28,7 +36,9 @@ $(document).ready(function() {
         itemsMobile: [479,1],
         navigation: true
     });
-
+    
+    var carousel = $("#widgets").data('owlCarousel');
+    
     $("#widget-button").click(function(){
         var w = $("#widgets");
         if(w.height())
@@ -39,48 +49,66 @@ $(document).ready(function() {
         else
         {
             window.pidash.widgetsDown = true;
-            w.css("height", "215px");
+            w.css("height", "273px");
         }
     })
     
     for (var i = 0; i < window.pidash.widgets.length; i++)
     {
-        window.pidash.wObjects.push(new Widget({
-            id: window.pidash.widgets[i].id,
-            title: window.pidash.widgets[i].title,
-            description: window.pidash.widgets[i].description
-        }));
-        
-        window.pidash.wObjects[i].render();
+        window.pidash.wObjects.push(new Widget( window.pidash.widgets[i],carousel));
     }
     
     $("#widgets").droppable({})
     
     $("#widgets").on("drop",function(event, ui){
         console.log(ui)
-        $("#widgets").data('owlCarousel').addItem(ui.draggable[0].outherHTML)
+        carousel.addItem(ui.draggable[0].outherHTML)
         
     })
     
 });
 
 
-function Widget(specs)
+function Widget(specs, parent)
 {
     var self = this;
-    this.element = $(specs.id);
+    this.position = specs.position;
+    this.inCarousel = specs.inCarousel;
     this.id = specs.id; 
     this.title = specs.title;
     this.description = specs.description;
     
+    if (this.inCarousel)
+    {
+        parent.addItem(this.renderCarouselWidget())
+    }
+    else
+    {
+        
+    }
+    this.element = $("#" + specs.id);
+    
+    
     this.element.find(".widget-top").mousedown(function(){
-        self.element.detach().appendTo("body")
-        self.element.draggable({ appendTo: "body" })
+        if(self.inCarousel)
+        {
+            console.log("Mouse")
+            self.element.detach().appendTo("body")
+            self.element.draggable({ appendTo: "body" })
+            var carousel = $("#widgets").data("owlCarousel");
+            carousel.removeItem(self.position);
+            self.inCarousel = false;
+            $("#widgets").css("height", "273px");
+        }
     })
 }
 
-Widget.prototype.render = function()
+Widget.prototype.renderCarouselWidget = function()
 {
-    this.element.find(".widget-name").html(this.title)
-    this.element.find(".widget-content").html(this.description)
+    return '<div class="widget" id=' + this.id + '> <div class="widget-top"><span class="widget-menu glyphicon glyphicon-align-justify"></span> <span class="widget-name">' + this.title +'</span></div> <div class="widget-content">' + this.description + '</div></div>';
+}
+
+Widget.prototype.renderWidget = function()
+{
+    
 }
