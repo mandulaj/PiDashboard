@@ -4,7 +4,7 @@ var http        = require("http"),
     https       = require("https"),
     express     = require('express'),
     passport    = require('passport'),
-    io          = require('socket.io'),
+    
     crypt3      = require("crypt3"),
     fs          = require("fs"),
     os          = require("os"),
@@ -131,7 +131,7 @@ function setup() {
         console.log("Server running at => ".green + "http" + console_sufix +"/localhost:" + port);
     });
     
-    socketio = io.listen(server);
+    socketio = require('socket.io')(server);
 }
 
 
@@ -139,4 +139,4 @@ function setup() {
 require('./app/routes.js')(app, passport, config)
 
 
-var raspberry = new PiDash(app, socketio);
+var raspberry = new PiDash(app, socketio, config);

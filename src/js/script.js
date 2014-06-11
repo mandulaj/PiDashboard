@@ -43,6 +43,13 @@ function RaspberryPi(model, stage3d)
     
     
     this.initSelf();
+    
+    
+    this.socket = io("/");
+    this.socket.on("test", function(data){
+        console.log(data);
+    })
+    
 }
 
 RaspberryPi.prototype.initSelf = function ()
