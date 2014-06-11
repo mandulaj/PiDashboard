@@ -45,7 +45,7 @@ function RaspberryPi(model, stage3d)
     this.initSelf();
     
     
-    this.socket = io("/");
+    this.socket = io("/sysStat");
     this.socket.on("test", function(data){
         console.log(data);
     })
