@@ -16,7 +16,7 @@ var paths = {
 
 gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
-      .pipe(uglify())
+      //.pipe(uglify())
       .pipe(gulp.dest('public/static/js'));
 });
 

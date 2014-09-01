@@ -10,7 +10,25 @@ function RaspberryPi(model, stage3d)
     this.rotateZ = 40;
     this.connected = true;
     this.infoBox = $(".info-content")
+    
+    this.processes = [];
+    
+    this.angHome  = angular.module("home",[]);
+    this.angHome.controller('tableShowCtrl', function ( $scope ){
+        $scope.procs = [];
+        $scope.update = function(){
+            $scope.procs = thisObj.processes;
+        }
+        //
+        setInterval(function(){
+            $scope.update();
+            $scope.$apply();
+        },1000)
+        
+    })
 
+    
+    
     this.traqball = new Traqball({
         stage: stage3d,
         //axis: [0.5,1,0,0.25],
@@ -46,8 +64,8 @@ function RaspberryPi(model, stage3d)
     
     
     this.socket = io("/sysStat");
-    this.socket.on("test", function(data){
-        console.log(data);
+    this.socket.on("info", function(data){
+        this.processes = data.processes;
     })
     
 }
@@ -114,6 +132,8 @@ function HWComponent( id, rpi )
     this.moverClassIn = id + "-mover-in";
     this.moverClassExt = id + "-ext";
     this.out = false;
+    
+
     
     this.element.click(function () 
     {
@@ -187,4 +207,8 @@ HWComponent.prototype.animateIn = function()
 $(document).ready(function()
 {
     RPi = new RaspberryPi(".pi", "stage");
+    
 });
+
+
+

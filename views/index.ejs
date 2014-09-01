@@ -1,5 +1,5 @@
 <!DOCTYPE html5>
-<html>
+<html ng-app="home">
     <head>
         <title>PiMonitor</title>
         <link rel="stylesheet" href="/static/css/stylesheet.css" >
@@ -8,6 +8,7 @@
         <script src="/static/modules/traqball.js/src/traqball.js"> </script>
         <script src="/static/modules/socket.io-client/socket.io.js"> </script>
         <script src="/static/modules/bootstrap/dist/js/bootstrap.min.js"> </script>
+        <script src="/static/modules/angular/angular.min.jss"> </script>
         <script src="/static/js/script.js" > </script>
     </head>
 
@@ -140,6 +141,21 @@
                         <div id="default_info_content">Click one of the components on the model to get information about it.</div>
                     </div>
                 </div>
+            </div>
+            <div ng-controller="tableShowCtrl" class="row">
+                <table>
+                    <tr>
+                        <th>PID</th>
+                        <th>Command</th>
+                        <th>User</th>
+                    </tr>
+                    
+                    <tr ng-repeat="i in procs">
+                        <td>{{i.pid}}</td>
+                        <td>{{i.command}}</td>
+                        <td>{{i.user}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </body>
