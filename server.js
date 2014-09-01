@@ -1,23 +1,25 @@
 // PiMonitor.js
 
-var http        = require("http"),
-    https       = require("https"),
-    express     = require('express'),
-    passport    = require('passport'),
+var http        = require("http"), // needed for express server
+    https       = require("https"), // we want to be secure
+    express     = require('express'), // we need to route the users around efficiently
+    passport    = require('passport'), // used for authentication
     
-    crypt3      = require("crypt3"),
-    fs          = require("fs"),
+    
+    // Following are used for user authentication
+    crypt3      = require("crypt3"), // used for password checking (unix passwords)
+    fs          = require("fs"), 
     os          = require("os"),
     
-    colors      = require("colors"),
+    colors      = require("colors"), // make nice output
     optimist    = require("optimist").argv,
     
     config      = require("./config/config.json"), // config file
     
-    port        = optimist.p || config.port,
+    port        = optimist.p || config.port, // port we will use
     exec        = require('child_process').exec,
     
-    PiDash      = require('./lib/PiDash.js'),
+    PiDash      = require('./lib/PiDash.js'), // lib used for geting computer statistics
     flash       = require('connect-flash');
 
 var app = express();
@@ -25,7 +27,7 @@ var server;
 var socketio;
 setup();
 
-var passportConfig = require("./config/passport.js")(passport,config);
+var passportConfig = require("./config/passport.js")(passport,config); 
 
 
 app.configure(function(){
