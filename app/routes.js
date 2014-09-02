@@ -4,11 +4,11 @@ module.exports = function(app, passport, config)
         
         if (req.isAuthenticated())
         {
-            res.redirect("/rpi/home")
+            res.redirect("/rpi/home") // if we are authenticated, redirect home
         }
         else
         {
-            res.render("login.ejs");
+            res.render("login.ejs"); // else we need to login...
         }
     });
     
@@ -61,7 +61,7 @@ module.exports = function(app, passport, config)
         }
         else
         {
-            res.redirect("/")
+            res.redirect("/") // send the user to the landing page if he is not logged in...
         }
     }
     
