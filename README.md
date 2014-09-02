@@ -84,6 +84,8 @@ However if you want to buy an certificate, go and do so. It will be only for you
 * + Port configuration
 * + `config.json` configuration file
 
+##TODO
+* update lib/PiDash.js to work with more then one client connection
 
 ##Credits
 * [Jakub Mandula](https://github.com/zpiman/ "zpiman")
