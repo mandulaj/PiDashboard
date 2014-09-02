@@ -7,7 +7,6 @@ var http        = require("http"), // needed for express server
     
     
     // Following are used for user authentication
-    crypt3      = require("crypt3"), // used for password checking (unix passwords)
     fs          = require("fs"), 
     os          = require("os"),
     
