@@ -1,15 +1,15 @@
-// App configuration file
+
 
 {
-    "port": 3141, // our default port
+    "port": 3141,
     
-    "forceSSL": true, // we always want SSL! DO NOT CHANGE THIS IF YOU DONT KNOW WHAT YOU ARE DOING!!!!
+    "forceSSL": true,
     "paths": {
-        "key": "./keys/server.key", // server private key
-        "cert": "./keys/server.crt", // certificate
-        "static": "./public/static", // where do we look for css and javascript
-        "public": "./public" // and where is the public folder 
+        "key": "./keys/server.key",
+        "cert": "./keys/server.crt",
+        "static": "./public/static",
+        "public": "./public"
     },
-    "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE" // used by passport - change it to something random
+    "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE"
 }
 

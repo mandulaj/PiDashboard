@@ -35,7 +35,7 @@ module.exports = function(passport, config)
             user.passwordVerification(password, function(err, user)  // run the cool, slick function to verify the password
             {
                 return done(err, user);// ok we are done here, pass everything to passport and let it do the dirty work...
-            });
-        });
+            })
+        })
    );
 }
