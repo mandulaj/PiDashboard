@@ -12,7 +12,7 @@ function RaspberryPi(model, stage3d)
     this.infoBox = $(".info-content")
     
     this.processes = [];
-    
+    /*
     this.angHome  = angular.module("home",[]);
     this.angHome.controller('tableShowCtrl', function ( $scope ){
         $scope.procs = [];
@@ -28,7 +28,7 @@ function RaspberryPi(model, stage3d)
     })
 
     
-    
+    */
     this.traqball = new Traqball({
         stage: stage3d,
         //axis: [0.5,1,0,0.25],
