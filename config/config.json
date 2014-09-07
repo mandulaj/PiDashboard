@@ -11,6 +11,6 @@
         "public": "./public"
     },
     "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE",
-    "updateFrequency": 1000
+    "updateFrequency": 3000
 }
 
