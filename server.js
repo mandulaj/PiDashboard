@@ -5,7 +5,6 @@ var http        = require("http"), // needed for express server
     express     = require('express'), // we need to route the users around efficiently
     passport    = require('passport'), // used for authentication
     
-    
     // Following are used for user authentication
     fs          = require("fs"), 
     os          = require("os"),
@@ -32,7 +31,7 @@ var passportConfig = require("./config/passport.js")(passport,config);
 app.configure(function(){
     
     
-    app.use(express.logger('dev'));
+    //app.use(express.logger('dev'));
     app.use(express.cookieParser());
     app.use(express.bodyParser());
     
