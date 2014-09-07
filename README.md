@@ -9,6 +9,10 @@ Monitoring server for Raspberry Pi
 
 This project aims at delivering a beautiful interface for monitoring and controlling your raspberry pi remotely from anywhere. Want to check the temperature? No problem. Want to have a quick `top` overview of your pi? Just open a browser and type the IP of your Raspberry computer. We will do the rest and provide you with a beautiful and rich experience.
 
+###Demo
+
+Try a sort of working demo version of [PiDashboard.js](http://zpiman.github.io/PiDashboard.js)
+
 ##How to install?
 
 From GitHub
