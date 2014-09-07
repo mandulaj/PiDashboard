@@ -42,7 +42,7 @@ function checkUsername() {
     var user = $("#username");
     if (user.val() == "")
     {
-        $(".errormsg").append("Enter Username")
+        $(".errormsg").append("Enter Username<br>")
         return false;
     }
     else
