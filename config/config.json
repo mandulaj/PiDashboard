@@ -10,6 +10,7 @@
         "static": "./public/static",
         "public": "./public"
     },
-    "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE"
+    "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE",
+    "updateFrequency": 1000
 }
 
