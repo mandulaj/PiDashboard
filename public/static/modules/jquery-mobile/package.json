@@ -1,0 +1,65 @@
+{
+	"name": "jquery-mobile",
+	"title": "jQuery Mobile",
+	"description": "Touch-Optimized Web Framework for Smartphones & Tablets",
+	"version": "1.4.3",
+	"homepage": "http://jquerymobile.com",
+	"author": {
+		"name": "jQuery Foundation Inc. and other contributors",
+		"url": "https://github.com/jquery/jquery-mobile/blob/1.4.3/AUTHORS.txt"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jquery/jquery-mobile.git"
+	},
+	"bugs": "https://github.com/jquery/jquery-mobile/issues",
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/jquery/jquery-mobile/blob/1.4.3/MIT-LICENSE.txt"
+		}
+	],
+	"dependencies": {
+		"jquery": ">=1.8.3"
+	},
+	"devDependencies": {
+		"async": "0.2.9",
+		"casperjs": "1.1.0-beta3",
+		"cheerio": "0.12.4",
+		"commitplease": "1.7.0",
+		"grunt": "0.4.2",
+		"grunt-bowercopy": "0.5.0",
+		"grunt-casper": "0.3.2",
+		"grunt-contrib-clean": "0.5.0",
+		"grunt-contrib-compress": "0.5.2",
+		"grunt-contrib-concat": "0.3.0",
+		"grunt-contrib-connect": "0.3.0",
+		"grunt-contrib-copy": "0.4.1",
+		"grunt-contrib-cssmin": "0.6.1",
+		"grunt-contrib-jshint": "0.6.3",
+		"grunt-contrib-requirejs": "0.4.1",
+		"grunt-contrib-uglify": "0.2.6",
+		"grunt-coveralls": "0.3.0",
+		"grunt-git-authors": "1.2.0",
+		"grunt-hash-manifest": "0.5.1",
+		"grunt-php": "0.3.2",
+		"grunt-qunit-istanbul": "0.3.0",
+		"grunt-qunit-junit": "0.1.0-alpha2",
+		"jsdom": "0.8.3",
+		"load-grunt-tasks": "0.3.0",
+		"optimist": "0.6.0",
+		"requirejs": "2.1.8",
+		"underscore": "1.5.2",
+		"xmlhttprequest": "1.6.0"
+	},
+	"main": "Gruntfile.js",
+	"engines": {
+		"node": ">= 0.8.0"
+	},
+	"scripts": {
+		"ci": "grunt test coveralls crawl",
+		"test": "grunt test",
+		"lint": "grunt jshint"
+	},
+	"keywords": []
+}

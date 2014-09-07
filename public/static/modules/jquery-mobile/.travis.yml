@@ -1,0 +1,64 @@
+language: php
+php:
+  - "5.5"
+before_script: 
+  - npm install -g grunt-cli
+  - npm install
+script: npm run-script ci
+branches:
+  only:
+    - 1.4-stable
+env:
+  - TYPES=unit
+    JQUERIES=1.8.3
+  - TYPES=unit
+    JQUERIES=1.10.2
+  - TYPES=unit
+    JQUERIES=1.11.1
+  - TYPES=unit
+    JQUERIES=2.0.3
+  - TYPES=unit
+    JQUERIES=2.1.1
+  - TYPES=unit
+    JQUERIES=git
+  - TYPES=integration
+    SUITES=!navigation
+    JQUERIES=1.8.3
+  - TYPES=integration
+    SUITES=!navigation
+    JQUERIES=1.10.2
+  - TYPES=integration
+    SUITES=!navigation
+    JQUERIES=1.11.1
+  - TYPES=integration
+    SUITES=!navigation
+    JQUERIES=2.1.1
+  - TYPES=integration
+    SUITES=!navigation
+    JQUERIES=2.0.3
+  - TYPES=integration
+    SUITES=!navigation
+    JQUERIES=git
+  - TYPES=integration
+    SUITES=navigation
+    JQUERIES=1.8.3
+  - TYPES=integration
+    SUITES=navigation
+    JQUERIES=1.10.2
+  - TYPES=integration
+    SUITES=navigation
+    JQUERIES=1.11.1
+  - TYPES=integration
+    SUITES=navigation
+    JQUERIES=2.1.1
+  - TYPES=integration
+    SUITES=navigation
+    JQUERIES=2.0.3
+  - TYPES=integration
+    SUITES=navigation
+    JQUERIES=git
+
+notifications:
+  irc:
+    channels:
+      - "chat.freenode.net#jqueryui-dev"

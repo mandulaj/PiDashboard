@@ -1,0 +1,12 @@
+{
+  "name": "jquery-ui",
+  "homepage": "https://github.com/jquery/jquery-ui",
+  "_release": "c0ab71056b",
+  "_resolution": {
+    "type": "commit",
+    "commit": "c0ab71056b936627e8a7821f03c044aec6280a40"
+  },
+  "_source": "git://github.com/jquery/jquery-ui.git",
+  "_target": "c0ab71056b936627e8a7821f03c044aec6280a40",
+  "_originalSource": "jquery/jquery-ui"
+}

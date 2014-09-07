@@ -1,0 +1,12 @@
+{
+  "name": "jquery-hashchange",
+  "homepage": "https://github.com/gseguin/jquery-hashchange",
+  "_release": "2da0c56fd4",
+  "_resolution": {
+    "type": "commit",
+    "commit": "2da0c56fd418fa323c136254f971b6176f1ae135"
+  },
+  "_source": "git://github.com/gseguin/jquery-hashchange.git",
+  "_target": "2da0c56fd418fa323c136254f971b6176f1ae135",
+  "_originalSource": "gseguin/jquery-hashchange"
+}

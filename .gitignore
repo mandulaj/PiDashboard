@@ -1,7 +1,6 @@
 node_modules
 *.swp
-# The compiled public files
-public/
+
 
 # Server keys
 keys
