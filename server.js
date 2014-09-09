@@ -1,25 +1,29 @@
 // PiMonitor.js
 
-var http        = require("http"), // needed for express server
-    https       = require("https"), // we want to be secure
-    express     = require('express'), // we need to route the users around efficiently
-    passport    = require('passport'), // used for authentication
-    
-    // Following are used for user authentication
-    fs          = require("fs"), 
-    os          = require("os"),
-    
-    colors      = require("colors"), // make nice output
-    optimist    = require("optimist").argv,
-    
-    config      = require("./config/config.json"), // config file
-    
-    port        = optimist.p || config.port, // port we will use
-    exec        = require('child_process').exec,
-    
-    PiDash      = require('./lib/PiDash.js'), // lib used for geting computer statistics
-    flash       = require('connect-flash');
+var http            = require("http"), // needed for express server
+    https           = require("https"), // we want to be secure
+    express         = require('express'), // we need to route the users around efficiently
+    passport        = require('passport'), // used for authentication
+    cookieParser    = require('cookie-parser'),   
+    session         = require('express-session'),
+    bodyParser      = require('body-parser'),
 
+    // Following are used for user authentication
+    fs              = require("fs"), 
+    os              = require("os"),
+    
+    colors          = require("colors"), // make nice output
+    optimist        = require("optimist").argv,
+    
+    config          = require("./config/config.json"), // config file
+    
+    port            = optimist.p || config.port, // port we will use
+    exec            = require('child_process').exec,
+    
+    PiDash          = require('./lib/PiDash.js'), // lib used for geting computer statistics
+    flash           = require('connect-flash');
+
+var logger = require('morgan');
 var app = express();
 var server;
 var socketio;
@@ -28,33 +32,27 @@ setup();
 var passportConfig = require("./config/passport.js")(passport,config); 
 
 
-app.configure(function(){
-    
-    
-    //app.use(express.logger('dev'));
-    app.use(express.cookieParser());
-    app.use(express.bodyParser());
-    
-    app.set('view engine', 'ejs');    
-    
-    app.use(express.session({ secret: config.cookieSecret })); // session secret
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(flash());
-    // Serving static files
-    app.use("/static", express.static(__dirname + "/public/static"));
-    
-    function requireHTTPS(req, res, next) 
+// Serving static files
+app.use("/static", express.static(__dirname + "/public/static"));
+
+//app.use(logger())
+app.use(cookieParser()); 
+app.use(bodyParser()); // TODO: Didn't work with bodyParser.json()
+app.set('view engine', 'ejs');    
+
+app.use(session({ secret: config.cookieSecret })); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
+function requireHTTPS(req, res, next) 
+{
+    if (!req.secure) 
     {
-        if (!req.secure) 
-        {
-             return res.redirect('https://' + req.get('host') + req.url);
-        }
-        next();
+         return res.redirect('https://' + req.get('host') + req.url);
     }
-    //app.use(requireHTTPS);
-     
-});
+    next();
+}
+//app.use(requireHTTPS);
 
 function setup() {
     'use strict';

@@ -19,6 +19,11 @@
     "dependencies": {
         "colors": "0.6.x",
         "express": "4.x",
+        "body-parser": "*",
+        "cookie-parser": "*",
+        "express-session": "*",
+        "morgan": "*",
+
         "optimist": "0.6.x",
         "socket.io": "1.x.x",
         "crypt3": "*",
