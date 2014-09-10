@@ -1,5 +1,5 @@
-var LocalStrategy = require('passport-local').Strategy; // we are using local authentication
-var User = require("../lib/User.js"); // user description and authentication methodes
+var LocalStrategy   = require('passport-local').Strategy, // we are using local authentication
+    User            = require("../lib/User.js"); // user description and authentication methodes
 
 module.exports = function(passport, config) 
 {

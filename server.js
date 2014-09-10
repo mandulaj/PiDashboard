@@ -21,7 +21,8 @@ var http            = require("http"), // needed for express server
     exec            = require('child_process').exec,
     
     PiDash          = require('./lib/PiDash.js'), // lib used for geting computer statistics
-    flash           = require('connect-flash');
+    flash           = require('connect-flash'),
+    socketioJwt   = require("socketio-jwt");
 
 var logger = require('morgan');
 var app = express();
@@ -130,11 +131,15 @@ function setup() {
     });
     
     socketio = require('socket.io')(server);
+    socketio.use(socketioJwt.authorize({
+        secret: config.socketIOSecret,
+        handshake: true
+    }));
 }
 
 
 
-require('./app/routes.js')(app, passport, config)
+require('./app/routes.js')(app, passport, config);
 
 
 var raspberry = new PiDash(app, socketio, config);

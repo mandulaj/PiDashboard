@@ -11,6 +11,7 @@
         "public": "./public"
     },
     "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE",
+    "socketIOSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE",
     "updateFrequency": 3000
 }
 

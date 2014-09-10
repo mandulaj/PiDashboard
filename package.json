@@ -26,6 +26,8 @@
 
         "optimist": "0.6.x",
         "socket.io": "1.x.x",
+        "jsonwebtoken": "*",
+        "socketio-jwt": "*",
         "crypt3": "*",
         "passport": "~0.1.17",
         "passport-local" : "~0.1.6",

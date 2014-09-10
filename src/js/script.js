@@ -63,10 +63,20 @@ function RaspberryPi(model, stage3d)
     this.initSelf();
     
     
-    this.socket = io("/sysStat");
+    this.socket = io("/sysStat", {
+      'query': 'token=' + sessionStorage.getItem("socketIOtoken")
+    });
     this.socket.on("info", function(data){
         console.log(data)
         this.processes = data.processes;
+    })
+
+    this.socket.on("error", function(error) {
+        console.log("error")
+        if (error.type == "UnauthorizedError" || error.code == "invalid_token") {
+            console.log("Invalid token")
+
+        }
     })
     
 }

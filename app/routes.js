@@ -1,3 +1,5 @@
+var jwt = require('jsonwebtoken');
+
 module.exports = function(app, passport, config)
 {
     app.get("/", function(req,res){
@@ -35,12 +37,17 @@ module.exports = function(app, passport, config)
             if (!user) {
                 return res.send({login: false});
             }
-            
             req.login(user, function(err){
                 if (err) {
                     return next(err);
                 }
-                return res.send({login: true});
+
+                var token = jwt.sign({name: user}, config.socketIOSecret, {expiresInMinutes: 60} )
+
+                return res.send({
+                    login: true,
+                    token: token
+                });
             });
         })(req,res,next)
                               

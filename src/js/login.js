@@ -17,6 +17,7 @@ $("#loginbtn").on("click", function(){
         }).done(function(data){
             if (data.login)
             {
+                sessionStorage.setItem("socketIOtoken", data.token);
                 window.location.replace("/rpi/home");
             }
             else
