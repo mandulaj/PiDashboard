@@ -88,7 +88,10 @@ RaspberryPi.prototype.initSelf = function ()
     
     $("#default_button").click(function (){
         thisObj.defaultPosition();
-    });   
+    });  
+    $("#logout_button").click(function(){
+        sessionStorage.setItem("socketIOtoken", "")
+    })
 };
 
 RaspberryPi.prototype.defaultPosition = function ()
