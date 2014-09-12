@@ -10,31 +10,15 @@ function RaspberryPi(model, stage3d)
     this.rotateZ = 40;
     this.connected = true;
     this.infoBox = $(".info-content")
-    
-    this.processes = [];
-    /*
-    this.angHome  = angular.module("home",[]);
-    this.angHome.controller('tableShowCtrl', function ( $scope ){
-        $scope.procs = [];
-        $scope.update = function(){
-            $scope.procs = thisObj.processes;
-        }
-        //
-        setInterval(function(){
-            $scope.update();
-            $scope.$apply();
-        },1000)
-        
-    })
 
-    
-    */
+    this.processes = [];
+
     this.traqball = new Traqball({
         stage: stage3d,
         //axis: [0.5,1,0,0.25],
         prespective: 1000
     });
-    
+
     this.components = {
         ethernet:   new HWComponent("ethernet", this),
         usb:        new HWComponent("usb", this),
@@ -42,10 +26,10 @@ function RaspberryPi(model, stage3d)
         ram:        new HWComponent("ram", this),
         sd:         new HWComponent("sd", this)
     };
-    
+
     /*
     this.ledsControl = {
-        
+
         leds: [
             $("led1"),
             $("led2"),
@@ -57,12 +41,12 @@ function RaspberryPi(model, stage3d)
             if()
         },10)
     }*/
-    
-    
-    
+
+
+
     this.initSelf();
-    
-    
+
+
     this.socket = io("/sysStat", {
       'query': 'token=' + sessionStorage.getItem("socketIOtoken")
     });
@@ -78,17 +62,17 @@ function RaspberryPi(model, stage3d)
 
         }
     })
-    
+
 }
 
 RaspberryPi.prototype.initSelf = function ()
 {
     'use strict'
     var thisObj = this;
-    
+
     $("#default_button").click(function (){
         thisObj.defaultPosition();
-    });  
+    });
     $("#logout_button").click(function(){
         sessionStorage.setItem("socketIOtoken", "")
     })
@@ -106,7 +90,7 @@ RaspberryPi.prototype.defaultPosition = function ()
         thisObj.model.removeClass( "picontainer_mover" );
         //thisObj.traqball.activate();
     },500);
-    
+
 
 };
 
@@ -146,13 +130,13 @@ function HWComponent( id, rpi )
     this.moverClassIn = id + "-mover-in";
     this.moverClassExt = id + "-ext";
     this.out = false;
-    
 
-    
-    this.element.click(function () 
+
+
+    this.element.click(function ()
     {
         thisObj.parentRPi.traqball.disable();
-        
+
         if (thisObj.out === false)
         {
             thisObj.parentRPi.hideAll();
@@ -165,7 +149,7 @@ function HWComponent( id, rpi )
             {
                 thisObj.parentRPi.components.cpu.animateOut();
             }
-            
+
             thisObj.parentRPi.defaultPosition();
             setTimeout(function() {
                 thisObj.animateOut();
@@ -201,8 +185,8 @@ HWComponent.prototype.animateOut = function()
         thisObj.element.removeClass(thisObj.moverClassOut);
         thisObj.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
     });
-    this.out = true;    
-};    
+    this.out = true;
+};
 
 HWComponent.prototype.animateIn = function()
 {
@@ -210,7 +194,7 @@ HWComponent.prototype.animateIn = function()
     var thisObj = this;
     this.element.removeClass(this.moverClassExt);
     this.element.addClass(this.moverClassIn);
-    
+
     this.element.bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
         thisObj.element.removeClass(thisObj.moverClassIn);
         thisObj.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
@@ -221,8 +205,5 @@ HWComponent.prototype.animateIn = function()
 $(document).ready(function()
 {
     RPi = new RaspberryPi(".pi", "stage");
-    
+
 });
-
-
-

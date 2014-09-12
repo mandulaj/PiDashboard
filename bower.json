@@ -26,7 +26,5 @@
         "traqball.js": "https://github.com/dirkweber/traqball.js.git",
         "owlcarousel": "*",
         "jquery.ui": "1.x",
-        "angular": "*"
-    
     }
 }
