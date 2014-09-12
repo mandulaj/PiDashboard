@@ -142,18 +142,20 @@
                 </div>
             </div>
             <div>
-                <table>
-                    <tr>
-                        <th>PID</th>
-                        <th>Command</th>
-                        <th>User</th>
-                    </tr>
-
-                    <tr ng-repeat="i in procs">
-                        <td>{{i.pid}}</td>
-                        <td>{{i.command}}</td>
-                        <td>{{i.user}}</td>
-                    </tr>
+                <table class="table table-bordered table-hover" id="processList">
+                    <thead>
+                        <tr>
+                            <th>PID</th>
+                            <th>User</th>
+                            <th>CPU</th>
+                            <th>RAM</th>
+                            <th>Virtual</th>
+                            <th>Time</th>
+                            <th>Command</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
         </div>

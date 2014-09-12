@@ -3,7 +3,7 @@ var RPi;
 function RaspberryPi(model, stage3d)
 {
     'use strict'
-    var thisObj = this;
+    var self = this;
     this.model = $( model );
     this.rotateX = 70;
     this.rotateY = 0;
@@ -45,37 +45,40 @@ function RaspberryPi(model, stage3d)
 
 
     this.initSelf();
-
-
-    this.socket = io("/sysStat", {
-      'query': 'token=' + sessionStorage.getItem("socketIOtoken")
-    });
-    this.socket.on("info", function(data){
-        console.log(data)
-        this.processes = data.processes;
-    })
-
-    this.socket.on("error", function(error) {
-        console.log("error")
-        if (error.type == "UnauthorizedError" || error.code == "invalid_token") {
-            console.log("Invalid token")
-
-        }
-    })
-
 }
 
 RaspberryPi.prototype.initSelf = function ()
 {
     'use strict'
-    var thisObj = this;
+    var self = this;
 
     $("#default_button").click(function (){
-        thisObj.defaultPosition();
+        self.defaultPosition();
     });
     $("#logout_button").click(function(){
         sessionStorage.setItem("socketIOtoken", "")
     })
+
+
+    this.socket = io("/sysStat", {
+      'query': 'token=' + sessionStorage.getItem("socketIOtoken")
+    });
+
+    this.socket.on("info", function(data){
+        console.log(data)
+        self.processes = data.processes;
+        self.update();
+    });
+
+
+    // TODO: make the error hadeling work
+    this.socket.on("error", function(error) {
+        console.log("error")
+        if (error.type == "UnauthorizedError" || error.code == "invalid_token") {
+            console.log("Invalid token");
+
+        }
+    });
 };
 
 RaspberryPi.prototype.defaultPosition = function ()
@@ -85,10 +88,10 @@ RaspberryPi.prototype.defaultPosition = function ()
     this.model.addClass( "picontainer_mover" );
     this.model.css( "-webkit-transform", "rotateX(58deg) rotateY(0deg) rotateZ(45deg)");
     this.model.css( "transform", "rotateX(58deg) rotateY(0deg) rotateZ(45deg)" );
-    var thisObj = this;
+    var self = this;
     setTimeout(function(){
-        thisObj.model.removeClass( "picontainer_mover" );
-        //thisObj.traqball.activate();
+        self.model.removeClass( "picontainer_mover" );
+        //self.traqball.activate();
     },500);
 
 
@@ -115,14 +118,46 @@ RaspberryPi.prototype.renderInfo = function(comp)
     }
     else
     {
-        this.infoBox.html("")
+        this.infoBox.html("");
     }
 }
+
+RaspberryPi.prototype.update = function()
+{
+    this.renderProcList();
+
+}
+
+RaspberryPi.prototype.renderProcList = function()
+{
+    var self = this;
+    var list = $("#processList > tbody");
+    list.html("")
+    var row = []
+    var i = 0;
+    for (proc in this.processes) {
+        row = [];
+        i = 0;
+
+        row[i++] = "<tr>";
+        row[i++] = "<td>" + this.processes[proc].pid + "</td>";
+        row[i++] = "<td>" + this.processes[proc].user + "</td>";
+        row[i++] = "<td>" + this.processes[proc].cpu + "</td>";
+        row[i++] = "<td>" + this.processes[proc].mem + "</td>";
+        row[i++] = "<td>" + this.processes[proc].vir + "</td>";
+        row[i++] = "<td>" + this.processes[proc].time + "</td>";
+        row[i++] = "<td>" + this.processes[proc].command + "</td>";
+        row[i++] = "</tr>";
+
+        list.append(row.join(""))
+    }
+}
+
 
 function HWComponent( id, rpi )
 {
     'use strict'
-    var thisObj = this;
+    var self = this;
     this.parentRPi = rpi;
     this.id = id;
     this.element = $("."+id );
@@ -135,40 +170,40 @@ function HWComponent( id, rpi )
 
     this.element.click(function ()
     {
-        thisObj.parentRPi.traqball.disable();
+        self.parentRPi.traqball.disable();
 
-        if (thisObj.out === false)
+        if (self.out === false)
         {
-            thisObj.parentRPi.hideAll();
-            thisObj.parentRPi.renderInfo(thisObj.id);
-            if (thisObj.id == "cpu")
+            self.parentRPi.hideAll();
+            self.parentRPi.renderInfo(self.id);
+            if (self.id == "cpu")
             {
-                thisObj.parentRPi.components.ram.animateOut();
+                self.parentRPi.components.ram.animateOut();
             }
-            if (thisObj.id == "ram")
+            if (self.id == "ram")
             {
-                thisObj.parentRPi.components.cpu.animateOut();
+                self.parentRPi.components.cpu.animateOut();
             }
 
-            thisObj.parentRPi.defaultPosition();
+            self.parentRPi.defaultPosition();
             setTimeout(function() {
-                thisObj.animateOut();
+                self.animateOut();
             }, 500);
         }
         else
         {
-            thisObj.parentRPi.renderInfo(null);
-            if (thisObj.id == "cpu")
+            self.parentRPi.renderInfo(null);
+            if (self.id == "cpu")
             {
-                thisObj.parentRPi.components.ram.animateIn();
+                self.parentRPi.components.ram.animateIn();
             }
-            if (thisObj.id == "ram")
+            if (self.id == "ram")
             {
-                thisObj.parentRPi.components.cpu.animateIn();
+                self.parentRPi.components.cpu.animateIn();
             }
-            thisObj.animateIn();
+            self.animateIn();
             setTimeout(function() {
-                thisObj.parentRPi.traqball.activate();
+                self.parentRPi.traqball.activate();
                 console.log("Activated")
             }, 500);
         }
@@ -178,12 +213,12 @@ function HWComponent( id, rpi )
 HWComponent.prototype.animateOut = function()
 {
     'use strict'
-    var thisObj = this;
+    var self = this;
     this.element.addClass(this.moverClassOut);
     this.element.bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
-        thisObj.element.addClass(thisObj.moverClassExt);
-        thisObj.element.removeClass(thisObj.moverClassOut);
-        thisObj.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
+        self.element.addClass(self.moverClassExt);
+        self.element.removeClass(self.moverClassOut);
+        self.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
     });
     this.out = true;
 };
@@ -191,13 +226,13 @@ HWComponent.prototype.animateOut = function()
 HWComponent.prototype.animateIn = function()
 {
     'use strict'
-    var thisObj = this;
+    var self = this;
     this.element.removeClass(this.moverClassExt);
     this.element.addClass(this.moverClassIn);
 
     this.element.bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
-        thisObj.element.removeClass(thisObj.moverClassIn);
-        thisObj.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
+        self.element.removeClass(self.moverClassIn);
+        self.element.unbind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd");
     });
     this.out = false;
 };
