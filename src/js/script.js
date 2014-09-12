@@ -12,6 +12,7 @@ function RaspberryPi(model, stage3d)
     this.infoBox = $(".info-content")
 
     this.processes = [];
+    this.processTable = new ProcessTable("#processList", this)
 
     this.traqball = new Traqball({
         stage: stage3d,
@@ -65,7 +66,6 @@ RaspberryPi.prototype.initSelf = function ()
     });
 
     this.socket.on("info", function(data){
-        console.log(data)
         self.processes = data.processes;
         self.update();
     });
@@ -124,32 +124,104 @@ RaspberryPi.prototype.renderInfo = function(comp)
 
 RaspberryPi.prototype.update = function()
 {
-    this.renderProcList();
+    this.processTable.renderProcList();
 
 }
 
-RaspberryPi.prototype.renderProcList = function()
+
+// Object representing the List of processes
+function ProcessTable( id, rpi) {
+    this.table = $(id);
+    this.list = $(id+ " > tbody");
+    this.rpi = rpi;
+
+    this.sort = 1; // id of the element we are sorting by
+    this.reverse = false; // are we sorting in reverse?
+}
+
+ProcessTable.prototype.renderProcList = function()
 {
     var self = this;
-    var list = $("#processList > tbody");
-    list.html("")
+    function compare(a,b)
+    {
+        var ret = 0
+
+        // TODO: fix time and text sorting
+        switch (self.sort){
+
+            case 0: // PID
+                if(parseInt(a.pid) < parseInt(b.pid))
+                    ret = -1;
+                if(parseInt(a.pid) > parseInt(b.pid))
+                    ret = 1;
+                break;
+
+            case 1: // User
+                if(a.user < b.user)
+                    ret = -1;
+                if(a.user > b.user)
+                    ret = 1;
+                break;
+
+            case 2: // CPU
+                if(parseFloat(a.cpu) < parseFloat(b.cpu))
+                    ret = -1;
+                if(parseFloat(a.cpu) > parseFloat(b.cpu))
+                    ret = 1;
+                break;
+            case 3: // RAM
+                if(parseFloat(a.ram) < parseFloat(b.ram))
+                    ret = -1;
+                if(parseFloat(a.ram) > parseFloat(b.ram))
+                    ret = 1;
+                break;
+
+            case 4: // VIR
+                if(parseFloat(a.vir) < parseFloat(b.vir))
+                    ret = -1;
+                if(parseFloat(a.vir) > parseFloat(b.vir))
+                    ret = 1;
+                break;
+
+            case 5: // Time
+                if(a.time < b.time)
+                    ret = -1;
+                if(a.time > b.time)
+                    ret = 1;
+                break;
+
+            case 6: // Command
+                if(a.command < b.command)
+                    ret = -1;
+                if(a.command > b.command)
+                    ret = 1;
+                break;
+        }
+
+        if (self.reverse) {
+            ret *= -1;
+        }
+        return ret;
+    }
+    this.list.html("")
     var row = []
     var i = 0;
-    for (proc in this.processes) {
+    this.rpi.processes.sort(compare)
+    for (proc in this.rpi.processes) {
         row = [];
         i = 0;
 
         row[i++] = "<tr>";
-        row[i++] = "<td>" + this.processes[proc].pid + "</td>";
-        row[i++] = "<td>" + this.processes[proc].user + "</td>";
-        row[i++] = "<td>" + this.processes[proc].cpu + "</td>";
-        row[i++] = "<td>" + this.processes[proc].mem + "</td>";
-        row[i++] = "<td>" + this.processes[proc].vir + "</td>";
-        row[i++] = "<td>" + this.processes[proc].time + "</td>";
-        row[i++] = "<td>" + this.processes[proc].command + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].pid    + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].user   + "</td>";
+        row[i++] = "<td><em>" + this.rpi.processes[proc].cpu    + "</em></td>";
+        row[i++] = "<td><em>" + this.rpi.processes[proc].mem    + "</em></td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].vir    + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].time   + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].command + "</td>";
         row[i++] = "</tr>";
 
-        list.append(row.join(""))
+        this.list.append(row.join(""))
     }
 }
 
