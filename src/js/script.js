@@ -198,7 +198,31 @@ ProcessTable.prototype.renderProcList = function()
     var self = this;
     function compare(a,b)
     {
-        var ret = 0
+        function compareDates(a,b) {
+            var minutesA = a.split(":");
+            var minutesB = b.split(":");
+
+            var secondsA = minutesA[1].split(".");
+            var secondsB = minutesB[1].split(".");
+
+            if(parseInt(minutesA[0]) < parseInt(minutesB[0]))
+                return -1;
+            if(parseInt(minutesA[0]) > parseInt(minutesB[0]))
+                return 1;
+
+            if(parseInt(secondsA[0]) < parseInt(secondsB[0]))
+                return -1;
+            if(parseInt(secondsA[0]) > parseInt(secondsB[0]))
+                return 1;
+
+            if(parseInt(secondsA[1]) < parseInt(secondsB[1]))
+                return -1;
+            if(parseInt(secondsA[1]) > parseInt(secondsB[1]))
+                return 1;
+
+            return 0;
+        }
+        var ret = 0;
 
         switch (self.sort){
 
@@ -265,10 +289,7 @@ ProcessTable.prototype.renderProcList = function()
                 break;
 
             case 9: // Time
-                if(a.time < b.time)
-                    ret = -1;
-                if(a.time > b.time)
-                    ret = 1;
+                ret = compareDates(a.time,b.time);
                 break;
 
             case 10: // state
