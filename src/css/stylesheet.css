@@ -1,5 +1,5 @@
 .raspberryModel {
-    
+
 }
 
 .softborder {
@@ -17,12 +17,26 @@
 }
 
 
+#processList th span {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#processList th:hover span {
+    opacity: 0.5;
+}
+
+#processList th span.sortActive {
+    opacity: 1;
+}
+
+
 @keyframes piRotation
 {
-    0% { 
+    0% {
         transform: translateZ( 111px ) rotateX(70deg) rotateY(0deg) rotateZ(40deg);
     }
-    100%{ 
+    100%{
         transform: translateZ( 111px ) rotateX(7000deg) rotateY(0deg) rotateZ(400deg);
     }
 }
@@ -205,12 +219,12 @@
     100% {
         transform: translateZ(134px) translateX(-25px) translateY(4px) rotateY(-20deg) scale(1.2);
     }
-    
+
 }
 
 
 .ethernet-mover-out {
-    animation: ethernetOut 0.5s;    
+    animation: ethernetOut 0.5s;
 }
 
 .ethernet-mover-in {
@@ -446,7 +460,7 @@
 @keyframes ramOut {
     0% {
         transform: translateZ(10px) translateX(164px) translateY(94px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    } 
+    }
     100% {
         transform: translateZ(147px) translateX(324px) translateY(230px) scale(1.5) rotateX(-29deg) rotateY(23deg) rotateZ(-37deg);
     }
@@ -606,11 +620,11 @@
     transform: rotateX( 180deg ) translateZ( 2px );
 }
 .sd>figure.left	{
-    
+
     transform: rotateY(  90deg ) translateZ( 64px);
 }
 .sd>figure.right	{
-    
+
     transform: rotateY( -90deg ) translateZ( 64px);
 }
 .sd>figure.top	{
@@ -632,4 +646,3 @@
     text-align: center;
     font-size: 25px;
 }
-
