@@ -198,7 +198,31 @@ ProcessTable.prototype.renderProcList = function()
     var self = this;
     function compare(a,b)
     {
-        var ret = 0
+        function compareDates(a,b) {
+            var minutesA = a.split(":");
+            var minutesB = b.split(":");
+
+            var secondsA = minutesA[1].split(".");
+            var secondsB = minutesB[1].split(".");
+
+            if(parseInt(minutesA[0]) < parseInt(minutesB[0]))
+                return -1;
+            if(parseInt(minutesA[0]) > parseInt(minutesB[0]))
+                return 1;
+
+            if(parseInt(secondsA[0]) < parseInt(secondsB[0]))
+                return -1;
+            if(parseInt(secondsA[0]) > parseInt(secondsB[0]))
+                return 1;
+
+            if(parseInt(secondsA[1]) < parseInt(secondsB[1]))
+                return -1;
+            if(parseInt(secondsA[1]) > parseInt(secondsB[1]))
+                return 1;
+
+            return 0;
+        }
+        var ret = 0;
 
         switch (self.sort){
 
@@ -243,10 +267,35 @@ ProcessTable.prototype.renderProcList = function()
                     ret = 1;
                 break;
 
-            case 6: // Time
-                if(a.time < b.time)
+            case 6: // Shr
+                if(parseFloat(a.shr) < parseFloat(b.shr))
                     ret = -1;
-                if(a.time > b.time)
+                if(parseFloat(a.shr) > parseFloat(b.shr))
+                    ret = 1;
+                break;
+
+            case 7: // Pr
+                if(parseFloat(a.pr) < parseFloat(b.pr))
+                    ret = -1;
+                if(parseFloat(a.pr) > parseFloat(b.pr))
+                    ret = 1;
+                break;
+
+            case 8: // Ni
+                if(parseFloat(a.ni) < parseFloat(b.ni))
+                    ret = -1;
+                if(parseFloat(a.ni) > parseFloat(b.ni))
+                    ret = 1;
+                break;
+
+            case 9: // Time
+                ret = compareDates(a.time,b.time);
+                break;
+
+            case 10: // state
+                if(a.state < b.state)
+                    ret = -1;
+                if(a.state > b.state)
                     ret = 1;
                 break;
 
@@ -281,7 +330,11 @@ ProcessTable.prototype.renderProcList = function()
         row[i++] = "<td><em>" + this.rpi.processes[proc].cpu    + "</em></td>";
         row[i++] = "<td><em>" + this.rpi.processes[proc].mem    + "</em></td>";
         row[i++] = "<td>" +     this.rpi.processes[proc].vir    + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].shr    + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].pr    + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].ni    + "</td>";
         row[i++] = "<td>" +     this.rpi.processes[proc].time   + "</td>";
+        row[i++] = "<td>" +     this.rpi.processes[proc].state   + "</td>";
         row[i++] = "</tr>";
 
         this.list.append(row.join(""))
@@ -308,7 +361,11 @@ ProcessTable.prototype.renderProcList = function()
         row[i++] = "<td><em>"+ this.total.cpu.toFixed(1) +"</em></td>";
         row[i++] = "<td><em>"+ this.total.mem.toFixed(1) +"</em></td>";
         row[i++] = "<td><em>"+ this.total.vir.toFixed(1) +"</em></td>";
+        row[i++] = "<td><em>"+ this.total.shr.toFixed(1) +"</em></td>";
+        row[i++] = "<td>-</td>";
+        row[i++] = "<td>-</td>";
         row[i++] = "<td> "+ this.total.time +" </td>";
+        row[i++] = "<td> "+ this.total.running +" running</td>";
         row[i++] = "</tr>";
 
         this.list.append(row.join(""))
@@ -319,10 +376,14 @@ ProcessTable.prototype.addToTotal = function(obj) {
     this.total.cpu += parseFloat(obj.cpu);
     this.total.mem += parseFloat(obj.mem);
     this.total.vir += parseFloat(obj.vir);
+    this.total.shr += parseFloat(obj.shr);
     this.addTime(obj.time);
     this.total.num++;
     if (this.total.users.indexOf(obj.user) == -1) {
-        this.total.users.push(obj.user)
+        this.total.users.push(obj.user);
+    }
+    if (obj.state === "R") {
+        this.total.running++;
     }
 }
 
@@ -362,9 +423,11 @@ ProcessTable.prototype.resetTotal = function() {
         cpu: 0.0,
         mem: 0.0,
         vir: 0.0,
+        shr: 0.0,
         time: "0:00.00",
         num: 0,
-        users: []
+        users: [],
+        running: 0
     };
 }
 
