@@ -200,7 +200,6 @@ ProcessTable.prototype.renderProcList = function()
     {
         var ret = 0
 
-        // TODO: fix time and text sorting
         switch (self.sort){
 
             case 0: // PID
