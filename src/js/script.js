@@ -153,6 +153,44 @@ function ProcessTable( id, rpi) {
     this.sort = 1; // id of the element we are sorting by
     this.reverse = false; // are we sorting in reverse?
     this.total;
+
+    $(id + " > thead > tr > th").click(function(data){
+        var clicked = $("> span", this);
+
+        if (clicked.hasClass("sortActive"))
+        {
+            if (clicked.hasClass("glyphicon-sort-by-attributes"))
+            {
+                clicked.removeClass("glyphicon-sort-by-attributes")
+                clicked.addClass("glyphicon-sort-by-attributes-alt")
+                self.reverse = true;
+            }
+            else
+            {
+                clicked.addClass("glyphicon-sort-by-attributes")
+                clicked.removeClass("glyphicon-sort-by-attributes-alt")
+                self.reverse = false;
+            }
+            self.renderProcList();
+        }
+        else
+        {
+            self.reverse = false;
+            self.sort = $(id + " > thead > tr > th").index(this);
+            self.renderProcList();
+            $(id + " > thead > tr > th span").each(function(){
+                var element = $(this);
+                element.removeClass("sortActive");
+                element.removeClass("glyphicon-sort-by-attributes");
+                element.removeClass("glyphicon-sort-by-attributes-alt");
+                element.addClass("glyphicon-sort");
+            })
+            clicked.removeClass("glyphicon-sort");
+            clicked.addClass("glyphicon-sort-by-attributes");
+            clicked.addClass("sortActive");
+
+        }
+    })
 }
 
 ProcessTable.prototype.renderProcList = function()
@@ -193,9 +231,9 @@ ProcessTable.prototype.renderProcList = function()
                     ret = 1;
                 break;
             case 4: // RAM
-                if(parseFloat(a.ram) < parseFloat(b.ram))
+                if(parseFloat(a.mem) < parseFloat(b.mem))
                     ret = -1;
-                if(parseFloat(a.ram) > parseFloat(b.ram))
+                if(parseFloat(a.mem) > parseFloat(b.mem))
                     ret = 1;
                 break;
 
@@ -258,10 +296,16 @@ ProcessTable.prototype.renderProcList = function()
         row = [];
         i = 0;
 
+
+        var procS = (this.total.num === 1) ? "" : "es";
+        var userS = (this.total.users.length === 1) ? "" : "s";
+
+
+
         row[i++] = "<tr>";
         row[i++] = "<td><strong>Total</strong></td>";
-        row[i++] = "<td>-</td>";
-        row[i++] = "<td>-</td>";
+        row[i++] = "<td>"+ this.total.num+ " process" + procS + " </td>";
+        row[i++] = "<td>"+ this.total.users.length + " user" + userS + "</td>";
         row[i++] = "<td><em>"+ this.total.cpu.toFixed(1) +"</em></td>";
         row[i++] = "<td><em>"+ this.total.mem.toFixed(1) +"</em></td>";
         row[i++] = "<td><em>"+ this.total.vir.toFixed(1) +"</em></td>";
@@ -277,6 +321,10 @@ ProcessTable.prototype.addToTotal = function(obj) {
     this.total.mem += parseFloat(obj.mem);
     this.total.vir += parseFloat(obj.vir);
     this.addTime(obj.time);
+    this.total.num++;
+    if (this.total.users.indexOf(obj.user) == -1) {
+        this.total.users.push(obj.user)
+    }
 }
 
 ProcessTable.prototype.addTime = function(time){
@@ -315,7 +363,9 @@ ProcessTable.prototype.resetTotal = function() {
         cpu: 0.0,
         mem: 0.0,
         vir: 0.0,
-        time: "0:00.00"
+        time: "0:00.00",
+        num: 0,
+        users: []
     };
 }
 
