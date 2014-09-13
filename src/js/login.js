@@ -1,12 +1,20 @@
 $(document).ready(function(){
 
+localforage.getItem("username",function(value){
+    if(value != null) {
+        $("#username").val(value);
+        $("#rememberMe").prop('checked', true);
+    }
+})
+
+
 $("#loginbtn").on("click", function(){
     var pass = true;
     $(".errormsg").html("");
     $(".errormsg").addClass("hidden")
     if (!checkUsername()) pass = false;
     if (!checkPassword()) pass = false;
-    
+
     if(pass) {
         $.ajax({
             url: "/login",
@@ -17,6 +25,13 @@ $("#loginbtn").on("click", function(){
         }).done(function(data){
             if (data.login)
             {
+                if($("#rememberMe").is(":checked")) {
+                    localforage.setItem("username", $("#username").val())
+                }
+                else
+                {
+                    localforage.removeItem("username")
+                }
                 sessionStorage.setItem("socketIOtoken", data.token);
                 window.location.replace("/rpi/home");
             }
@@ -35,7 +50,6 @@ $("#loginbtn").on("click", function(){
 
 
 $("#form").submit(function(e){
-    console.log("test");
     e.preventDefault();
 });
 

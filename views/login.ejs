@@ -5,8 +5,8 @@
         <link rel="stylesheet" href="/static/css/login.css" >
         <link rel="stylesheet" href="/static/modules/bootstrap/dist/css/bootstrap.min.css" >
         <script src="/static/modules/jquery/jquery.min.js"> </script>
-        <script src="/static/modules/bootstrap/dist/js/bootstrap.min.js">
-        </script>
+        <script src="/static/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/static/modules/localforage/dist/localforage.min.js"></script>
         <script src="/static/js/login.js" ></script>
     </head>
     <body>
@@ -40,14 +40,14 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Remember me
+                                <input type="checkbox" id="rememberMe"> Remember me
                             </label>
                         </div>
                         <button id="loginbtn" type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <img  src="static/images/rpi.svg" width="100%">
