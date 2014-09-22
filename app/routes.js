@@ -1,4 +1,5 @@
-var jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken'),
+    express = require('express');
 
 module.exports = function(app, passport, config)
 {
@@ -14,21 +15,28 @@ module.exports = function(app, passport, config)
         }
     });
     
-    app.get("/rpi", function(req, res){
+    var rpiRouter = express.Router();
+    
+    rpiRouter.use(isAuthenticated);
+
+
+    rpiRouter.get("/", function(req, res){
         res.redirect("/rpi/home")
     });
     
-    app.get("/rpi/home", isAuthenticated, function(req, res){
+    rpiRouter.get("/home", isAuthenticated, function(req, res){
         res.render("index.ejs");
     });
     
-    app.get("/rpi/ssh", isAuthenticated, function(req, res){
+    rpiRouter.get("/ssh", isAuthenticated, function(req, res){
         res.render("ssh.ejs");
     });
     
-    app.get("/rpi/dashboard", isAuthenticated, function(req, res){
+    rpiRouter.get("/dashboard", isAuthenticated, function(req, res){
         res.render("dashboard.ejs");
     });
+
+    app.use("/rpi", rpiRouter)
     
     app.post('/login', function(req, res, next) {
 
