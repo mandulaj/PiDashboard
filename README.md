@@ -2,6 +2,7 @@
 ==============
 
 Monitoring server for Raspberry Pi
+
 # This Project has just started. **DOESN'T WORK YET!!!!** clone when this line is removed!! I will try to do this as fast as possible.
 
 
@@ -90,6 +91,7 @@ However if you want to buy an certificate, go and do so. It will be only for you
 
 ##TODO
 * update lib/PiDash.js to work with more then one client connection
+* bring myself to work :P
 
 ##Credits
 * [Jakub Mandula](https://github.com/zpiman/ "zpiman")
