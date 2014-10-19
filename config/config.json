@@ -1,17 +1,17 @@
-
-
 {
-    "port": 3141,
-    
-    "forceSSL": true,
-    "paths": {
-        "key": "./keys/server.key",
-        "cert": "./keys/server.crt",
-        "static": "./public/static",
-        "public": "./public"
-    },
-    "cookieSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE",
-    "socketIOSecret": "XVuoTevKf61NRMev1hdDNsAuquwhuZdnGkUPF0lZMdNidhRbRqtuUAeZ81iE",
-    "updateFrequency": 3000
+  "port": 3141,
+  "forceSSL": true,
+  "paths": {
+    "key": "./keys/server.key",
+    "cert": "./keys/server.crt",
+    "static": "./public/static",
+    "public": "./public"
+  },
+  "secret": {
+    "length": 256,
+    "encoding": "base64"
+  },
+  "cookieSecret": "secret",
+  "socketIOSecret": "other_secret",
+  "updateFrequency": 3000
 }
-
