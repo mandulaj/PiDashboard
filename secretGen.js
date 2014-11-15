@@ -3,11 +3,11 @@ var fs = require('fs');
 
 var config = require('./config/config.json');
 
-crypto.randomBytes(config.secret.length, function(err, buf1){
+crypto.randomBytes(config.secret.length, function(err, buf1) {
   if (err) {
     return console.log("Error getting random bytes.");
   }
-  crypto.randomBytes(config.secret.length, function(err, buf2){
+  crypto.randomBytes(config.secret.length, function(err, buf2) {
     if (err) {
       return console.log("Error getting random bytes.");
     }
