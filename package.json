@@ -1,48 +1,45 @@
 {
-    "name": "PiDashboard.js",
-    "description": "Node server and web interface for monitoring Raspberry Pi remotely.",
-    "version": "0.0.2",
-    "main": "index.js",
-    "contributors": [
-        {
-            "name": "Jakub Mandula",
-            "email": "jakub.aludnam@gmail.com"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/zpiman/PiDashboard.js"
-    },
-    "bugs": {
-        "url": "https://github.com/zpiman/PiDashboard.js/issues"
-    },
-    "dependencies": {
-        "colors": "0.6.x",
-        "express": "4.x",
-        "body-parser": "*",
-        "cookie-parser": "*",
-        "express-session": "*",
-        "morgan": "*",
-
-        "optimist": "0.6.x",
-        "socket.io": "1.x.x",
-        "jsonwebtoken": "*",
-        "socketio-jwt": "*",
-        "crypt3": "*",
-        "passport": "~0.1.17",
-        "passport-local" : "~0.1.6",
-        "connect-flash" : "~0.1.1",
-        "ejs" : "~0.8.5",
-        
-        "uglify-js": "2.x",
-        "gulp-uglify": "*",
-        "gulp-less": "*",
-        "gulp-nodemon": "*",
-        "gulp-autoprefixer": "*",
-        "gulp-minify-css": "*"
-    },
-    "devDependencies": {
-        "gulp": "^3.6.2",
-        "bower": "1.3.x"
+  "name": "PiDashboard.js",
+  "description": "Node server and web interface for monitoring Raspberry Pi remotely.",
+  "version": "0.0.2",
+  "main": "index.js",
+  "contributors": [
+    {
+      "name": "Jakub Mandula",
+      "email": "jakub.aludnam@gmail.com"
     }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zpiman/PiDashboard.js"
+  },
+  "bugs": {
+    "url": "https://github.com/zpiman/PiDashboard.js/issues"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "bower": "1.3.x",
+    "colors": "0.6.x",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "*",
+    "crypt3": "*",
+    "ejs": "~0.8.5",
+    "express": "4.x",
+    "express-session": "*",
+    "gulp": "^3.6.2",
+    "gulp-autoprefixer": "*",
+    "gulp-less": "*",
+    "gulp-minify-css": "*",
+    "gulp-nodemon": "*",
+    "gulp-uglify": "*",
+    "jsonwebtoken": "*",
+    "morgan": "*",
+    "optimist": "0.6.x",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "socket.io": "1.x.x",
+    "socketio-jwt": "*",
+    "term.js": "0.0.4",
+    "uglify-js": "2.x"
+  }
 }
