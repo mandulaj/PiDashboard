@@ -32,7 +32,8 @@ gulp.task('less', function() {
     .pipe(less({
       keepSpecialComments: 0,
     }))
-    .pipe(prefix(["last 1 version", "> 1%", "ie 8", "ie 7"], {
+    .pipe(prefix({
+      browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1'],
       cascade: true
     }))
     .pipe(gulp.dest('public/static/css'));
