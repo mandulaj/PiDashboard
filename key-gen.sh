@@ -3,11 +3,11 @@
 mkdir keys
 cd keys
 
-openssl genrsa -des3 -out server.key 1024
+## Generate a 2048 bit RSA key (set this valus to 4096 if you are paranoid)
+openssl genrsa -out server.key 2048
+
+## Make a certificate request file
 openssl req -new -key server.key -out server.csr
-cp server.key server.key.org
-openssl rsa -in server.key.org -out server.key
 
+## Write a self signed certificate to the crt file 
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-
-rm server.key.org
