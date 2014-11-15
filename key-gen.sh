@@ -9,5 +9,5 @@ openssl genrsa -out server.key 2048
 ## Make a certificate request file
 openssl req -new -key server.key -out server.csr
 
-## Write a self signed certificate to the crt file 
+## Write a self signed certificate to the crt file
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
