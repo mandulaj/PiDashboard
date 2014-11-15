@@ -22,7 +22,8 @@ var http = require("http"), // needed for express server
 
   PiDash = require('./lib/PiDash.js'), // lib used for geting computer statistics
   flash = require('connect-flash'),
-  socketioJwt = require("socketio-jwt");
+  socketioJwt = require("socketio-jwt"),
+  term = require("term.js");
 
 var logger = require('morgan');
 var app = express();
@@ -32,6 +33,10 @@ setup();
 
 var passportConfig = require("./config/passport.js")(passport, config);
 
+// Terminal (SSH)
+app.use(term.middleware({
+  path: "/static/js/term.js"
+}));
 
 // Serving static files
 app.use("/static", express.static(__dirname + "/public/static"));
