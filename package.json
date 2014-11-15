@@ -3,6 +3,12 @@
   "description": "Node server and web interface for monitoring Raspberry Pi remotely.",
   "version": "0.0.2",
   "main": "index.js",
+  "scripts": {
+    "prepublish": "bower install && ./key-gen.sh"
+  },
+  "bin": {
+    "PiDash": "./bin/server.js"
+  },
   "contributors": [{
     "name": "Jakub Mandula",
     "email": "jakub.aludnam@gmail.com"
