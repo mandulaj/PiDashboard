@@ -1,170 +1,201 @@
 <!DOCTYPE html5>
 <html>
-    <head>
-        <title>PiMonitor</title>
-        <link rel="stylesheet" href="/static/css/stylesheet.css" >
-        <link rel="stylesheet" href="/static/modules/bootstrap/dist/css/bootstrap.min.css" >
-        <script src="/static/modules/jquery/dist/jquery.min.js"> </script>
-        <script src="/static/modules/traqball.js/src/traqball.js"> </script>
-        <script src="/static/modules/socket.io-client/socket.io.js"> </script>
-        <script src="/static/modules/bootstrap/dist/js/bootstrap.min.js"> </script>
-        <script src="/static/js/script.js" > </script>
-    </head>
 
-    <body>
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">PiMonitor.js</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="/rpi/home">Home</a></li>
-                        <li><a href="/rpi/dashboard">Dashboard</a></li>
-                        <li><a href="/rpi/ssh">SSH</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Processes</a></li>
-                                <li><a href="#">X11</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Raspberry Pi info</a></li>
-                        <li><a id="logout_button" href="/logout"><b>Logout</b></a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+<head>
+  <title>PiMonitor</title>
+  <link rel="stylesheet" href="/static/css/stylesheet.css">
+  <link rel="stylesheet" href="/static/modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/static/modules/jquery/jquery.min.js">
+  </script>
+  <script src="/static/modules/traqball.js/src/traqball.js">
+  </script>
+  <script src="/static/modules/socket.io-client/socket.io.js">
+  </script>
+  <script src="/static/modules/bootstrap/dist/js/bootstrap.min.js">
+  </script>
+  <script src="/static/js/script.js">
+  </script>
+</head>
+
+<body>
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">PiMonitor.js</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/rpi/home">Home</a>
+          </li>
+          <li><a href="/rpi/dashboard">Dashboard</a>
+          </li>
+          <li><a href="/rpi/ssh">SSH</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Processes</a>
+              </li>
+              <li><a href="#">X11</a>
+              </li>
+              <li><a href="#">Something else here</a>
+              </li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a>
+              </li>
+              <li><a href="#">One more separated link</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Raspberry Pi info</a>
+          </li>
+          <li><a id="logout_button" href="/logout"><b>Logout</b></a>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 raspberryModel softborder">
+        <h2>Raspberry Pi</h2>
+        <button id="default_button" type="button" class="btn btn-default">Default</button>
+        <section id="stage" class="PIcontainer">
+          <div class="pi">
+            <div class="motherboard">
+              <figure class="front"></figure>
+              <figure class="back"></figure>
+              <figure class="right"></figure>
+              <figure class="left"></figure>
+              <figure class="top"></figure>
+              <figure class="bottom"></figure>
             </div>
+            <div class="ethernet">
+              <figure class="front"></figure>
+              <figure class="back"></figure>
+              <figure class="right"></figure>
+              <figure class="left"></figure>
+              <figure class="top"></figure>
+              <figure class="bottom"></figure>
+            </div>
+            <div class="usb">
+              <figure class="front"></figure>
+              <figure class="back"></figure>
+              <figure class="right"></figure>
+              <figure class="left"></figure>
+              <figure class="top"></figure>
+              <figure class="bottom"></figure>
+            </div>
+            <div class="led" id="led1">
+              <div class="light"></div>
+              <div class="blur"></div>
+            </div>
+            <div class="led" id="led2">
+              <div class="light"></div>
+              <div class="blur"></div>
+            </div>
+            <div class="led" id="led3">
+              <div class="light"></div>
+              <div class="blur"></div>
+            </div>
+            <div class="led" id="led4">
+              <div class="light"></div>
+              <div class="blur"></div>
+            </div>
+            <div class="led" id="led5">
+              <div class="light"></div>
+              <div class="blur"></div>
+            </div>
+
+            <div class="cpu">
+              <figure class="front">
+                <div id="down"><span>CPU</span>
+                </div>
+              </figure>
+              <figure class="back"></figure>
+              <figure class="right"></figure>
+              <figure class="left"></figure>
+              <figure class="top"></figure>
+              <figure class="bottom"></figure>
+            </div>
+
+            <div class="ram">
+              <figure class="front">
+                <div id="down"><span>RAM</span>
+                </div>
+              </figure>
+              <figure class="back"></figure>
+              <figure class="right"></figure>
+              <figure class="left"></figure>
+              <figure class="top"></figure>
+              <figure class="bottom"></figure>
+            </div>
+
+            <div class="sd">
+              <figure class="front"></figure>
+              <figure class="back"></figure>
+              <figure class="right"></figure>
+              <figure class="left"></figure>
+              <figure class="top"></figure>
+              <figure class="bottom"></figure>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-4 col-md-offset-1 softborder">
+        <h2>Information</h2>
+        <div class="info-content">
+          <div id="default_info_content">Click one of the components on the model to get information about it.</div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <input id="procSearch" type="text" placeholder="Search">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7 raspberryModel softborder">
-                    <h2>Raspberry Pi</h2>
-                    <button id="default_button" type="button" class="btn btn-default">Default</button>
-                    <section id="stage" class="PIcontainer">
-                        <div  class="pi">
-                            <div class="motherboard">
-                                <figure class="front"></figure>
-                                <figure class="back"></figure>
-                                <figure class="right"></figure>
-                                <figure class="left"></figure>
-                                <figure class="top"></figure>
-                                <figure class="bottom"></figure>
-                            </div>
-                            <div class="ethernet">
-                                <figure class="front"></figure>
-                                <figure class="back"></figure>
-                                <figure class="right"></figure>
-                                <figure class="left"></figure>
-                                <figure class="top"></figure>
-                                <figure class="bottom"></figure>
-                            </div>
-                            <div class="usb">
-                                <figure class="front"></figure>
-                                <figure class="back"></figure>
-                                <figure class="right"></figure>
-                                <figure class="left"></figure>
-                                <figure class="top"></figure>
-                                <figure class="bottom"></figure>
-                            </div>
-                            <div class="led" id="led1">
-                                <div class="light"></div>
-                                <div class="blur"></div>
-                            </div>
-                            <div class="led" id="led2">
-                                <div class="light"></div>
-                                <div class="blur"></div>
-                            </div>
-                            <div class="led" id="led3">
-                                <div class="light"></div>
-                                <div class="blur"></div>
-                            </div>
-                            <div class="led" id="led4">
-                                <div class="light"></div>
-                                <div class="blur"></div>
-                            </div>
-                            <div class="led" id="led5">
-                                <div class="light"></div>
-                                <div class="blur"></div>
-                            </div>
+      <table class="table table-bordered table-hover" id="processList">
+        <thead>
+          <tr>
+            <th>PID <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Command <span class="sortActive glyphicon glyphicon-sort-by-attributes"></span>
+            </th>
+            <th>User <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>CPU % <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>RAM % <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Virtual <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Shared <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Priority <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Nice <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Time <span class="glyphicon glyphicon-sort"></span>
+            </th>
+            <th>Status <span class="glyphicon glyphicon-sort"></span>
+            </th>
 
-                            <div class="cpu">
-                                <figure class="front">
-                                <div id="down"><span>CPU</span></div>
-                                </figure>
-                                <figure class="back"></figure>
-                                <figure class="right"></figure>
-                                <figure class="left"></figure>
-                                <figure class="top"></figure>
-                                <figure class="bottom"></figure>
-                            </div>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
 
-                            <div class="ram">
-                                <figure class="front">
-                                <div id="down"><span>RAM</span></div>
-                                </figure>
-                                <figure class="back"></figure>
-                                <figure class="right"></figure>
-                                <figure class="left"></figure>
-                                <figure class="top"></figure>
-                                <figure class="bottom"></figure>
-                            </div>
-
-                            <div class="sd">
-                                <figure class="front"></figure>
-                                <figure class="back"></figure>
-                                <figure class="right"></figure>
-                                <figure class="left"></figure>
-                                <figure class="top"></figure>
-                                <figure class="bottom"></figure>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="col-md-4 col-md-offset-1 softborder">
-                    <h2>Information</h2>
-                    <div class="info-content">
-                        <div id="default_info_content">Click one of the components on the model to get information about it.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <input id="procSearch" type="text" placeholder="Search">
-
-                <table class="table table-bordered table-hover" id="processList">
-                    <thead>
-                        <tr>
-                            <th>PID <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Command <span class="sortActive glyphicon glyphicon-sort-by-attributes"></span></th>
-                            <th>User <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>CPU % <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>RAM % <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Virtual <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Shared <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Priority <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Nice <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Time <span class="glyphicon glyphicon-sort"></span></th>
-                            <th>Status <span class="glyphicon glyphicon-sort"></span></th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </body>
 </html>
