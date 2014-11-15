@@ -31,6 +31,13 @@ From GitHub
     $ # compile all the scripts and css
     $ gulp
 ```
+
+Planned: 
+```bash
+    $ sudo npm install -g PiDashboard.js
+    $ 
+    $ sudo PiDash
+```
 ###Useful links
 * [Node.js](http://nodejs.org/)
     * [nodejs - GitHub](https://github.com/joyent/node)
