@@ -13,5 +13,7 @@
   },
   "cookieSecret": "secret",
   "socketIOSecret": "other_secret",
-  "updateFrequency": 3000
+  "updateFrequency": 3000,
+  "termLimit": 100,
+  "termShell": "bash"
 }

@@ -37,6 +37,7 @@
     "optimist": "0.6.x",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
+    "pty.js": "^0.2.4",
     "socket.io": "1.x.x",
     "socketio-jwt": "*",
     "term.js": "0.0.4",
