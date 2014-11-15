@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 var paths = {
   images: 'src/images/*',
   scripts: 'src/js/*.js',
-  css: 'src/css/*.css',
   less: 'src/less/*.less'
 };
 
@@ -20,15 +19,6 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('public/static/js'));
 });
 
-gulp.task('css', function() {
-  return gulp.src(paths.css)
-    .pipe(prefix(["last 1 version", "> 1%", "ie 8", "ie 7"], {
-      cascade: true
-    }))
-    .pipe(minifyCSS())
-    //.pipe(concat('stylesheet.css'))
-    .pipe(gulp.dest('public/static/css'));
-});
 
 gulp.task('images', function() {
   return gulp.src(paths.images)
@@ -42,13 +32,15 @@ gulp.task('less', function() {
     .pipe(less({
       keepSpecialComments: 0,
     }))
+    .pipe(prefix(["last 1 version", "> 1%", "ie 8", "ie 7"], {
+      cascade: true
+    }))
     .pipe(gulp.dest('public/static/css'));
 });
 
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
-  gulp.watch(paths.css, ['css']);
   gulp.watch(paths.less, ['less']);
 });
 
@@ -64,6 +56,6 @@ gulp.task('develop', function() {
 });
 
 
-gulp.task('default', ['scripts', 'css', 'images', 'watch', 'less', 'develop'], function() {
+gulp.task('default', ['scripts', 'images', 'watch', 'less', 'develop'], function() {
   console.log("Gulp is starting...");
 });
