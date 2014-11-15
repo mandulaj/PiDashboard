@@ -70,6 +70,7 @@ function setup() {
     //process.exit(0);
   }
 
+  process.title = 'PiDashboard.js';
 
   // Help display
   if (optimist.help || optimist.h) {
