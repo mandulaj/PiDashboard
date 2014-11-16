@@ -1,0 +1,23 @@
+#ssh {
+  width: 100%;
+  //TODO change this so that it fills rest of page
+  height: 100%;
+}
+
+.window,
+.tab {
+  display: inline-block;
+}
+
+.window {
+  opacity: 0.9;
+  .bar {
+    width: 100%;
+    height: 30px;
+    background-color: red;
+    cursor: grab;
+  }
+  &.ui-draggable-dragging .bar {
+    cursor: grabbing;
+  }
+}
