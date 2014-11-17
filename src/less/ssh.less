@@ -1,0 +1,36 @@
+#ssh {
+  width: 100%;
+  //TODO change this so that it fills rest of page
+  height: 100%;
+}
+
+.window,
+.tab {
+  display: inline-block;
+}
+
+.window {
+  opacity: 0.98;
+  transition: opacity 0.5s;
+  .bar {
+    width: 100%;
+    height: 30px;
+    background-color: rgb(213, 213, 213);
+    cursor: grab;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    .title {
+      line-height: 30px;
+      font-family: monospace;
+      margin-left: 10px;
+    }
+  }
+  &.ui-draggable-dragging .bar {
+    cursor: grabbing;
+  }
+  .tab > div {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.498039);
+  }
+}
