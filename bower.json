@@ -1,31 +1,34 @@
 {
-    "name": "PiDashboard.js",
-    "main": "PiDashboard.js",
-    "version": "0.0.2",
-    "homepage": "https://github.com/zpiman/PiDashboard.js",
-    "authors": [
-        "Jakub Mandula <jakub.aludnam@gmail.com>"
-    ],
-    "description": "Dashboard",
-    "moduleType": [
-        "node"
-    ],
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "jquery": "1.x",
-        "socket.io-client": "1.x",
-        "bootstrap": "3.1",
-        "jquery-mobile": "*",
-        "traqball.js": "https://github.com/dirkweber/traqball.js.git",
-        "owlcarousel": "*",
-        "jquery.ui": "1.x",
-        "localforage": "*"
-    }
+  "name": "PiDashboard.js",
+  "main": "PiDashboard.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/zpiman/PiDashboard.js",
+  "authors": [
+    "Jakub Mandula <jakub.aludnam@gmail.com>"
+  ],
+  "description": "Dashboard",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.x",
+    "socket.io-client": "1.x",
+    "bootstrap": "3.1",
+    "jquery-mobile": "*",
+    "traqball.js": "https://github.com/dirkweber/traqball.js.git",
+    "owlcarousel": "*",
+    "jquery-ui": "1.x",
+    "localforage": "*"
+  },
+  "resolutions": {
+    "jquery-ui": "1.x"
+  }
 }
