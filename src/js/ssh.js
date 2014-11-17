@@ -33,7 +33,9 @@ function Session(socket) {
 
     // Get the terminal id which the server provided
     var id = data.id;
-    tab.setTerminalId(id);
+    tab.setTerminal(id, term);
+    //Set tab to the terminal size
+    tab.setSize(term.geometry[0], term.geometry[1]);
     // Set up the terminal write
     term.on('data', function(data) {
       socket.emit('data', id, data);
@@ -41,7 +43,6 @@ function Session(socket) {
 
     // Get the terminal title
     term.on('title', function(title) {
-      console.log(title);
       tab.setTitle(title);
     });
 
@@ -124,9 +125,11 @@ Session.prototype.findTerminalTab = function(id) {
 };
 
 function Window(session){
+  var self = this;
   this.id = Math.floor(Math.random()*1e14); // random id
   this.session = session;
   this.tabs = []; // List of tabs in the window
+  this.activeTab = 0; // Tab we are now on
 
   $("#ssh").append("<div class='window'></div>"); // Create the window container
   this.container = $("#ssh>div:last-child")[0]; // select the container
@@ -134,13 +137,27 @@ function Window(session){
   $(this.container).append("<div class='bar'></div>");
   var bar = $(this.container).children(".bar");
   bar.append("<span class='title'></span>");
-
+  $(this.container).append("<div class='tab'></div>");
+  $(this.container).append("<div class='ui-resizable-handle ui-resizable-se handle'></div>");
   $(this.container).draggable({
     handle: ".bar",
     containment: "parent",
     stack: ".window",
     opacity: 0.7
-  }).css("position", "absolute");// set the posiotioning of the draggable elements to absolute
+  }).css("position", "absolute"); // set the posiotioning of the draggable elements to absolute
+  $(self.container).resizable({
+    handles: {
+      se: $(self.container).children('.handle')
+    },
+    stop: function(ev, ui) {
+      var x = ui.size.width / ui.originalSize.width;
+      var y = ui.size.height / ui.originalSize.height;
+      self.tabs[self.activeTab].resize(x,y);
+      $(self.container).css("height", "");
+      $(self.container).css("width", "");
+    }
+  });
+
   // Create first tab
   this.createTab();
 }
@@ -173,14 +190,19 @@ Window.prototype.destroy = function(){
 function Tab(window) {
   this.id = Math.floor(Math.random()*1e14);
   this.terminalID = null;
+  this.terminal = null;
   this.window = window;
   this.title = "";
-  $(this.window.container).append("<div class='tab'></div>");
-  this.termContainer = $(this.window.container).children().last()[0];
+  this.size = {
+    cols: 0,
+    rows: 0
+  };
+  this.termContainer = $(this.window.container).children('.tab')[0];
 }
 
-Tab.prototype.setTerminalId = function(id){
+Tab.prototype.setTerminal = function(id, term){
   this.terminalID = id;
+  this.terminal = term;
 };
 
 Tab.prototype.destroy = function(){
@@ -191,11 +213,29 @@ Tab.prototype.destroy = function(){
 };
 
 Tab.prototype.setTitle = function(title){
-  console.log(title);
   this.title = title;
   this.window.updateTitle(title);
 };
 
+Tab.prototype.setSize = function(cols, rows) {
+  this.size = {
+    cols: cols,
+    rows: rows
+  };
+};
+
+Tab.prototype.resize = function(x, y) {
+  var cols = Math.floor(this.size.cols * x);
+  var rows = Math.floor(this.size.rows * y);
+  this.size = {
+    cols: cols,
+    rows: rows
+  };
+
+  this.terminal.resize(cols, rows);
+
+  this.window.session.socket.emit('resize', this.terminalID, this.size);
+};
 
 $(document).ready(function() {
   var socket = io("/ssh", {
