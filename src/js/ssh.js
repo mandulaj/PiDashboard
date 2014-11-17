@@ -140,7 +140,7 @@ function Window(session){
     containment: "parent",
     stack: ".window",
     opacity: 0.7
-  });
+  }).css("position", "absolute");// set the posiotioning of the draggable elements to absolute
   // Create first tab
   this.createTab();
 }
@@ -207,7 +207,7 @@ $(document).ready(function() {
 
     session.createWindow();
     session.createWindow();
-
+    console.log("created")
     /*
     session.newTerminal();
     session.newTerminal(document.getElementById("ssh2"));
