@@ -207,7 +207,6 @@ $(document).ready(function() {
 
     session.createWindow();
     session.createWindow();
-    console.log("created")
     /*
     session.newTerminal();
     session.newTerminal(document.getElementById("ssh2"));
