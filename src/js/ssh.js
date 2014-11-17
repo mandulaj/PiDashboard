@@ -242,11 +242,10 @@ $(document).ready(function() {
     'query': 'token=' + sessionStorage.getItem("socketIOtoken")
   });
   session = new Session(socket);
-
+  $("#addTerm").click(function(){
+    session.createWindow();
+  });
   socket.on('connect', function() {
-
-    session.createWindow();
-    session.createWindow();
     /*
     session.newTerminal();
     session.newTerminal(document.getElementById("ssh2"));
