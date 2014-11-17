@@ -134,26 +134,26 @@ function Window(session){
   $("#ssh").append("<div class='window'></div>"); // Create the window container
   this.container = $("#ssh>div:last-child")[0]; // select the container
 
-  $(this.container).append("<div class='bar'></div>");
+  $(this.container).append("<div class='bar'></div>"); // Setup bar
   var bar = $(this.container).children(".bar");
-  bar.append("<span class='title'></span>");
-  $(this.container).append("<div class='tab'></div>");
-  $(this.container).append("<div class='ui-resizable-handle ui-resizable-se handle'></div>");
-  $(this.container).draggable({
-    handle: ".bar",
-    containment: "parent",
-    stack: ".window",
-    opacity: 0.7
+  bar.append("<span class='title'></span>"); // add title to bar
+  $(this.container).append("<div class='tab'></div>"); //add tab (terminal container)
+  $(this.container).append("<div class='ui-resizable-handle ui-resizable-se handle'></div>"); // add a handle for resizing
+  $(this.container).draggable({ // make the window draggable
+    handle: ".bar", // the handle we have prepared
+    containment: "parent", // constrain the terminal only to area under the button
+    stack: ".window", // updates the z-index of the group to get the window effect
+    opacity: 0.7 // when we drag it, make the terminal more transparent
   }).css("position", "absolute"); // set the posiotioning of the draggable elements to absolute
-  $(self.container).resizable({
+  $(self.container).resizable({ // make the window resizable
     handles: {
-      se: $(self.container).children('.handle')
+      se: $(self.container).children('.handle') // add a handle
     },
-    stop: function(ev, ui) {
-      var x = ui.size.width / ui.originalSize.width;
+    stop: function(ev, ui) { // when we stop resizing we must update the terminal on bothe the client and the server
+      var x = ui.size.width / ui.originalSize.width; // get the percetage of increase for x and y
       var y = ui.size.height / ui.originalSize.height;
-      self.tabs[self.activeTab].resize(x,y);
-      $(self.container).css("height", "");
+      self.tabs[self.activeTab].resize(x,y); // resize the local terminal (gets propagated to server)
+      $(self.container).css("height", ""); // remove the height and width to snap the window to the size of the terminal
       $(self.container).css("width", "");
     }
   });
@@ -179,14 +179,17 @@ Window.prototype.findTab = function(id) {
   return -1;
 };
 
+// Sets the title of the window
 Window.prototype.updateTitle = function(title){
   $(this.container).children("div").children("span.title").html(title);
 };
 
+// Remove the window
 Window.prototype.destroy = function(){
   $(this.container).remove();
 };
 
+// Tab used to handle tab related operations
 function Tab(window) {
   this.id = Math.floor(Math.random()*1e14);
   this.terminalID = null;
@@ -200,11 +203,13 @@ function Tab(window) {
   this.termContainer = $(this.window.container).children('.tab')[0];
 }
 
+// Set a local reperence to the underlying terminal and its id
 Tab.prototype.setTerminal = function(id, term){
   this.terminalID = id;
   this.terminal = term;
 };
 
+// Remove the tab/window is no more tabs left
 Tab.prototype.destroy = function(){
   if (this.window.tabs.length <= 1) {
     this.window.destroy();
@@ -212,11 +217,13 @@ Tab.prototype.destroy = function(){
   $(this.termContainer).remove();
 };
 
+// Update the title of the tab (cascade down to window)
 Tab.prototype.setTitle = function(title){
   this.title = title;
   this.window.updateTitle(title);
 };
 
+// Used to set the initial size of the tab
 Tab.prototype.setSize = function(cols, rows) {
   this.size = {
     cols: cols,
@@ -224,6 +231,7 @@ Tab.prototype.setSize = function(cols, rows) {
   };
 };
 
+// resize the tab's terminal to fit x, y pixels
 Tab.prototype.resize = function(x, y) {
   var cols = Math.floor(this.size.cols * x);
   var rows = Math.floor(this.size.rows * y);
@@ -231,9 +239,9 @@ Tab.prototype.resize = function(x, y) {
     cols: cols,
     rows: rows
   };
-
+  // resize the local terminal
   this.terminal.resize(cols, rows);
-
+  // emit the resize to server
   this.window.session.socket.emit('resize', this.terminalID, this.size);
 };
 
@@ -241,15 +249,14 @@ $(document).ready(function() {
   var socket = io("/ssh", {
     'query': 'token=' + sessionStorage.getItem("socketIOtoken")
   });
-  session = new Session(socket);
+  // Session for ssh
+  var session = new Session(socket);
+
+  // Button for adding new terminals
   $("#addTerm").click(function(){
     session.createWindow();
   });
   socket.on('connect', function() {
-    /*
-    session.newTerminal();
-    session.newTerminal(document.getElementById("ssh2"));
-    session.newTerminal(document.getElementById("ssh3"));
-  */
+    // TODO: set up checking for connection
   });
 });
