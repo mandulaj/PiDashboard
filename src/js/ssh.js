@@ -41,12 +41,12 @@ function Session(socket) {
 
     // Get the terminal title
     term.on('title', function(title) {
-      // tab.setTitle(title);
       console.log(title);
+      tab.setTitle(title);
     });
 
     // open the terminal in the tab
-    term.open(tab.container);
+    term.open(tab.termContainer);
 
 
     self.terms[id] = term; // add the term to the list of terms
@@ -129,11 +129,17 @@ function Window(session){
   this.tabs = []; // List of tabs in the window
 
   $("#ssh").append("<div class='window'></div>"); // Create the window container
-  this.container = $("#ssh div:last-child")[0]; // select the container
+  this.container = $("#ssh>div:last-child")[0]; // select the container
+
   $(this.container).append("<div class='bar'></div>");
+  var bar = $(this.container).children(".bar");
+  bar.append("<span class='title'></span>");
+
   $(this.container).draggable({
     handle: ".bar",
-    containment: "parent"
+    containment: "parent",
+    stack: ".window",
+    opacity: 0.7
   });
   // Create first tab
   this.createTab();
@@ -156,6 +162,10 @@ Window.prototype.findTab = function(id) {
   return -1;
 };
 
+Window.prototype.updateTitle = function(title){
+  $(this.container).children("div").children("span.title").html(title);
+};
+
 Window.prototype.destroy = function(){
   $(this.container).remove();
 };
@@ -164,8 +174,9 @@ function Tab(window) {
   this.id = Math.floor(Math.random()*1e14);
   this.terminalID = null;
   this.window = window;
+  this.title = "";
   $(this.window.container).append("<div class='tab'></div>");
-  this.container = $(this.window.container).children().last()[0];
+  this.termContainer = $(this.window.container).children().last()[0];
 }
 
 Tab.prototype.setTerminalId = function(id){
@@ -176,20 +187,27 @@ Tab.prototype.destroy = function(){
   if (this.window.tabs.length <= 1) {
     this.window.destroy();
   }
-  $(this.container).remove();
+  $(this.termContainer).remove();
 };
 
+Tab.prototype.setTitle = function(title){
+  console.log(title);
+  this.title = title;
+  this.window.updateTitle(title);
+};
 
 
 $(document).ready(function() {
   var socket = io("/ssh", {
     'query': 'token=' + sessionStorage.getItem("socketIOtoken")
   });
-  var session = new Session(socket);
+  session = new Session(socket);
 
   socket.on('connect', function() {
+
     session.createWindow();
     session.createWindow();
+
     /*
     session.newTerminal();
     session.newTerminal(document.getElementById("ssh2"));

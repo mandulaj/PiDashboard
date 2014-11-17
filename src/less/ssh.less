@@ -10,12 +10,16 @@
 }
 
 .window {
-  opacity: 0.9;
+  opacity: 0.98;
   .bar {
     width: 100%;
     height: 30px;
-    background-color: red;
+    background-color: rgb(213, 213, 213);
     cursor: grab;
+    .title {
+      line-height: 30px;
+      font-family: monospace;
+    }
   }
   &.ui-draggable-dragging .bar {
     cursor: grabbing;
