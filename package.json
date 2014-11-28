@@ -1,11 +1,24 @@
 {
-  "name": "PiDashboard.js",
+  "name": "PiDashboard",
   "description": "Node server and web interface for monitoring Raspberry Pi remotely.",
-  "version": "0.0.2",
-  "main": "index.js",
+  "version": "0.0.8",
+  "main": "bin/index.js",
   "scripts": {
     "prepublish": "bower install && ./key-gen.sh"
   },
+  "keywords": [
+    "dashboard",
+    "web",
+    "ui",
+    "ssh",
+    "terminal",
+    "raspberry pi",
+    "monitor",
+    "pidash",
+    "user",
+    "simple",
+    "controller"
+  ],
   "bin": {
     "PiDash": "./bin/server.js"
   },
@@ -15,10 +28,10 @@
   }],
   "repository": {
     "type": "git",
-    "url": "https://github.com/zpiman/PiDashboard.js"
+    "url": "https://github.com/zpiman/PiDashboard"
   },
   "bugs": {
-    "url": "https://github.com/zpiman/PiDashboard.js/issues"
+    "url": "https://github.com/zpiman/PiDashboard/issues"
   },
   "dependencies": {
     "body-parser": "*",
