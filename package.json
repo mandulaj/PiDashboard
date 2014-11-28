@@ -1,10 +1,10 @@
 {
-  "name": "PiDashboard",
+  "name": "pi-dashboard",
   "description": "Node server and web interface for monitoring Raspberry Pi remotely.",
   "version": "0.0.8",
   "main": "bin/index.js",
   "scripts": {
-    "prepublish": "bower install && ./key-gen.sh"
+    "postinstall": "bower install && ./key-gen.sh"
   },
   "keywords": [
     "dashboard",
