@@ -1,4 +1,4 @@
-[PiDashboard.js](https://github.com/zpiman/PiDashboard.js "PiDashboard.js") - Have your Pi under control
+[PiDashboard](https://github.com/zpiman/PiDashboard "PiDashboard") - Have your Pi under control
 ==============
 
 Monitoring server for Raspberry Pi
@@ -12,14 +12,14 @@ This project aims at delivering a beautiful interface for monitoring and control
 
 ###Demo
 
-Try a sort of working demo version of [PiDashboard.js](http://zpiman.github.io/PiDashboard.js)
+Try a sort of working demo version of [PiDashboard](http://zpiman.github.io/PiDashboard)
 
 ##How to install?
 
 From GitHub
 
 ```bash
-    $ git clone git://github.com/zpiman/PiDashboard.js
+    $ git clone https://github.com/zpiman/PiDashboard
     $ cd PiDashboard.js
     $ 
     $ # download & install all deps
@@ -34,7 +34,7 @@ From GitHub
 
 Planned: 
 ```bash
-    $ sudo npm install -g PiDashboard.js
+    $ sudo npm install -g PiDashboard
     $ 
     $ sudo PiDash
 ```
