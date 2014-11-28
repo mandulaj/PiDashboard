@@ -106,10 +106,9 @@ function setup() {
   // bind to server
   if (config.forceSSL) {
     var httpsOptions = {
-      key: fs.readFileSync(key).toString(),
-      cert: fs.readFileSync(cert).toString()
+      key: fs.readFileSync(key),
+      cert: fs.readFileSync(cert)
     };
-
     server = https.createServer(httpsOptions, app);
   } else {
     server = http.createServer(app);
