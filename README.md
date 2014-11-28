@@ -71,7 +71,7 @@ If you want to buy an certificate, go and do so. It will be only for your benefi
 
 ##Changelog
 
-######v0.0.8
+######v0.0.9
 * Published PiDash on `npm`
 
 ######v0.0.7
