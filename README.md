@@ -9,7 +9,7 @@ This project aims at delivering a beautiful interface for monitoring and control
 
 <p align="center">
   <a href="http://zpiman.github.io/PiDashboard">
-    <img src="http://s1.postimg.org/pqef20he7/rpi.png" width= "50%" >
+    <img src="http://s1.postimg.org/pqef20he7/rpi.png" width= "60%" >
   </a>
 </p>
 
