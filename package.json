@@ -40,7 +40,7 @@
     "connect-flash": "~0.1.1",
     "cookie-parser": "*",
     "crypt3": "*",
-    "ejs": "~0.8.5",
+    "ejs": "~3.0.1",
     "express": "4.x",
     "express-session": "*",
     "gulp": "^3.6.2",
