@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "body-parser": "*",
-    "bower": "1.3.x",
+    "bower": "1.8.x",
     "colors": "0.6.x",
     "connect-flash": "~0.1.1",
     "cookie-parser": "*",
